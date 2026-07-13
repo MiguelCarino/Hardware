@@ -2,9 +2,13 @@
 
 A client-side hardware reference → **[hardware.carino.systems](https://hardware.carino.systems)**
 
-One page for three everyday hardware questions: *what is this MAC address?*, *where do
-I get support/warranty for this brand?*, and *what specs should this machine actually
-have?* Everything runs in the browser — nothing is uploaded.
+One page for a few everyday hardware questions: *what is this MAC address?*, *whose
+serial / service tag is this?*, *where do I get support/warranty for this brand?*, and
+*what specs should this machine actually have?* Everything runs in the browser — nothing
+is uploaded.
+
+The single search bar auto-detects what you paste — a **MAC**, a **serial / service
+tag**, or free text — and routes it accordingly.
 
 ## What a MAC address tells you (and what it doesn't)
 
@@ -29,6 +33,25 @@ A MAC address (EUI-48) is 6 bytes. The tool decodes any format you paste
 You **cannot** get the owner, serial, location, or IP from a MAC — it's a link-layer
 identifier that never leaves the local segment. The page says so plainly.
 
+When the OUI resolves to a brand we list, that brand's **support card** (warranty +
+drivers + support) appears right under the decode — e.g. an Apple MAC surfaces Apple's
+coverage links.
+
+## Serial / service-tag recognition
+
+Paste a serial or service tag and the tool makes a **best-effort** identification:
+
+- **Dell** — the only deterministic case. A 7-character Service Tag is a Base-36 number;
+  its decimal value is the Express Service Code. The tool converts **either direction**
+  and deep-links Dell's warranty page for that exact tag.
+- **Length/format heuristics** for other vendors (10/12-char → Apple/HP style, 8-char →
+  Lenovo/ASUS style), clearly labelled *possible*, each surfacing that brand's support
+  card so you can confirm on the official lookup.
+- Anything else falls back to a generic serial card with the common brands to pick from.
+
+The page is explicit that serial formats aren't standardised across vendors, so only the
+Dell conversion is authoritative — everything else is a hint.
+
 > The OUI lookup uses a **curated built-in subset** (~570 common prefixes) so it works
 > fully offline and never transmits your MAC. The full registry (~35,000 prefixes) is
 > the [IEEE Registration Authority](https://standards-oui.ieee.org/) — an unknown
@@ -44,18 +67,26 @@ Type a brand or product line in the search bar to filter.
 
 ## Build specs by what you do
 
-Feature-first recommendations for eight profiles — *Budget, Business/Office, Gaming,
+Feature-first recommendations for seven profiles — *Budget, Business/Office, Gaming,
 Content Creation, Enthusiast, Home Lab/Server, Local AI/LLM* — organised around the
 **features that matter** (cores vs clock, VRAM, ECC, NVMe generation, PSU headroom)
 rather than brands. Example models are optional pointers, and the **key spec** for each
 use case is highlighted (e.g. VRAM for AI, ECC for servers). A glossary explains each
 term and when it's worth paying for more.
 
+The layout is **master/detail** — the tier list sits on the left and the selected build
+loads on the right — so it stops wasting horizontal space. All profiles live in
+[`builds.json`](builds.json); edit that file to change specs, add a tier, or attach a
+`link` to a specific model (model chips with a link become clickable). The search bar
+also filters the tier list live.
+
 ## Design
 
-Single self-contained `index.html` (inline CSS/JS), no build step, no runtime
-dependencies (Google Fonts are progressive-enhancement only). Shares the Carino navbar
-(`carino-navbar.js` + `carino-clock.js`) and branding with the rest of carino.systems.
+`index.html` holds all CSS/JS inline; build profiles are fetched from `builds.json` at
+runtime (so serve it over http — `python3 -m http.server` locally, or GitHub Pages — not
+`file://`). No build step, no runtime dependencies (Google Fonts are progressive
+enhancement only). Shares the Carino navbar (`carino-navbar.js` + `carino-clock.js`) and
+branding with the rest of carino.systems.
 
 ## Notes
 

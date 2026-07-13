@@ -112,34 +112,55 @@
     .blink.warranty{border-color:var(--border-glow);color:var(--accent);}
     .noresults{grid-column:1/-1;text-align:center;color:var(--text-dim);font-family:var(--mono);font-size:0.8rem;padding:30px;}
 
-    /* ── RECOMMENDATIONS ── */
-    .toolbar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;}
-    .tb{padding:7px 13px;border:1px solid var(--border);border-radius:8px;background:transparent;color:var(--text-muted);font-family:var(--mono);font-size:0.66rem;font-weight:700;text-transform:uppercase;letter-spacing:0.04em;cursor:pointer;transition:0.15s;}
-    .tb:hover{border-color:var(--text-muted);color:var(--text-main);}
-    .tb.active{background:var(--accent);color:#050505;border-color:var(--accent);}
+    /* ── RECOMMENDATIONS (master / detail) ── */
+    .build-layout{display:grid;grid-template-columns:248px 1fr;gap:16px;align-items:start;}
+    @media(max-width:720px){.build-layout{grid-template-columns:1fr;}}
+    .build-nav{display:flex;flex-direction:column;gap:6px;position:sticky;top:12px;}
+    @media(max-width:720px){.build-nav{position:static;flex-direction:row;overflow-x:auto;padding-bottom:4px;}}
+    .bnav{text-align:left;display:flex;align-items:center;gap:10px;border:1px solid var(--border);border-radius:10px;background:var(--bg-elev);padding:10px 12px;cursor:pointer;transition:0.13s;color:var(--text-muted);flex-shrink:0;}
+    .bnav:hover{border-color:var(--text-muted);color:var(--text-main);}
+    .bnav.active{border-color:var(--accent);background:var(--accent-faint);color:var(--text-main);}
+    .bnav .bico{font-size:1.15rem;line-height:1;flex-shrink:0;}
+    .bnav .bmeta{min-width:0;}
+    .bnav .bname{font-weight:600;font-size:0.86rem;white-space:nowrap;}
+    .bnav.active .bname{color:var(--accent);}
+    .bnav .bprice{font-family:var(--mono);font-size:0.6rem;color:var(--text-dim);}
+    .bnav.hide{display:none;}
 
-    .builds{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:14px;}
-    .build{border:1px solid var(--border);border-radius:13px;background:var(--bg-card);overflow:hidden;display:flex;flex-direction:column;}
-    .build.hide{display:none;}
-    .build-h{padding:14px 16px 12px;border-bottom:1px solid var(--border);}
-    .build-h .icon{font-size:1.35rem;}
-    .build-h h3{margin:6px 0 3px;font-family:var(--display);font-size:1.12rem;color:var(--text-main);}
-    .build-h .tagline{font-size:0.8rem;color:var(--text-muted);line-height:1.5;}
-    .build-h .price{float:right;font-family:var(--mono);font-size:0.66rem;color:var(--accent);border:1px solid var(--border-glow);border-radius:6px;padding:3px 8px;}
-    .specs{padding:6px 16px 12px;display:flex;flex-direction:column;}
-    .spec{display:grid;grid-template-columns:118px 1fr;gap:8px;padding:8px 0;border-bottom:1px solid #171717;align-items:start;}
-    .spec:last-child{border-bottom:none;}
+    .build-detail{border:1px solid var(--border);border-radius:13px;background:var(--bg-card);overflow:hidden;min-height:200px;}
+    .bd-h{padding:16px 18px 14px;border-bottom:1px solid var(--border);background:var(--accent-faint);}
+    .bd-h .icon{font-size:1.5rem;}
+    .bd-h h3{margin:6px 0 3px;font-family:var(--display);font-size:1.3rem;color:var(--text-main);}
+    .bd-h .tagline{font-size:0.86rem;color:var(--text-muted);line-height:1.55;max-width:640px;}
+    .bd-h .price{float:right;font-family:var(--mono);font-size:0.72rem;color:var(--accent);border:1px solid var(--border-glow);border-radius:6px;padding:4px 9px;}
+    .specs{padding:8px 18px 16px;display:grid;grid-template-columns:1fr 1fr;gap:0 26px;}
+    @media(max-width:560px){.specs{grid-template-columns:1fr;}}
+    .spec{display:grid;grid-template-columns:120px 1fr;gap:10px;padding:11px 0;border-bottom:1px solid #171717;align-items:start;}
     .spec .sk{font-family:var(--mono);font-size:0.62rem;text-transform:uppercase;letter-spacing:0.04em;color:var(--text-dim);padding-top:2px;}
-    .spec .sv{font-size:0.82rem;color:var(--text-main);line-height:1.45;}
-    .spec .sv .eg{display:block;font-family:var(--mono);font-size:0.66rem;color:var(--text-muted);margin-top:2px;}
-    .spec .sv .eg b{color:var(--accent);font-weight:600;}
-    .keyspec{color:var(--accent)!important;}
+    .spec .sv{font-size:0.86rem;color:var(--text-main);line-height:1.45;}
+    .spec .sv.keyspec{color:var(--accent);}
+    .spec .egs{display:flex;flex-wrap:wrap;gap:5px;margin-top:5px;}
+    .eg-chip{font-family:var(--mono);font-size:0.64rem;color:var(--text-muted);border:1px solid var(--border);border-radius:5px;padding:2px 7px;}
+    a.eg-chip{color:var(--accent);border-color:var(--border-glow);}
+    a.eg-chip:hover{background:var(--accent-faint);border-color:var(--accent);}
+    .bd-key{margin:0 18px 16px;font-family:var(--mono);font-size:0.66rem;color:var(--pq);border:1px solid rgba(167,139,250,0.3);border-radius:8px;padding:8px 11px;line-height:1.5;background:rgba(167,139,250,0.05);}
+    .bd-key b{color:var(--text-main);}
+    .build-empty{padding:40px;text-align:center;color:var(--text-dim);font-family:var(--mono);font-size:0.8rem;}
 
     .glossary{margin-top:20px;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;}
     .gl{border:1px solid var(--border);border-radius:10px;background:var(--bg-elev);padding:13px 15px;}
     .gl h5{margin:0 0 5px;font-size:0.82rem;color:var(--accent);font-family:var(--mono);}
     .gl p{margin:0;font-size:0.78rem;color:var(--text-muted);line-height:1.55;}
     .gl p b{color:var(--text-main);}
+
+    /* support card embedded in a MAC / serial result */
+    .result-support{padding:13px 18px;border-top:1px solid var(--border);background:var(--bg-elev);}
+    .result-support .rs-lbl{font-family:var(--mono);font-size:0.58rem;text-transform:uppercase;letter-spacing:0.07em;color:var(--text-dim);margin-bottom:9px;}
+    .result-support .brand-grid{grid-template-columns:repeat(auto-fill,minmax(230px,1fr));}
+    .result-support .brand{background:var(--bg-card);}
+    .conv{font-family:var(--mono);font-size:0.72rem;color:var(--text-main);}
+    .conv .k{color:var(--text-dim);}
+    .conv .v{color:var(--accent);}
 
     /* footer note */
     .disclaimer{margin-top:44px;border-top:1px solid var(--border);padding-top:16px;font-size:0.74rem;color:var(--text-dim);line-height:1.6;}
@@ -165,7 +186,7 @@
 
       <div class="searchbox">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg>
-        <input id="q" spellcheck="false" autocomplete="off" placeholder="Paste a MAC (e.g. B8:27:EB:0A:1B:2C), or search a brand / spec…">
+        <input id="q" spellcheck="false" autocomplete="off" placeholder="Paste a MAC, a serial / service tag, or search a brand / spec…">
       </div>
       <div class="qhint">
         <span style="color:var(--text-muted)">Try:</span>
@@ -173,6 +194,7 @@
         <button class="chip" data-fill="3C:07:54:AA:BB:CC">3C:07:54:…</button>
         <button class="chip" data-fill="02:42:AC:11:00:02">02:42:… (local)</button>
         <button class="chip" data-fill="FF:FF:FF:FF:FF:FF">broadcast</button>
+        <button class="chip" data-fill="7FGXK32">7FGXK32 (Dell tag)</button>
         <button class="chip" data-fill="lenovo">lenovo</button>
         <button class="chip" data-fill="gaming">gaming</button>
         <button class="chip" data-fill="32GB">32GB VRAM</button>
@@ -189,11 +211,12 @@
     <section id="decoder">
       <div class="sec-head">
         <span class="kicker">01 / Identify</span>
-        <h2>What a MAC address reveals</h2>
-        <div class="lead">A MAC (EUI-48) is 6 bytes. The first three are the vendor <b style="color:var(--text-muted)">OUI</b>; two bits in the first byte flag broadcast/multicast and whether the address is globally unique or locally randomized.</div>
+        <h2>What a MAC or serial reveals</h2>
+        <div class="lead">Paste a <b style="color:var(--text-muted)">MAC</b> to decode its vendor &amp; bits, or a <b style="color:var(--text-muted)">serial / service tag</b> to guess the brand and jump to warranty — the matching support card appears with the result.</div>
       </div>
 
       <div id="macResult"><!-- filled when a MAC is typed --></div>
+      <div id="serialResult"><!-- filled when a serial is typed --></div>
 
       <div class="explain" id="macExplain">
         <div class="ex">
@@ -228,8 +251,10 @@
         <h2>Build specs by what you do</h2>
         <div class="lead">Feature-first targets — cores, memory, VRAM, storage class. Example models are optional pointers, not the point; buy the <b style="color:var(--text-muted)">feature</b>, then pick a brand.</div>
       </div>
-      <div class="toolbar" id="buildTabs"></div>
-      <div class="builds" id="buildGrid"><!-- filled by JS --></div>
+      <div class="build-layout">
+        <div class="build-nav" id="buildNav"><!-- profile list --></div>
+        <div class="build-detail" id="buildDetail"><div class="build-empty">Loading build profiles…</div></div>
+      </div>
 
       <div class="sec-head" style="margin-top:34px;">
         <span class="kicker">Glossary</span>
@@ -241,7 +266,8 @@
 
     <div class="disclaimer">
       <b>MAC lookup:</b> uses a curated built-in OUI subset (hundreds of common vendors) plus reserved/virtual ranges — it works fully offline and never sends your MAC anywhere. The complete registry (~35,000 prefixes) lives at the <a href="https://standards-oui.ieee.org/" target="_blank" rel="noopener">IEEE Registration Authority</a>; an unknown OUI here doesn't mean it's unassigned.
-      &nbsp;<b>Build specs:</b> general guidance, not an endorsement — prices are rough new-build ballparks and shift constantly. Verify warranty status on the manufacturer's official site; deep-links may change.
+      &nbsp;<b>Serial numbers:</b> only Dell's Service-Tag ↔ Express-Service-Code is a deterministic conversion; other brand guesses are length/format heuristics — always confirm on the vendor's own lookup.
+      &nbsp;<b>Build specs:</b> loaded from <code>builds.json</code> (edit to taste) — general guidance, not an endorsement; prices are rough new-build ballparks. Verify warranty status on the manufacturer's official site; deep-links may change.
     </div>
 
   </div>
@@ -442,6 +468,13 @@
       note = `Globally unique address, but the OUI <b>${fmtColon(d.oui.padEnd(6,'0')).slice(0,8)}</b> isn't in this built-in subset. Look it up in the <a href="https://standards-oui.ieee.org/" target="_blank" rel="noopener">IEEE registry</a> for the assigned manufacturer.`;
     }
 
+    // If the OUI resolves to a brand we have a support page for, surface its card.
+    let support = '';
+    if(v.kind==='oui' && !d.isLocal && !d.isBroadcast && !/virtual/i.test(v.vendor||'')){
+      const brand = brandForVendor(v.vendor);
+      if(brand) support = renderSupportBlock([brand], `Support for the identified vendor — ${escapeHtml(brand.n)}`);
+    }
+
     box.innerHTML = `
       <div class="mac-card">
         <div class="mac-top">
@@ -477,7 +510,9 @@
           </div>
         </div>
         <div class="mac-note">${note}</div>
+        ${support}
       </div>`;
+    document.getElementById('serialResult').innerHTML = '';
   }
 
   function escapeHtml(s){ return String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
@@ -536,194 +571,244 @@
 
   function initials(name){ const w=name.split(/[\s\/]+/); return (w[0][0]+(w[1]?w[1][0]:'')).toUpperCase(); }
 
+  // Reusable brand card. opts.warrantyOverride = [label,url,'warranty'] deep-links warranty.
+  function brandCardHTML(b, idx, opts){
+    opts = opts||{};
+    const dark = ['#ffffff','#83b81a','#76b900','#48b9c7','#e88b00'].includes(b.c.toLowerCase());
+    let links = b.l.slice();
+    if(opts.warrantyOverride){ links = [opts.warrantyOverride, ...b.l.filter(x=>x[2]!=='warranty')]; }
+    return `<div class="brand"${idx!=null?` data-idx="${idx}"`:''}>
+      <div class="brand-h">
+        <div class="brand-logo" style="background:${b.c};color:${dark?'#050505':'#fff'}">${initials(b.n)}</div>
+        <div><div class="brand-name">${b.n}</div><div class="brand-cat">${b.cat}</div></div>
+      </div>
+      <div class="brand-links">
+        ${links.map(x=>`<a class="blink ${x[2]||''}" href="${x[1]}" target="_blank" rel="noopener">${x[0]} ↗</a>`).join('')}
+      </div>
+    </div>`;
+  }
+
+  function brandByName(n){ return BRANDS.find(b=>b.n===n) || null; }
+
+  // Map an OUI vendor string to a support brand we list (or null).
+  function brandForVendor(name){
+    if(!name) return null;
+    const n = name.toLowerCase();
+    for(const b of BRANDS){ if(n.includes(b.n.toLowerCase())) return b; }
+    for(const b of BRANDS){ if(b.k.some(k=>k.length>=4 && n.includes(k))) return b; }
+    return null;
+  }
+
+  function renderSupportBlock(brands, label, opts){
+    opts = opts||{};
+    return `<div class="result-support"><div class="rs-lbl">${label}</div>
+      <div class="brand-grid">${brands.map(b=>brandCardHTML(b, null, {warrantyOverride:opts.overrides && opts.overrides[b.n]})).join('')}</div></div>`;
+  }
+
   function renderBrands(){
-    const g = document.getElementById('brandGrid');
-    g.innerHTML = BRANDS.map((b,i)=>{
-      const dark = ['#ffffff','#83b81a','#76b900','#48b9c7','#e88b00'].includes(b.c.toLowerCase());
-      return `<div class="brand" data-idx="${i}">
-        <div class="brand-h">
-          <div class="brand-logo" style="background:${b.c};color:${dark?'#050505':'#fff'}">${initials(b.n)}</div>
-          <div><div class="brand-name">${b.n}</div><div class="brand-cat">${b.cat}</div></div>
-        </div>
-        <div class="brand-links">
-          ${b.l.map(x=>`<a class="blink ${x[2]||''}" href="${x[1]}" target="_blank" rel="noopener">${x[0]} ↗</a>`).join('')}
-        </div>
-      </div>`;
-    }).join('') + `<div class="noresults hidden" id="brandNone">No brand matches — clear the search to see all.</div>`;
+    document.getElementById('brandGrid').innerHTML =
+      BRANDS.map((b,i)=>brandCardHTML(b,i)).join('') +
+      `<div class="noresults hidden" id="brandNone">No brand matches — clear the search to see all.</div>`;
   }
 
-  /* ---- 4. Build recommendations (feature-first) ---- */
-  const BUILDS = [
-    {id:'budget', icon:'💵', name:'Budget / Everyday', price:'~$450', tags:['budget','office','cheap','school','web','everyday'],
-     tagline:'Web, docs, video, light multitasking. Integrated graphics are enough.',
-     specs:[
-       ['CPU','4–6 cores, modern efficiency', 'e.g. <b>Intel Core i3-12100</b> · <b>Ryzen 5 5600G</b>'],
-       ['RAM','16 GB DDR4 (8 GB bare minimum)', 'Dual-channel — two sticks, not one'],
-       ['GPU','Integrated (iGPU)', 'Intel UHD · AMD Radeon Vega — no add-in card'],
-       ['Storage','500 GB NVMe SSD','Never a mechanical boot drive in 2020s'],
-       ['PSU','450 W · 80+ Bronze','Efficiency rating matters more than watts here'],
-     ]},
-    {id:'office', icon:'🏢', name:'Business / Office', price:'~$750', tags:['office','business','productivity','work','general'],
-     tagline:'Fleet-friendly productivity, video calls, dozens of tabs, manageable.',
-     specs:[
-       ['CPU','6–8 cores', 'e.g. <b>Core i5-13500</b> · <b>Ryzen 5 7600</b>'],
-       ['RAM','16–32 GB DDR4/DDR5','32 GB if you live in a browser + IDE + VMs'],
-       ['GPU','Integrated','Discrete only if CAD/light 3D'],
-       ['Storage','1 TB NVMe (TLC)','Add automated backup, not RAID'],
-       ['Extras','vPro / DASH, TPM 2.0','Remote manageability + Win11 / BitLocker'],
-     ]},
-    {id:'gaming', icon:'🎮', name:'Gaming', price:'~$1,400', tags:['gaming','game','fps','esports','1440p','stream'],
-     tagline:'High frame-rates at 1080p/1440p. The GPU is the star; buy VRAM.',
-     specs:[
-       ['CPU','6–8 high-clock cores', 'e.g. <b>Ryzen 7 7800X3D</b> · <b>Core i5-14600K</b>'],
-       ['RAM','32 GB DDR5-6000','CL30 kit; 3D-V-Cache loves fast RAM'],
-       ['GPU','12–16 GB VRAM', 'key','e.g. <b>RTX 4070 Super</b> · <b>RX 7800 XT</b>'],
-       ['Storage','1–2 TB Gen4 NVMe','DirectStorage-ready for fast level loads'],
-       ['PSU','750 W · 80+ Gold','Headroom for GPU transient spikes'],
-       ['Cooling','240 mm AIO or big air','Sustained clocks under load'],
-     ]},
-    {id:'content', icon:'🎬', name:'Content Creation', price:'~$2,200', tags:['content','video','editing','render','photo','3d','creator','blender','premiere'],
-     tagline:'4K editing, rendering, photo/3D. Cores + VRAM + fast scratch storage.',
-     specs:[
-       ['CPU','12–16 cores', 'e.g. <b>Ryzen 9 7900X</b> · <b>Core i7-14700K</b>'],
-       ['RAM','64 GB','key','Timelines & 3D scenes eat RAM fast'],
-       ['GPU','16 GB+ VRAM, NVENC/AV1', 'key','e.g. <b>RTX 4070 Ti Super</b> — hardware encode'],
-       ['Storage','2 TB Gen4 NVMe + bulk HDD/NAS','Fast scratch/cache + cheap archive'],
-       ['Display','Color-accurate, ≥99% sRGB','Calibrated IPS/OLED; DCI-P3 for HDR work'],
-       ['PSU','850 W · 80+ Gold','Stable under long renders'],
-     ]},
-    {id:'enthusiast', icon:'🚀', name:'Enthusiast / Halo', price:'~$3,500', tags:['enthusiast','4k','high-end','overclock','flagship','max'],
-     tagline:'No-compromise 4K, overclocking, everything maxed.',
-     specs:[
-       ['CPU','16 cores, top-bin', 'e.g. <b>Ryzen 9 7950X3D</b> · <b>Core i9-14900K</b>'],
-       ['RAM','64 GB DDR5-6000 CL30','EXPO/XMP tuned'],
-       ['GPU','24 GB VRAM flagship','key','e.g. <b>RTX 4090</b> · <b>RX 7900 XTX</b>'],
-       ['Storage','2 TB Gen5 NVMe','~12 GB/s sequential'],
-       ['PSU','1000 W · 80+ Platinum, ATX 3.0','12VHPWR native'],
-       ['Cooling','360 mm AIO / custom loop','Quiet at full tilt'],
-     ]},
-    {id:'server', icon:'🗄️', name:'Home Lab / Server', price:'~$1,000+', tags:['server','homelab','nas','proxmox','truenas','virtualization','vm','zfs','24/7'],
-     tagline:'VMs, containers, NAS, 24/7 uptime. Prioritise ECC, lanes, and I/O.',
-     specs:[
-       ['CPU','Many cores, low idle', 'e.g. <b>Xeon E-/Scalable</b> · <b>EPYC</b> · <b>Ryzen w/ ECC</b>'],
-       ['RAM','ECC, 32–128 GB','key','Error-correcting — essential for ZFS/uptime'],
-       ['Board','IPMI/BMC, ≥6 SATA, 2× M.2','Out-of-band mgmt + drive bays + PCIe lanes'],
-       ['Storage','SSD boot/cache + HDD pool (ZFS)','Redundant vdevs; HBA in IT mode'],
-       ['Network','2.5/10 GbE','Intel NIC preferred for driver stability'],
-       ['PSU','Efficient, ideally redundant','Sized for spin-up surge, high efficiency'],
-     ]},
-    {id:'ai', icon:'🧠', name:'Local AI / LLM', price:'~$2,000+', tags:['ai','llm','ml','inference','stable diffusion','gpu','vram','cuda','training','pytorch'],
-     tagline:'Running models locally. VRAM (or unified memory) is everything — it caps model size.',
-     specs:[
-       ['GPU VRAM','24 GB+ is the real spec','key','<b>RTX 3090/4090 (24 GB)</b> · <b>2× for 48 GB</b> · pro cards for more'],
-       ['Alt: Apple Silicon','Unified memory ≥ 64 GB','key','<b>M-series 64–192 GB</b> runs big models on shared RAM'],
-       ['System RAM','≥ 2× VRAM (64–128 GB)','For CPU offload & dataset staging'],
-       ['CPU','8+ cores','Feeds the GPU; not the bottleneck for inference'],
-       ['Storage','2 TB+ fast NVMe','key','Model weights are huge (a 70B model ≈ 40–140 GB)'],
-       ['PSU/Cooling','Size for sustained 100% GPU','450 W per high-end GPU + headroom'],
-     ]},
-  ];
+  /* ---- 4. Build recommendations (loaded from builds.json) ---- */
+  let PROFILES = [], GLOSS = [], currentBuild = null;
 
-  const GLOSSARY = [
-    ['Cores vs clock','<b>Cores</b> = parallel jobs (rendering, VMs, compiling). <b>Clock/IPC</b> = speed of one job (most games, single-thread apps). Games want fewer fast cores; creation wants many.'],
-    ['VRAM','GPU memory. It <b>caps</b> what fits: texture detail, resolution, and — critically — the size of an AI model you can run. When it overflows, performance falls off a cliff.'],
-    ['DDR4 vs DDR5','DDR5 has more bandwidth and higher clocks; DDR4 is cheaper and mature. Always run <b>dual-channel</b> (matched pair) — a single stick halves memory bandwidth.'],
-    ['ECC memory','Error-correcting RAM catches bit-flips in flight. Overkill for gaming, <b>essential</b> for servers, ZFS storage, and anything running unattended for months.'],
-    ['NVMe Gen3/4/5','PCIe SSD generations: Gen3 ≈ 3.5 GB/s, Gen4 ≈ 7 GB/s, Gen5 ≈ 12 GB/s. Real-world app launches barely differ; big sequential copies and DirectStorage benefit.'],
-    ['TLC vs QLC / DRAM cache','<b>TLC</b> endures more writes than <b>QLC</b>; a DRAM cache keeps speed up under sustained load. For a boot/scratch drive, prefer TLC-with-DRAM over cheap DRAM-less QLC.'],
-    ['PSU 80+ rating','Efficiency tier (Bronze→Titanium) — less wasted heat. Size for <b>peak GPU transients</b> (can briefly 2× rated draw); ATX 3.0 handles 12VHPWR spikes natively.'],
-    ['TDP / cooling','Thermal Design Power ≈ heat to dissipate. Under-cooled chips <b>throttle</b> and lose the performance you paid for. Match cooler to sustained, not rated, load.'],
-    ['iGPU vs dGPU','Integrated graphics share system RAM — fine for desktop, media, light gaming. A discrete card has its own VRAM and is required for serious gaming, 3D, and AI.'],
-    ['TPM 2.0 / vPro','TPM 2.0 is a security chip (required by Windows 11, BitLocker). <b>vPro/DASH</b> add remote out-of-band management — matters for fleets, not home users.'],
-  ];
-
-  function renderBuilds(){
-    const tabs = document.getElementById('buildTabs');
-    const cats = [['all','All'],...BUILDS.map(b=>[b.id,b.name])];
-    tabs.innerHTML = cats.map((c,i)=>`<button class="tb ${i===0?'active':''}" data-cat="${c[0]}">${c[1]}</button>`).join('');
-
-    const g = document.getElementById('buildGrid');
-    g.innerHTML = BUILDS.map(b=>`
-      <div class="build" data-id="${b.id}">
-        <div class="build-h">
-          <span class="price">${b.price}</span>
-          <div class="icon">${b.icon}</div>
-          <h3>${b.name}</h3>
-          <div class="tagline">${b.tagline}</div>
-        </div>
-        <div class="specs">
-          ${b.specs.map(s=>{
-            const key = s.length===4;               // ['k','v','key','eg'] OR ['k','v','eg']
-            const val = s[1], isKey = s[2]==='key';
-            const eg  = isKey ? s[3] : (s.length===3? s[2] : null);
-            return `<div class="spec"><span class="sk">${s[0]}</span>
-              <span class="sv ${isKey?'keyspec':''}">${val}${eg?`<span class="eg">${eg}</span>`:''}</span></div>`;
-          }).join('')}
-        </div>
-      </div>`).join('');
-
-    document.getElementById('glossary').innerHTML = GLOSSARY.map(x=>
-      `<div class="gl"><h5>${x[0]}</h5><p>${x[1]}</p></div>`).join('');
+  function egHtml(eg){
+    if(!eg || !eg.length) return '';
+    return `<div class="egs">` + eg.map(m=>{
+      const t = (typeof m === 'string') ? m : m.t;
+      return (typeof m === 'object' && m.link)
+        ? `<a class="eg-chip" href="${m.link}" target="_blank" rel="noopener">${escapeHtml(t)} ↗</a>`
+        : `<span class="eg-chip">${escapeHtml(t)}</span>`;
+    }).join('') + `</div>`;
+  }
+  function specRow(s){
+    return `<div class="spec"><span class="sk">${escapeHtml(s.k)}</span>
+      <div class="sv ${s.key?'keyspec':''}">${escapeHtml(s.v)}
+        ${s.note?`<div style="color:var(--text-muted);font-size:0.76rem;margin-top:3px;line-height:1.45">${s.note}</div>`:''}
+        ${egHtml(s.eg)}
+      </div></div>`;
+  }
+  function renderDetail(b){
+    document.getElementById('buildDetail').innerHTML = `
+      <div class="bd-h"><span class="price">${b.price}</span><div class="icon">${b.icon}</div>
+        <h3>${escapeHtml(b.name)}</h3><div class="tagline">${escapeHtml(b.tagline)}</div></div>
+      <div class="specs">${b.specs.map(specRow).join('')}</div>
+      ${b.key?`<div class="bd-key"><b>Prioritise:</b> ${escapeHtml(b.key)}</div>`:''}`;
+  }
+  function renderNav(){
+    document.getElementById('buildNav').innerHTML = PROFILES.map(b=>`
+      <button class="bnav" data-id="${b.id}">
+        <span class="bico">${b.icon}</span>
+        <span class="bmeta"><span class="bname">${escapeHtml(b.name)}</span><br><span class="bprice">${b.price}</span></span>
+      </button>`).join('');
+  }
+  function selectBuild(id){
+    currentBuild = id;
+    document.querySelectorAll('.bnav').forEach(el=>el.classList.toggle('active', el.dataset.id===id));
+    const b = PROFILES.find(x=>x.id===id);
+    if(b) renderDetail(b);
+  }
+  async function loadBuilds(){
+    try{
+      const r = await fetch('builds.json', {cache:'no-cache'});
+      if(!r.ok) throw new Error(r.status);
+      const data = await r.json();
+      PROFILES = data.profiles || [];
+      GLOSS = data.glossary || [];
+    }catch(e){
+      document.getElementById('buildDetail').innerHTML =
+        `<div class="build-empty">Couldn't load <code>builds.json</code> (${escapeHtml(String(e.message||e))}).<br>
+         If you opened this file directly (file://), serve it over http — e.g. <code>python3 -m http.server</code>.</div>`;
+      return;
+    }
+    renderNav();
+    document.getElementById('glossary').innerHTML = GLOSS.map(x=>
+      `<div class="gl"><h5>${escapeHtml(x[0])}</h5><p>${x[1]}</p></div>`).join('');
+    if(PROFILES[0]) selectBuild(PROFILES[0].id);
   }
 
-  /* ---- 5. Search wiring ---- */
+  /* ---- 5. Serial-number recognition ---- */
+  // Dell Service Tag is a 7-char Base-36 number; the Express Service Code is its decimal value.
+  function dellTagToCode(tag){
+    let n = 0n;
+    for(const ch of tag){ const d = parseInt(ch,36); if(isNaN(d)) return null; n = n*36n + BigInt(d); }
+    return n.toString(10);
+  }
+  function dellCodeToTag(code){
+    let n = BigInt(code); if(n===0n) return '0';
+    let s = ''; while(n>0n){ s = (Number(n%36n)).toString(36).toUpperCase() + s; n = n/36n; }
+    return s;
+  }
+  function looksLikeSerial(raw){
+    const s = raw.trim();
+    if(/\s/.test(s)) return false;
+    if(!/^[A-Za-z0-9-]{6,22}$/.test(s)) return false;
+    const hasL = /[A-Za-z]/.test(s), hasD = /\d/.test(s);
+    if(hasL && hasD) return true;                    // mixed alnum → serial
+    if(!hasL && /^\d{8,12}$/.test(s)) return true;   // long numeric → express service code
+    return false;
+  }
+  function renderSerial(raw){
+    const box = document.getElementById('serialResult');
+    document.getElementById('macResult').innerHTML = '';
+    const disp = raw.trim().toUpperCase();
+    const s = disp.replace(/[^A-Z0-9]/g,'');
+    const interps = [], order = [], overrides = {};
+    const add = n => { if(!order.includes(n)) order.push(n); };
+
+    if(/^[A-Z0-9]{7}$/.test(s) && /[A-Z]/.test(s) && /[0-9]/.test(s)){
+      const code = dellTagToCode(s);
+      interps.push(`<b>Dell Service Tag</b> <span style="color:var(--ok)">· likely</span> — a 7-char Base-36 tag. Express Service Code = <b>${code}</b>.`);
+      add('Dell');
+      overrides['Dell'] = ['Warranty (this tag)', `https://www.dell.com/support/home/en-us/product-support/servicetag/${s}/overview`, 'warranty'];
+    }
+    if(/^[0-9]{9,11}$/.test(s)){
+      const tag = dellCodeToTag(s);
+      interps.push(`<b>Dell Express Service Code</b> <span style="color:var(--ok)">· likely</span> — the decimal form of a Base-36 tag. Service Tag = <b>${tag}</b>.`);
+      add('Dell');
+      overrides['Dell'] = ['Warranty (this tag)', `https://www.dell.com/support/home/en-us/product-support/servicetag/${tag}/overview`, 'warranty'];
+    }
+    if((s.length===10 || s.length===12) && /[A-Z]/.test(s) && /[0-9]/.test(s)){
+      interps.push(`<b>${s.length}-character alphanumeric serial</b> <span style="color:var(--warn)">· possible</span> — matches the length of <b>Apple</b> and many <b>HP</b> serials.`);
+      add('Apple'); add('HP');
+    }
+    if(s.length===8 && /[A-Z]/.test(s) && /[0-9]/.test(s)){
+      interps.push(`<b>8-character serial</b> <span style="color:var(--warn)">· possible</span> — common for <b>Lenovo</b> and <b>ASUS</b>.`);
+      add('Lenovo'); add('ASUS');
+    }
+
+    const generic = order.length===0;
+    if(generic){ ['Dell','HP','Lenovo','Apple','ASUS','Acer'].forEach(add); }
+
+    const title = generic ? 'Serial number — brand undetermined'
+      : (order.length===1 ? order[0] + ' — likely match' : 'Serial number — best-effort match');
+    const sub = generic ? 'No distinctive pattern; pick your brand below.' : 'Heuristic guess from length / format.';
+
+    const note =
+      (interps.length ? `<ul style="margin:0 0 10px;padding-left:18px;line-height:1.75">${interps.map(i=>`<li>${i}</li>`).join('')}</ul>` : '')
+      + `<b>Heads-up:</b> serial formats aren't standardised across vendors, so only <b>Dell's</b> Service&#8209;Tag&nbsp;↔&nbsp;Express&#8209;Service&#8209;Code is a deterministic conversion — the rest are length/shape hints. Confirm on the manufacturer's own lookup below.`;
+
+    const cards = order.map(n=>{ const b = brandByName(n); return b ? brandCardHTML(b, null, {warrantyOverride: overrides[n]}) : ''; }).join('');
+
+    box.innerHTML = `<div class="mac-card">
+      <div class="mac-top">
+        <div class="mac-hex">${escapeHtml(disp)}</div>
+        <div class="mac-vendor">${title}<span class="sub">${sub}</span></div>
+        <div class="tags"><span class="tag ${generic?'warn':'ok'}">${generic?'Heuristic':'Match'}</span></div>
+      </div>
+      <div class="mac-note">${note}</div>
+      <div class="result-support"><div class="rs-lbl">Check warranty / support</div>
+        <div class="brand-grid">${cards}</div></div>
+    </div>`;
+  }
+
+  /* ---- 6. Search wiring ---- */
   const q = document.getElementById('q');
   const macResult = document.getElementById('macResult');
+  const serialResult = document.getElementById('serialResult');
   const macExplain = document.getElementById('macExplain');
 
   function filterBrands(term){
-    let any=false;
-    document.querySelectorAll('.brand').forEach(el=>{
+    let any = false;
+    document.querySelectorAll('.brand[data-idx]').forEach(el=>{
       const b = BRANDS[+el.dataset.idx];
       const hay = (b.n+' '+b.cat+' '+b.k.join(' ')).toLowerCase();
       const show = !term || hay.includes(term);
       el.classList.toggle('hide', !show);
-      if(show) any=true;
+      if(show) any = true;
     });
-    document.getElementById('brandNone').classList.toggle('hidden', any);
+    const none = document.getElementById('brandNone');
+    if(none) none.classList.toggle('hidden', any);
   }
   function filterBuilds(term){
-    document.querySelectorAll('.build').forEach(el=>{
-      const b = BUILDS.find(x=>x.id===el.dataset.id);
-      const hay = (b.name+' '+b.tagline+' '+b.tags.join(' ')+' '+JSON.stringify(b.specs)).toLowerCase();
-      el.classList.toggle('hide', !!term && !hay.includes(term));
+    if(!PROFILES.length) return;
+    let firstVisible = null, curVisible = false;
+    document.querySelectorAll('.bnav').forEach(el=>{
+      const b = PROFILES.find(x=>x.id===el.dataset.id); if(!b) return;
+      const hay = (b.name+' '+b.tagline+' '+(b.tags||[]).join(' ')+' '+(b.key||'')+' '+JSON.stringify(b.specs)).toLowerCase();
+      const show = !term || hay.includes(term);
+      el.classList.toggle('hide', !show);
+      if(show){ if(!firstVisible) firstVisible = b.id; if(el.dataset.id===currentBuild) curVisible = true; }
     });
-    // reset category tabs to "all" when free-text searching
-    if(term){ document.querySelectorAll('.tb').forEach(t=>t.classList.toggle('active', t.dataset.cat==='all')); }
+    if(term && !curVisible && firstVisible) selectBuild(firstVisible);
+    if(term && !firstVisible) document.getElementById('buildDetail').innerHTML = '<div class="build-empty">No profile matches that term.</div>';
   }
 
   function onInput(){
     const raw = q.value.trim();
+    macResult.innerHTML = ''; serialResult.innerHTML = '';
     if(looksLikeMac(raw)){
-      renderMac(raw);
-      macResult.scrollIntoView({behavior:'smooth',block:'nearest'});
-      macExplain.classList.add('hidden');
-      // MAC mode: don't filter the rest
+      renderMac(raw); macExplain.classList.add('hidden');
       filterBrands(''); filterBuilds('');
+      macResult.scrollIntoView({behavior:'smooth', block:'nearest'});
       return;
     }
-    macResult.innerHTML='';
+    if(looksLikeSerial(raw)){
+      renderSerial(raw); macExplain.classList.add('hidden');
+      filterBrands(''); filterBuilds('');
+      serialResult.scrollIntoView({behavior:'smooth', block:'nearest'});
+      return;
+    }
     macExplain.classList.remove('hidden');
     const term = raw.toLowerCase();
-    filterBrands(term);
-    filterBuilds(term);
+    filterBrands(term); filterBuilds(term);
   }
 
   q.addEventListener('input', onInput);
   document.querySelectorAll('.chip').forEach(c=>c.addEventListener('click',()=>{ q.value=c.dataset.fill; onInput(); q.focus(); }));
 
-  // category tabs
-  document.addEventListener('click',e=>{
-    const tb = e.target.closest('.tb'); if(!tb) return;
-    document.querySelectorAll('.tb').forEach(t=>t.classList.remove('active'));
-    tb.classList.add('active');
-    const cat = tb.dataset.cat;
-    document.querySelectorAll('.build').forEach(el=>el.classList.toggle('hide', cat!=='all' && el.dataset.id!==cat));
+  // build-profile selection (event delegation)
+  document.addEventListener('click', e=>{
+    const n = e.target.closest('.bnav'); if(!n) return;
+    selectBuild(n.dataset.id);
   });
 
   /* ---- init ---- */
   renderBrands();
-  renderBuilds();
+  loadBuilds();
+
   </script>
 
   <script src="carino-navbar.js" data-app="Hardware" defer></script>
