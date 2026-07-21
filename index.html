@@ -7,8 +7,7 @@
   <title>Carino Hardware — MAC decoder, vendor support & build specs</title>
   <meta name="description" content="Decode a MAC address to its vendor and bits, jump to any brand's warranty & driver pages, and get feature-first hardware build recommendations. Runs entirely in your browser.">
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@300;400;500;600;700&family=Red+Hat+Display:wght@700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="fonts/carino-fonts.css">
 
   <style>
     :root{
@@ -23,36 +22,63 @@
       --display:'Red Hat Display',var(--sans);
     }
     *{box-sizing:border-box;}
-    html{scroll-behavior:smooth;}
-    body{font-family:var(--sans);margin:0;background:var(--bg-body);color:var(--text-main);min-height:100%;
+    html,body{height:100%;}
+    html{overflow:hidden;}
+    body{font-family:var(--sans);margin:0;background:var(--bg-body);color:var(--text-main);
+      height:100dvh;display:flex;flex-direction:column;overflow:hidden;
       background-image:radial-gradient(1200px 500px at 50% -8%,rgba(234,179,8,0.05),transparent 70%);}
     a{color:var(--accent);text-decoration:none;}
     a:hover{color:var(--primary-hover);}
     button{font-family:inherit;}
 
-    .wrap{max-width:1180px;margin:0 auto;padding:26px 20px 70px;}
+    /* the app fills whatever the navbar leaves; nothing here ever scrolls the page */
+    .wrap{flex:1;min-height:0;max-width:1180px;width:100%;margin:0 auto;padding:14px 20px 8px;
+      display:flex;flex-direction:column;overflow:hidden;}
 
-    /* ── HERO / SEARCH ── */
-    .hero{text-align:center;padding:22px 0 8px;}
-    .hero h1{font-family:var(--display);font-weight:900;font-size:2.5rem;line-height:1.02;margin:0 0 8px;
-      background:linear-gradient(130deg,#fef08a 0%,#eab308 48%,#b45309 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
-    .hero p{color:var(--text-muted);font-size:0.98rem;max-width:640px;margin:0 auto;line-height:1.6;}
-    .searchbox{position:relative;max-width:720px;margin:22px auto 6px;}
-    .searchbox svg{position:absolute;left:16px;top:50%;transform:translateY(-50%);width:19px;height:19px;color:var(--text-dim);pointer-events:none;}
-    #q{width:100%;background:var(--bg-elev);border:1px solid var(--border);border-radius:12px;color:var(--text-main);
-      font-family:var(--mono);font-size:1rem;padding:15px 16px 15px 46px;transition:0.15s;}
+    /* ── APP BAR: section header + search ── */
+    .appbar{flex-shrink:0;display:flex;flex-direction:column;gap:12px;}
+    .app-intro{display:flex;flex-direction:column;gap:3px;}
+    .app-eyebrow{font-family:var(--mono);font-size:0.6rem;font-weight:700;letter-spacing:0.16em;
+      text-transform:uppercase;color:var(--accent);}
+    .app-title{margin:0;font-family:var(--display);font-weight:900;font-size:1.85rem;line-height:1.05;
+      background:linear-gradient(130deg,#fef08a 0%,#eab308 48%,#b45309 100%);
+      -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
+    .app-desc{margin:1px 0 0;color:var(--text-muted);font-size:0.86rem;line-height:1.5;max-width:820px;}
+    .app-desc b{color:var(--text-main);}
+    @media(max-width:640px){.app-title{font-size:1.5rem;}.app-desc{font-size:0.8rem;}}
+    .searchbox{position:relative;width:100%;}
+    .searchbox svg{position:absolute;left:15px;top:50%;transform:translateY(-50%);width:18px;height:18px;color:var(--text-dim);pointer-events:none;}
+    #q{width:100%;background:var(--bg-elev);border:1px solid var(--border);border-radius:11px;color:var(--text-main);
+      font-family:var(--mono);font-size:0.95rem;padding:12px 15px 12px 44px;transition:0.15s;}
     #q::placeholder{color:var(--text-dim);}
     #q:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 4px var(--accent-glow);}
-    .qhint{margin-top:9px;font-family:var(--mono);font-size:0.66rem;color:var(--text-dim);display:flex;gap:7px;justify-content:center;flex-wrap:wrap;}
-    .chip{border:1px solid var(--border);border-radius:20px;padding:3px 10px;cursor:pointer;transition:0.15s;color:var(--text-muted);background:transparent;}
+    .qhint{font-family:var(--mono);font-size:0.64rem;color:var(--text-dim);display:flex;gap:6px;align-items:center;flex-wrap:wrap;}
+    .chip{border:1px solid var(--border);border-radius:20px;padding:3px 9px;cursor:pointer;transition:0.15s;color:var(--text-muted);background:transparent;}
     .chip:hover{border-color:var(--accent);color:var(--accent);}
 
-    /* ── SECTIONS ── */
-    section{margin-top:40px;scroll-margin-top:16px;}
-    .sec-head{display:flex;align-items:baseline;gap:12px;border-bottom:1px solid var(--border);padding-bottom:9px;margin-bottom:18px;flex-wrap:wrap;}
-    .sec-head h2{font-family:var(--display);font-size:1.4rem;margin:0;color:var(--text-main);}
-    .sec-head .lead{color:var(--text-muted);font-size:0.86rem;margin-left:auto;max-width:520px;text-align:right;line-height:1.45;}
-    @media(max-width:720px){.sec-head .lead{margin-left:0;text-align:left;width:100%;}}
+    /* ── SECTION TABS — relocated into the shared navbar (carino-navbar.js) ── */
+    .tabs{display:flex;gap:6px;align-items:center;}
+    .tab{display:flex;align-items:center;gap:7px;border:1px solid transparent;border-radius:8px;background:transparent;
+      color:var(--text-muted);font-family:var(--sans);font-weight:600;font-size:0.82rem;padding:7px 12px;cursor:pointer;
+      transition:0.13s;white-space:nowrap;line-height:1;}
+    .tab:hover{color:var(--text-main);background:rgba(255,255,255,0.05);}
+    .tab.active{color:var(--accent);background:var(--accent-glow);border-color:rgba(234,179,8,0.4);}
+    .tab .tnum{font-family:var(--mono);font-size:0.56rem;font-weight:700;letter-spacing:0.1em;opacity:0.7;}
+    .tab .tlead{font-family:var(--sans);font-weight:400;font-size:0.72rem;color:var(--text-dim);}
+    /* inside the 60px navbar there's no room for the numbers / sub-labels */
+    #carinoNav .tab .tnum,#carinoNav .tab .tlead{display:none;}
+    #carinoNav .cn-actions{overflow-x:auto;scrollbar-width:none;}
+    #carinoNav .cn-actions::-webkit-scrollbar{display:none;}
+    @media(max-width:520px){#carinoNav .tab{padding:7px 9px;font-size:0.78rem;}}
+
+    /* ── PANELS: exactly one visible, fills remaining height ── */
+    .panels{position:relative;flex:1;min-height:0;margin-top:12px;}
+    .panel{position:absolute;inset:0;display:none;flex-direction:column;overflow-y:auto;overflow-x:hidden;
+      padding-right:4px;scrollbar-width:thin;scrollbar-color:var(--border) transparent;}
+    .panel::-webkit-scrollbar{width:8px;}
+    .panel::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px;}
+    .panel.active{display:flex;}
+    .build-topbar{flex-shrink:0;margin-bottom:10px;}
     .kicker{font-family:var(--mono);font-size:0.6rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--accent);}
 
     /* ── MAC DECODER OUTPUT ── */
@@ -147,7 +173,7 @@
     .bd-key b{color:var(--text-main);}
     .build-empty{padding:40px;text-align:center;color:var(--text-dim);font-family:var(--mono);font-size:0.8rem;}
 
-    .glossary{margin-top:20px;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;}
+    .glossary{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;align-content:start;}
     .gl{border:1px solid var(--border);border-radius:10px;background:var(--bg-elev);padding:13px 15px;}
     .gl h5{margin:0 0 5px;font-size:0.82rem;color:var(--accent);font-family:var(--mono);}
     .gl p{margin:0;font-size:0.78rem;color:var(--text-muted);line-height:1.55;}
@@ -162,14 +188,25 @@
     .conv .k{color:var(--text-dim);}
     .conv .v{color:var(--accent);}
 
-    /* footer note */
-    .disclaimer{margin-top:44px;border-top:1px solid var(--border);padding-top:16px;font-size:0.74rem;color:var(--text-dim);line-height:1.6;}
-    .disclaimer b{color:var(--text-muted);}
+    /* slim always-visible footnote (page never scrolls, so this stays pinned) */
+    .footnote{flex-shrink:0;border-top:1px solid var(--border);margin-top:8px;padding-top:7px;
+      font-size:0.66rem;color:var(--text-dim);line-height:1.4;display:flex;gap:6px;flex-wrap:wrap;align-items:center;}
+    .footnote b{color:var(--text-muted);}
+    .footnote .fn-sep{opacity:0.4;}
+    @media(max-width:640px){.footnote{font-size:0.6rem;}}
 
-    /* on-page nav */
-    .jump{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:14px;}
-    .jump a{font-family:var(--mono);font-size:0.66rem;font-weight:600;color:var(--text-muted);border:1px solid var(--border);border-radius:20px;padding:5px 13px;transition:0.15s;}
-    .jump a:hover{border-color:var(--accent);color:var(--accent);}
+    /* freshness stamp on the builds header */
+    .stamp{font-family:var(--mono);font-size:0.6rem;font-weight:600;color:var(--text-dim);
+      border:1px solid var(--border);border-radius:6px;padding:3px 8px;white-space:nowrap;}
+    .stamp b{color:var(--accent);}
+
+    /* unknown-OUI external lookup action inside a MAC note */
+    .oui-lookup{margin-top:10px;display:flex;gap:8px;flex-wrap:wrap;align-items:center;}
+    .oui-btn{font-family:var(--mono);font-size:0.66rem;font-weight:600;padding:6px 11px;border:1px solid var(--border-glow);
+      border-radius:7px;color:var(--accent);background:var(--accent-faint);transition:0.15s;white-space:nowrap;}
+    .oui-btn:hover{border-color:var(--accent);background:var(--accent-glow);}
+    .oui-copy{cursor:pointer;}
+
     .hidden{display:none!important;}
   </style>
 </head>
@@ -177,13 +214,21 @@
 
   <div class="wrap">
 
-    <!-- ══════════ HERO + SEARCH ══════════ -->
-    <div class="hero">
-      <h1>Hardware</h1>
-      <p>Decode a <b style="color:var(--text-main)">MAC address</b> to its vendor and bits, jump to any brand's
-      <b style="color:var(--text-main)">warranty &amp; driver</b> pages, and size a build by the
-      <b style="color:var(--text-main)">features that actually matter</b>. Everything runs in your browser — nothing is uploaded.</p>
+    <!-- Section tabs — carino-navbar.js relocates this into the shared top navbar. -->
+    <nav class="tabs" data-carino-actions role="tablist">
+      <button class="tab active" data-panel="decoder"><span class="tnum">01</span> Decode <span class="tlead">MAC / serial</span></button>
+      <button class="tab" data-panel="support"><span class="tnum">02</span> Support <span class="tlead">warranty &amp; drivers</span></button>
+      <button class="tab" data-panel="builds"><span class="tnum">03</span> Builds <span class="tlead">specs by use-case</span></button>
+      <button class="tab" data-panel="glossary"><span class="tnum">04</span> Glossary <span class="tlead">what specs mean</span></button>
+    </nav>
 
+    <!-- ══════════ APP BAR: section header + search ══════════ -->
+    <div class="appbar">
+      <div class="app-intro">
+        <span class="app-eyebrow" id="appEyebrow"><!-- NN / word --></span>
+        <h1 class="app-title" id="appTitle"><!-- set per active section --></h1>
+        <p class="app-desc" id="appDesc"><!-- set per active section --></p>
+      </div>
       <div class="searchbox">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg>
         <input id="q" spellcheck="false" autocomplete="off" placeholder="Paste a MAC, a serial / service tag, or search a brand / spec…">
@@ -199,75 +244,61 @@
         <button class="chip" data-fill="gaming">gaming</button>
         <button class="chip" data-fill="32GB">32GB VRAM</button>
       </div>
-
-      <div class="jump">
-        <a href="#decoder">MAC decoder</a>
-        <a href="#support">Brand support</a>
-        <a href="#builds">Build specs</a>
-      </div>
     </div>
 
-    <!-- ══════════ MAC DECODER ══════════ -->
-    <section id="decoder">
-      <div class="sec-head">
-        <span class="kicker">01 / Identify</span>
-        <h2>What a MAC or serial reveals</h2>
-        <div class="lead">Paste a <b style="color:var(--text-muted)">MAC</b> to decode its vendor &amp; bits, or a <b style="color:var(--text-muted)">serial / service tag</b> to guess the brand and jump to warranty — the matching support card appears with the result.</div>
-      </div>
+    <!-- ══════════ PANELS (one visible at a time) ══════════ -->
+    <div class="panels">
 
-      <div id="macResult"><!-- filled when a MAC is typed --></div>
-      <div id="serialResult"><!-- filled when a serial is typed --></div>
-
-      <div class="explain" id="macExplain">
-        <div class="ex">
-          <h5><span class="dot" style="background:var(--ok)"></span>You <em>can</em> tell</h5>
-          <p>The <b style="color:var(--text-main)">manufacturer / NIC chipset</b> (from the OUI), whether it's unicast or multicast, whether it's a real burned-in address or a <b style="color:var(--text-main)">locally-administered / randomized</b> one, and its EUI-64 / IPv6 link-local form.</p>
-        </div>
-        <div class="ex">
-          <h5><span class="dot" style="background:var(--danger)"></span>You <em>cannot</em> tell</h5>
-          <p>The owner, serial number, physical location, IP address, or (usually) the exact model. A MAC is a link-layer ID, not an identity — and it never leaves the local network segment.</p>
-        </div>
-        <div class="ex">
-          <h5><span class="dot" style="background:var(--warn)"></span>Watch out</h5>
-          <p>Phones and laptops now <b style="color:var(--text-main)">randomize their Wi-Fi MAC</b> per network. A "vendor" of <i>Locally administered</i> means the address is made up — the OUI tells you nothing real.</p>
+      <!-- 01 · DECODE -->
+      <div class="panel active" id="decoder" role="tabpanel">
+        <div id="macResult"><!-- filled when a MAC is typed --></div>
+        <div id="serialResult"><!-- filled when a serial is typed --></div>
+        <div class="explain" id="macExplain">
+          <div class="ex">
+            <h5><span class="dot" style="background:var(--ok)"></span>You <em>can</em> tell</h5>
+            <p>The <b style="color:var(--text-main)">manufacturer / NIC chipset</b> (from the OUI), whether it's unicast or multicast, whether it's a real burned-in address or a <b style="color:var(--text-main)">locally-administered / randomized</b> one, and its EUI-64 / IPv6 link-local form.</p>
+          </div>
+          <div class="ex">
+            <h5><span class="dot" style="background:var(--danger)"></span>You <em>cannot</em> tell</h5>
+            <p>The owner, serial number, physical location, IP address, or (usually) the exact model. A MAC is a link-layer ID, not an identity — and it never leaves the local network segment.</p>
+          </div>
+          <div class="ex">
+            <h5><span class="dot" style="background:var(--warn)"></span>Watch out</h5>
+            <p>Phones and laptops now <b style="color:var(--text-main)">randomize their Wi-Fi MAC</b> per network. A "vendor" of <i>Locally administered</i> means the address is made up — the OUI tells you nothing real.</p>
+          </div>
         </div>
       </div>
-    </section>
 
-    <!-- ══════════ BRAND SUPPORT ══════════ -->
-    <section id="support">
-      <div class="sec-head">
-        <span class="kicker">02 / Support</span>
-        <h2>Manufacturer support directory</h2>
-        <div class="lead">Warranty lookups, driver &amp; BIOS downloads, and support portals — one click per brand. Filtered live by the search bar.</div>
-      </div>
-      <div class="brand-grid" id="brandGrid"><!-- filled by JS --></div>
-    </section>
-
-    <!-- ══════════ BUILD SPECS ══════════ -->
-    <section id="builds">
-      <div class="sec-head">
-        <span class="kicker">03 / Recommend</span>
-        <h2>Build specs by what you do</h2>
-        <div class="lead">Feature-first targets — cores, memory, VRAM, storage class. Example models are optional pointers, not the point; buy the <b style="color:var(--text-muted)">feature</b>, then pick a brand.</div>
-      </div>
-      <div class="build-layout">
-        <div class="build-nav" id="buildNav"><!-- profile list --></div>
-        <div class="build-detail" id="buildDetail"><div class="build-empty">Loading build profiles…</div></div>
+      <!-- 02 · SUPPORT -->
+      <div class="panel" id="support" role="tabpanel">
+        <div class="brand-grid" id="brandGrid"><!-- filled by JS --></div>
       </div>
 
-      <div class="sec-head" style="margin-top:34px;">
-        <span class="kicker">Glossary</span>
-        <h2>Spec cheat-sheet</h2>
-        <div class="lead">What each number means and when to pay for more of it.</div>
+      <!-- 03 · BUILDS -->
+      <div class="panel" id="builds" role="tabpanel">
+        <div class="build-topbar"><span class="stamp" id="buildStamp"></span></div>
+        <div class="build-layout">
+          <div class="build-nav" id="buildNav"><!-- profile list --></div>
+          <div class="build-detail" id="buildDetail"><div class="build-empty">Loading build profiles…</div></div>
+        </div>
       </div>
-      <div class="glossary" id="glossary"></div>
-    </section>
 
-    <div class="disclaimer">
-      <b>MAC lookup:</b> uses a curated built-in OUI subset (hundreds of common vendors) plus reserved/virtual ranges — it works fully offline and never sends your MAC anywhere. The complete registry (~35,000 prefixes) lives at the <a href="https://standards-oui.ieee.org/" target="_blank" rel="noopener">IEEE Registration Authority</a>; an unknown OUI here doesn't mean it's unassigned.
-      &nbsp;<b>Serial numbers:</b> only Dell's Service-Tag ↔ Express-Service-Code is a deterministic conversion; other brand guesses are length/format heuristics — always confirm on the vendor's own lookup.
-      &nbsp;<b>Build specs:</b> loaded from <code>builds.json</code> (edit to taste) — general guidance, not an endorsement; prices are rough new-build ballparks. Verify warranty status on the manufacturer's official site; deep-links may change.
+      <!-- 04 · GLOSSARY -->
+      <div class="panel" id="glossary" role="tabpanel">
+        <div class="glossary" id="glossaryGrid"></div>
+      </div>
+
+    </div>
+
+    <!-- ══════════ SLIM FOOTNOTE (pinned; page never scrolls) ══════════ -->
+    <div class="footnote">
+      <span><b>Offline &amp; private</b> — everything runs in your browser; your MAC is never sent anywhere.</span>
+      <span class="fn-sep">·</span>
+      <span>OUI = curated ~570-prefix subset; full registry at the <a href="https://standards-oui.ieee.org/" target="_blank" rel="noopener">IEEE RA</a>.</span>
+      <span class="fn-sep">·</span>
+      <span>Only Dell's tag↔code is deterministic; other serial guesses are hints.</span>
+      <span class="fn-sep">·</span>
+      <span>Build prices/models are dated ballparks — confirm warranty on the vendor's site.</span>
     </div>
 
   </div>
@@ -465,7 +496,14 @@
     } else if(v.vendor){
       note = `Globally unique, burned-in address. The OUI belongs to <b>${v.vendor}</b> — that's the maker of the network interface (which may differ from the device brand, e.g. an Intel or Realtek Wi-Fi card inside another brand's laptop). It tells you the vendor, <b>not</b> the owner, serial, or location.`;
     } else {
-      note = `Globally unique address, but the OUI <b>${fmtColon(d.oui.padEnd(6,'0')).slice(0,8)}</b> isn't in this built-in subset. Look it up in the <a href="https://standards-oui.ieee.org/" target="_blank" rel="noopener">IEEE registry</a> for the assigned manufacturer.`;
+      const oui6 = d.oui.padEnd(6,'0').slice(0,6);
+      const ouiDisp = fmtColon(oui6).slice(0,8);
+      note = `Globally unique address, but the OUI <b>${ouiDisp}</b> isn't in this built-in subset — that means "not in our ~570-prefix table", <i>not</i> "unassigned". The full registry has ~35,000 prefixes, so look this exact OUI up to get the assigned manufacturer:
+        <div class="oui-lookup">
+          <a class="oui-btn" href="https://maclookup.app/search/result?mac=${oui6}" target="_blank" rel="noopener">Look up ${ouiDisp} ↗</a>
+          <a class="oui-btn" href="https://standards-oui.ieee.org/" target="_blank" rel="noopener">IEEE registry ↗</a>
+          <button class="oui-btn oui-copy" type="button" data-copy="${oui6}">Copy OUI</button>
+        </div>`;
     }
 
     // If the OUI resolves to a brand we have a support page for, surface its card.
@@ -657,6 +695,10 @@
       const data = await r.json();
       PROFILES = data.profiles || [];
       GLOSS = data.glossary || [];
+      const stamp = document.getElementById('buildStamp');
+      if(stamp) stamp.innerHTML = data.updated
+        ? `Example parts reviewed <b>${escapeHtml(data.updated)}</b> — models &amp; prices date fast`
+        : '';
     }catch(e){
       document.getElementById('buildDetail').innerHTML =
         `<div class="build-empty">Couldn't load <code>builds.json</code> (${escapeHtml(String(e.message||e))}).<br>
@@ -664,7 +706,7 @@
       return;
     }
     renderNav();
-    document.getElementById('glossary').innerHTML = GLOSS.map(x=>
+    document.getElementById('glossaryGrid').innerHTML = GLOSS.map(x=>
       `<div class="gl"><h5>${escapeHtml(x[0])}</h5><p>${x[1]}</p></div>`).join('');
     if(PROFILES[0]) selectBuild(PROFILES[0].id);
   }
@@ -697,38 +739,39 @@
     const s = disp.replace(/[^A-Z0-9]/g,'');
     const interps = [], order = [], overrides = {};
     const add = n => { if(!order.includes(n)) order.push(n); };
+    let dellHit = false;   // true only for the deterministic Dell conversion
 
     if(/^[A-Z0-9]{7}$/.test(s) && /[A-Z]/.test(s) && /[0-9]/.test(s)){
       const code = dellTagToCode(s);
-      interps.push(`<b>Dell Service Tag</b> <span style="color:var(--ok)">· likely</span> — a 7-char Base-36 tag. Express Service Code = <b>${code}</b>.`);
-      add('Dell');
+      interps.push(`<b>Dell Service Tag</b> <span style="color:var(--ok)">· deterministic</span> — a 7-char Base-36 tag. Express Service Code = <b>${code}</b>.`);
+      add('Dell'); dellHit = true;
       overrides['Dell'] = ['Warranty (this tag)', `https://www.dell.com/support/home/en-us/product-support/servicetag/${s}/overview`, 'warranty'];
     }
-    if(/^[0-9]{9,11}$/.test(s)){
+    if(/^[0-9]{7,11}$/.test(s)){
       const tag = dellCodeToTag(s);
-      interps.push(`<b>Dell Express Service Code</b> <span style="color:var(--ok)">· likely</span> — the decimal form of a Base-36 tag. Service Tag = <b>${tag}</b>.`);
-      add('Dell');
+      interps.push(`<b>Dell Express Service Code</b> <span style="color:var(--ok)">· deterministic</span> — the decimal form of a Base-36 tag. Service Tag = <b>${tag}</b>. <span style="color:var(--text-dim)">(If this isn't a Dell, ignore — a bare number can also just be a serial.)</span>`);
+      add('Dell'); dellHit = true;
       overrides['Dell'] = ['Warranty (this tag)', `https://www.dell.com/support/home/en-us/product-support/servicetag/${tag}/overview`, 'warranty'];
     }
     if((s.length===10 || s.length===12) && /[A-Z]/.test(s) && /[0-9]/.test(s)){
-      interps.push(`<b>${s.length}-character alphanumeric serial</b> <span style="color:var(--warn)">· possible</span> — matches the length of <b>Apple</b> and many <b>HP</b> serials.`);
+      interps.push(`Its <b>${s.length}-character</b> length is shared by <b>Apple</b> and many <b>HP</b> serials — but length alone can't identify a vendor. If your device is one of these, check its lookup below.`);
       add('Apple'); add('HP');
     }
     if(s.length===8 && /[A-Z]/.test(s) && /[0-9]/.test(s)){
-      interps.push(`<b>8-character serial</b> <span style="color:var(--warn)">· possible</span> — common for <b>Lenovo</b> and <b>ASUS</b>.`);
+      interps.push(`Its <b>8-character</b> length is common on <b>Lenovo</b> and <b>ASUS</b> — but length alone can't identify a vendor. If your device is one of these, check its lookup below.`);
       add('Lenovo'); add('ASUS');
     }
 
-    const generic = order.length===0;
-    if(generic){ ['Dell','HP','Lenovo','Apple','ASUS','Acer'].forEach(add); }
+    if(order.length===0){ ['Dell','HP','Lenovo','Apple','ASUS','Acer'].forEach(add); }
 
-    const title = generic ? 'Serial number — brand undetermined'
-      : (order.length===1 ? order[0] + ' — likely match' : 'Serial number — best-effort match');
-    const sub = generic ? 'No distinctive pattern; pick your brand below.' : 'Heuristic guess from length / format.';
+    // Only Dell is a real identification; everything else is "here are brands to check".
+    const title = dellHit ? 'Dell — identified from the tag' : 'Serial number — pick your brand';
+    const sub = dellHit ? 'Service-Tag ↔ Express-Service-Code is an exact, reversible conversion.'
+                        : 'A serial can\'t be traced to a brand from its shape — choose your maker to open its official lookup.';
 
     const note =
       (interps.length ? `<ul style="margin:0 0 10px;padding-left:18px;line-height:1.75">${interps.map(i=>`<li>${i}</li>`).join('')}</ul>` : '')
-      + `<b>Heads-up:</b> serial formats aren't standardised across vendors, so only <b>Dell's</b> Service&#8209;Tag&nbsp;↔&nbsp;Express&#8209;Service&#8209;Code is a deterministic conversion — the rest are length/shape hints. Confirm on the manufacturer's own lookup below.`;
+      + `<b>Heads-up:</b> serial formats aren't standardised across vendors, so <b>only Dell's</b> Service&#8209;Tag&nbsp;↔&nbsp;Express&#8209;Service&#8209;Code is a genuine identification here — everything else is just a shortlist of brands to try. Confirm on the manufacturer's own lookup below.`;
 
     const cards = order.map(n=>{ const b = brandByName(n); return b ? brandCardHTML(b, null, {warrantyOverride: overrides[n]}) : ''; }).join('');
 
@@ -736,7 +779,7 @@
       <div class="mac-top">
         <div class="mac-hex">${escapeHtml(disp)}</div>
         <div class="mac-vendor">${title}<span class="sub">${sub}</span></div>
-        <div class="tags"><span class="tag ${generic?'warn':'ok'}">${generic?'Heuristic':'Match'}</span></div>
+        <div class="tags"><span class="tag ${dellHit?'ok':'warn'}">${dellHit?'Identified':'Not identified'}</span></div>
       </div>
       <div class="mac-note">${note}</div>
       <div class="result-support"><div class="rs-lbl">Check warranty / support</div>
@@ -761,9 +804,10 @@
     });
     const none = document.getElementById('brandNone');
     if(none) none.classList.toggle('hidden', any);
+    return any;
   }
   function filterBuilds(term){
-    if(!PROFILES.length) return;
+    if(!PROFILES.length) return false;
     let firstVisible = null, curVisible = false;
     document.querySelectorAll('.bnav').forEach(el=>{
       const b = PROFILES.find(x=>x.id===el.dataset.id); if(!b) return;
@@ -774,6 +818,32 @@
     });
     if(term && !curVisible && firstVisible) selectBuild(firstVisible);
     if(term && !firstVisible) document.getElementById('buildDetail').innerHTML = '<div class="build-empty">No profile matches that term.</div>';
+    return !!firstVisible;
+  }
+
+  /* ---- tabs: exactly one panel visible; the page itself never scrolls ---- */
+  // The header above the search bar (eyebrow + title + description) tracks the active section.
+  const SECTION = {
+    decoder: {eyebrow:'01 · Identify', title:'Decode a MAC or serial',
+      desc:'Paste a <b>MAC</b> to decode its vendor &amp; bits, or a <b>serial / service tag</b> to identify the brand and jump to warranty — the matching support card appears with the result. Nothing is uploaded.'},
+    support: {eyebrow:'02 · Support', title:'Manufacturer support directory',
+      desc:'Warranty lookups, driver &amp; BIOS downloads, and support portals — <b>one click per brand</b>. Type a brand or product line in the search bar to filter.'},
+    builds:  {eyebrow:'03 · Recommend', title:'Build specs by what you do',
+      desc:'Feature-first targets — <b>cores, memory, VRAM, storage class</b>. Example models are optional pointers, not the point; buy the feature, then pick a brand.'},
+    glossary:{eyebrow:'04 · Reference', title:'Spec cheat-sheet',
+      desc:'What each spec actually means, and when it&#39;s worth paying for more of it.'}
+  };
+  function switchTab(id){
+    document.querySelectorAll('.panel').forEach(p=>p.classList.toggle('active', p.id===id));
+    document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('active', t.dataset.panel===id));
+    const s = SECTION[id];
+    if(s){
+      document.getElementById('appEyebrow').textContent = s.eyebrow;
+      document.getElementById('appTitle').textContent = s.title;
+      document.getElementById('appDesc').innerHTML = s.desc;
+    }
+    const active = document.getElementById(id);
+    if(active) active.scrollTop = 0;   // reset the panel's own (contained) scroll, not the page
   }
 
   function onInput(){
@@ -782,30 +852,48 @@
     if(looksLikeMac(raw)){
       renderMac(raw); macExplain.classList.add('hidden');
       filterBrands(''); filterBuilds('');
-      macResult.scrollIntoView({behavior:'smooth', block:'nearest'});
+      switchTab('decoder');
       return;
     }
     if(looksLikeSerial(raw)){
       renderSerial(raw); macExplain.classList.add('hidden');
       filterBrands(''); filterBuilds('');
-      serialResult.scrollIntoView({behavior:'smooth', block:'nearest'});
+      switchTab('decoder');
       return;
     }
     macExplain.classList.remove('hidden');
     const term = raw.toLowerCase();
-    filterBrands(term); filterBuilds(term);
+    const brandHit = filterBrands(term);
+    const buildHit = filterBuilds(term);
+    // route a plain search to whichever directory it matches, so results are visible
+    if(term){
+      const active = document.querySelector('.panel.active').id;
+      if(active === 'decoder' || active === 'glossary'){
+        if(brandHit) switchTab('support');
+        else if(buildHit) switchTab('builds');
+      }
+    }
   }
 
   q.addEventListener('input', onInput);
   document.querySelectorAll('.chip').forEach(c=>c.addEventListener('click',()=>{ q.value=c.dataset.fill; onInput(); q.focus(); }));
+  document.querySelectorAll('.tab').forEach(t=>t.addEventListener('click',()=>switchTab(t.dataset.panel)));
 
-  // build-profile selection (event delegation)
+  // build-profile selection + OUI copy (event delegation)
   document.addEventListener('click', e=>{
-    const n = e.target.closest('.bnav'); if(!n) return;
-    selectBuild(n.dataset.id);
+    const n = e.target.closest('.bnav');
+    if(n){ selectBuild(n.dataset.id); return; }
+    const cp = e.target.closest('.oui-copy');
+    if(cp){
+      const val = cp.dataset.copy || '';
+      if(navigator.clipboard) navigator.clipboard.writeText(val).catch(()=>{});
+      const old = cp.textContent; cp.textContent = 'Copied ✓';
+      setTimeout(()=>{ cp.textContent = old; }, 1200);
+    }
   });
 
   /* ---- init ---- */
+  switchTab('decoder');   // sets the initial description above the search bar
   renderBrands();
   loadBuilds();
 

@@ -1,5 +1,6 @@
 {
-  "_comment": "Carino Hardware build profiles. Edit freely. A spec's `eg` is a list of example models; each item is either a plain string or {\"t\":\"name\",\"link\":\"https://…\"} to link a specific model. Mark the single most important spec with \"key\": true.",
+  "_comment": "Carino Hardware build profiles. Edit freely. A spec's `eg` is a list of example models; each item is either a plain string or {\"t\":\"name\",\"link\":\"https://…\"} to link a specific model. Mark the single most important spec with \"key\": true. Bump `updated` (YYYY-MM) whenever you refresh the example parts/prices — it's shown on the page so readers know how fresh the models are.",
+  "updated": "2026-07",
   "profiles": [
     {
       "id": "budget", "icon": "💵", "name": "Budget / Everyday", "price": "~$450",
