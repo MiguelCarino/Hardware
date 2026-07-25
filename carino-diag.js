@@ -10,7 +10,7 @@
    It adds a "Sys. Status" button to the navbar's right cluster and
    a dropdown reporting the visitor's public IPv4/IPv6, ISP,
    connection type and round-trip time. This is the in-navbar
-   replacement for the retired ip.carino.systems site, so any
+   replacement for the retired standalone IP-lookup site, so any
    network tool can carry it without its own subdomain.
 
    Two deliberate differences from the hub's dropdown:
