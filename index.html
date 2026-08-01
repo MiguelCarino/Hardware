@@ -211,10 +211,10 @@
 
     <!-- Section tabs — carino-navbar.js relocates this into the shared top navbar. -->
     <nav class="tabs" data-carino-actions role="tablist">
-      <button class="tab active" data-panel="decoder"><span class="tnum">01</span> Decode <span class="tlead">MAC / serial</span></button>
-      <button class="tab" data-panel="support"><span class="tnum">02</span> Support <span class="tlead">warranty &amp; drivers</span></button>
-      <button class="tab" data-panel="builds"><span class="tnum">03</span> Builds <span class="tlead">specs by use-case</span></button>
-      <button class="tab" data-panel="glossary"><span class="tnum">04</span> Glossary <span class="tlead">what specs mean</span></button>
+      <button class="tab active" data-panel="decoder"><span class="tnum">01</span> <span data-i18n>Decode</span> <span class="tlead" data-i18n>MAC / serial</span></button>
+      <button class="tab" data-panel="support"><span class="tnum">02</span> <span data-i18n>Support</span> <span class="tlead" data-i18n>warranty &amp; drivers</span></button>
+      <button class="tab" data-panel="builds"><span class="tnum">03</span> <span data-i18n>Builds</span> <span class="tlead" data-i18n>specs by use-case</span></button>
+      <button class="tab" data-panel="glossary"><span class="tnum">04</span> <span data-i18n>Glossary</span> <span class="tlead" data-i18n>what specs mean</span></button>
     </nav>
 
     <!-- ══════════ APP BAR: section header + search ══════════ -->
@@ -229,7 +229,7 @@
         <input id="q" spellcheck="false" autocomplete="off" placeholder="Paste a MAC, a serial / service tag, or search a brand / spec…">
       </div>
       <div class="qhint">
-        <span style="color:var(--text-muted)">Try:</span>
+        <span style="color:var(--text-muted)" data-i18n>Try:</span>
         <button class="chip" data-fill="B8:27:EB:12:34:56">B8:27:EB:12:34:56</button>
         <button class="chip" data-fill="3C:07:54:AA:BB:CC">3C:07:54:…</button>
         <button class="chip" data-fill="02:42:AC:11:00:02">02:42:… (local)</button>
@@ -250,16 +250,16 @@
         <div id="serialResult"><!-- filled when a serial is typed --></div>
         <div class="explain" id="macExplain">
           <div class="ex">
-            <h5><span class="dot" style="background:var(--ok)"></span>You <em>can</em> tell</h5>
-            <p>The <b style="color:var(--text-main)">manufacturer / NIC chipset</b> (from the OUI), whether it's unicast or multicast, whether it's a real burned-in address or a <b style="color:var(--text-main)">locally-administered / randomized</b> one, and its EUI-64 / IPv6 link-local form.</p>
+            <h5><span class="dot" style="background:var(--ok)"></span><span data-i18n-html>You <em>can</em> tell</span></h5>
+            <p data-i18n-html>The <b style="color:var(--text-main)">manufacturer / NIC chipset</b> (from the OUI), whether it's unicast or multicast, whether it's a real burned-in address or a <b style="color:var(--text-main)">locally-administered / randomized</b> one, and its EUI-64 / IPv6 link-local form.</p>
           </div>
           <div class="ex">
-            <h5><span class="dot" style="background:var(--danger)"></span>You <em>cannot</em> tell</h5>
-            <p>The owner, serial number, physical location, IP address, or (usually) the exact model. A MAC is a link-layer ID, not an identity — and it never leaves the local network segment.</p>
+            <h5><span class="dot" style="background:var(--danger)"></span><span data-i18n-html>You <em>cannot</em> tell</span></h5>
+            <p data-i18n>The owner, serial number, physical location, IP address, or (usually) the exact model. A MAC is a link-layer ID, not an identity — and it never leaves the local network segment.</p>
           </div>
           <div class="ex">
-            <h5><span class="dot" style="background:var(--warn)"></span>Watch out</h5>
-            <p>Phones and laptops now <b style="color:var(--text-main)">randomize their Wi-Fi MAC</b> per network. A "vendor" of <i>Locally administered</i> means the address is made up — the OUI tells you nothing real.</p>
+            <h5><span class="dot" style="background:var(--warn)"></span><span data-i18n>Watch out</span></h5>
+            <p data-i18n-html>Phones and laptops now <b style="color:var(--text-main)">randomize their Wi-Fi MAC</b> per network. A "vendor" of <i>Locally administered</i> means the address is made up — the OUI tells you nothing real.</p>
           </div>
         </div>
       </div>
@@ -274,7 +274,7 @@
         <div class="build-topbar"><span class="stamp" id="buildStamp"></span></div>
         <div class="build-layout">
           <div class="build-nav" id="buildNav"><!-- profile list --></div>
-          <div class="build-detail" id="buildDetail"><div class="build-empty">Loading build profiles…</div></div>
+          <div class="build-detail" id="buildDetail"><div class="build-empty" data-i18n>Loading build profiles…</div></div>
         </div>
       </div>
 
@@ -287,13 +287,13 @@
 
     <!-- ══════════ SLIM FOOTNOTE (pinned; page never scrolls) ══════════ -->
     <div class="footnote">
-      <span><b>Offline &amp; private</b> — everything runs in your browser; your MAC is never sent anywhere.</span>
+      <span data-i18n-html><b>Offline &amp; private</b> — everything runs in your browser; your MAC is never sent anywhere.</span>
       <span class="fn-sep">·</span>
-      <span>OUI = curated ~570-prefix subset; full registry at the <a href="https://standards-oui.ieee.org/" target="_blank" rel="noopener">IEEE RA</a>.</span>
+      <span data-i18n-html>OUI = curated ~570-prefix subset; full registry at the <a href="https://standards-oui.ieee.org/" target="_blank" rel="noopener">IEEE RA</a>.</span>
       <span class="fn-sep">·</span>
-      <span>Only Dell's tag↔code is deterministic; other serial guesses are hints.</span>
+      <span data-i18n>Only Dell's tag↔code is deterministic; other serial guesses are hints.</span>
       <span class="fn-sep">·</span>
-      <span>Build prices/models are dated ballparks — confirm warranty on the vendor's site.</span>
+      <span data-i18n>Build prices/models are dated ballparks — confirm warranty on the vendor's site.</span>
     </div>
 
   </div>
@@ -303,6 +303,11 @@
      CARINO HARDWARE — MAC decoding + brand directory + build specs
      Self-contained, offline, no dependencies.
      ══════════════════════════════════════════════════════════════ */
+
+  /* i18n bridge — the deferred dictionary script (loaded after this inline
+     script) exposes window.t; until then TT is a no-op, so the first paint
+     is plain English. */
+  const TT = s => (window.t ? window.t(s) : s);
 
   /* ---- 1. OUI table (curated subset, keyed by 6 hex chars) ---- */
   const OUI = {};
@@ -424,7 +429,7 @@
   function decodeMac(raw){
     const hex = normalizeMac(raw);
     if(hex.length !== 12) {
-      return {error:`Need exactly 12 hex digits — got ${hex.length}. A MAC looks like AA:BB:CC:DD:EE:FF.`};
+      return {error:`${TT('Need exactly 12 hex digits — got')} ${hex.length}. ${TT('A MAC looks like AA:BB:CC:DD:EE:FF.')}`};
     }
     const bytes = hex.match(/.{2}/g).map(b=>parseInt(b,16));
     const first = bytes[0];
@@ -459,45 +464,45 @@
     const v = d.vendor;
     let vendorName, vendorSub, vendorTag;
     if(d.isLocal && v.kind==='unknown'){
-      vendorName = 'Locally administered (randomized / assigned)';
-      vendorSub = 'No real vendor — this address was set by software, not burned in.';
+      vendorName = TT('Locally administered (randomized / assigned)');
+      vendorSub = TT('No real vendor — this address was set by software, not burned in.');
     } else if(v.vendor){
       vendorName = v.vendor;
-      vendorSub = v.kind==='oui' ? `OUI ${fmtColon(v.oui.padEnd(6,'0')).slice(0,8)} · registered manufacturer prefix`
-                                 : (v.note||'Structural / reserved address');
+      vendorSub = v.kind==='oui' ? `OUI ${fmtColon(v.oui.padEnd(6,'0')).slice(0,8)} · ${TT('registered manufacturer prefix')}`
+                                 : (v.note||TT('Structural / reserved address'));
     } else {
-      vendorName = 'Unknown vendor';
-      vendorSub = `OUI ${fmtColon(d.oui.padEnd(6,'0')).slice(0,8)} not in the built-in set — check the IEEE registry.`;
+      vendorName = TT('Unknown vendor');
+      vendorSub = `OUI ${fmtColon(d.oui.padEnd(6,'0')).slice(0,8)} ${TT('not in the built-in set — check the IEEE registry.')}`;
     }
 
     const tags = [];
-    if(d.isBroadcast) tags.push(['danger','Broadcast']);
-    else if(d.isMulticast) tags.push(['info','Multicast']);
-    else tags.push(['ok','Unicast']);
-    if(d.isLocal) tags.push(['warn','Locally administered']);
-    else tags.push(['ok','Globally unique (OUI)']);
-    if(/virtual/i.test(v.vendor||'')) tags.push(['info','Virtual machine']);
+    if(d.isBroadcast) tags.push(['danger',TT('Broadcast')]);
+    else if(d.isMulticast) tags.push(['info',TT('Multicast')]);
+    else tags.push(['ok',TT('Unicast')]);
+    if(d.isLocal) tags.push(['warn',TT('Locally administered')]);
+    else tags.push(['ok',TT('Globally unique (OUI)')]);
+    if(/virtual/i.test(v.vendor||'')) tags.push(['info',TT('Virtual machine')]);
 
     const octetHtml = d.hex.match(/.{2}/g).map((o,i)=>`<span class="octet${i===0?' first':''}">${o}</span>`).join('');
 
     // context note
     let note = '';
     if(d.isBroadcast){
-      note = `This is the <b>broadcast address</b>. Every station on the LAN accepts it — it identifies no single device.`;
+      note = TT(`This is the <b>broadcast address</b>. Every station on the LAN accepts it — it identifies no single device.`);
     } else if(v.kind==='special'){
       note = `<b>${v.vendor}.</b> ${v.note||''} This is a structural address, not a piece of hardware you can look up.`;
     } else if(d.isLocal){
-      note = `The <b>U/L bit is set (locally administered)</b>, so the vendor prefix is <i>not</i> meaningful — this is almost certainly a <b>randomized MAC</b> (modern phones/laptops rotate these per Wi-Fi network for privacy) or a software-assigned address (VM, container, bonded interface).`;
+      note = TT(`The <b>U/L bit is set (locally administered)</b>, so the vendor prefix is <i>not</i> meaningful — this is almost certainly a <b>randomized MAC</b> (modern phones/laptops rotate these per Wi-Fi network for privacy) or a software-assigned address (VM, container, bonded interface).`);
     } else if(v.vendor){
-      note = `Globally unique, burned-in address. The OUI belongs to <b>${v.vendor}</b> — that's the maker of the network interface (which may differ from the device brand, e.g. an Intel or Realtek Wi-Fi card inside another brand's laptop). It tells you the vendor, <b>not</b> the owner, serial, or location.`;
+      note = `${TT('Globally unique, burned-in address. The OUI belongs to')} <b>${v.vendor}</b>${TT(` — that's the maker of the network interface (which may differ from the device brand, e.g. an Intel or Realtek Wi-Fi card inside another brand's laptop). It tells you the vendor, <b>not</b> the owner, serial, or location.`)}`;
     } else {
       const oui6 = d.oui.padEnd(6,'0').slice(0,6);
       const ouiDisp = fmtColon(oui6).slice(0,8);
-      note = `Globally unique address, but the OUI <b>${ouiDisp}</b> isn't in this built-in subset — that means "not in our ~570-prefix table", <i>not</i> "unassigned". The full registry has ~35,000 prefixes, so look this exact OUI up to get the assigned manufacturer:
+      note = `${TT('Globally unique address, but the OUI')} <b>${ouiDisp}</b> ${TT(`isn't in this built-in subset — that means "not in our ~570-prefix table", <i>not</i> "unassigned". The full registry has ~35,000 prefixes, so look this exact OUI up to get the assigned manufacturer:`)}
         <div class="oui-lookup">
-          <a class="oui-btn" href="https://maclookup.app/search/result?mac=${oui6}" target="_blank" rel="noopener">Look up ${ouiDisp} ↗</a>
-          <a class="oui-btn" href="https://standards-oui.ieee.org/" target="_blank" rel="noopener">IEEE registry ↗</a>
-          <button class="oui-btn oui-copy" type="button" data-copy="${oui6}">Copy OUI</button>
+          <a class="oui-btn" href="https://maclookup.app/search/result?mac=${oui6}" target="_blank" rel="noopener">${TT('Look up')} ${ouiDisp} ↗</a>
+          <a class="oui-btn" href="https://standards-oui.ieee.org/" target="_blank" rel="noopener">${TT('IEEE registry')} ↗</a>
+          <button class="oui-btn oui-copy" type="button" data-copy="${oui6}">${TT('Copy OUI')}</button>
         </div>`;
     }
 
@@ -505,7 +510,7 @@
     let support = '';
     if(v.kind==='oui' && !d.isLocal && !d.isBroadcast && !/virtual/i.test(v.vendor||'')){
       const brand = brandForVendor(v.vendor);
-      if(brand) support = renderSupportBlock([brand], `Support for the identified vendor — ${escapeHtml(brand.n)}`);
+      if(brand) support = renderSupportBlock([brand], `${TT('Support for the identified vendor')} — ${escapeHtml(brand.n)}`);
     }
 
     box.innerHTML = `
@@ -519,26 +524,26 @@
         </div>
         <div class="mac-grid">
           <div class="mac-col">
-            <h4>Address breakdown</h4>
+            <h4>${TT('Address breakdown')}</h4>
             <div class="kv">
-              <span class="k">OUI (24-bit)</span><span class="v hi">${fmtColon(d.oui.padEnd(6,'0')).slice(0,8)}</span>
-              <span class="k">Device (24-bit)</span><span class="v">${fmtColon(d.hex).slice(9)}</span>
-              <span class="k">Octets</span><span class="v" style="line-height:1.9">${octetHtml}</span>
+              <span class="k">${TT('OUI (24-bit)')}</span><span class="v hi">${fmtColon(d.oui.padEnd(6,'0')).slice(0,8)}</span>
+              <span class="k">${TT('Device (24-bit)')}</span><span class="v">${fmtColon(d.hex).slice(9)}</span>
+              <span class="k">${TT('Octets')}</span><span class="v" style="line-height:1.9">${octetHtml}</span>
             </div>
-            <div class="bitrow">First octet <b>0x${d.hex.slice(0,2)}</b> = <b>${d.first.toString(2).padStart(8,'0')}</b>b<br>
-              &nbsp;· bit 0 (I/G) = <b>${d.igBit}</b> → ${d.igBit? 'group / multicast':'individual / unicast'}<br>
-              &nbsp;· bit 1 (U/L) = <b>${d.ulBit}</b> → ${d.ulBit? 'locally administered':'universally administered (OUI)'}
+            <div class="bitrow">${TT('First octet')} <b>0x${d.hex.slice(0,2)}</b> = <b>${d.first.toString(2).padStart(8,'0')}</b>b<br>
+              &nbsp;· bit 0 (I/G) = <b>${d.igBit}</b> → ${d.igBit? TT('group / multicast'):TT('individual / unicast')}<br>
+              &nbsp;· bit 1 (U/L) = <b>${d.ulBit}</b> → ${d.ulBit? TT('locally administered'):TT('universally administered (OUI)')}
             </div>
           </div>
           <div class="mac-col">
-            <h4>Derived forms</h4>
+            <h4>${TT('Derived forms')}</h4>
             <div class="kv">
-              <span class="k">Colon</span><span class="v">${fmtColon(d.hex)}</span>
-              <span class="k">Hyphen</span><span class="v mut">${d.hex.match(/.{2}/g).join('-')}</span>
-              <span class="k">Cisco dot</span><span class="v mut">${d.hex.match(/.{4}/g).join('.').toLowerCase()}</span>
-              <span class="k">Bare</span><span class="v mut">${d.hex.toLowerCase()}</span>
+              <span class="k">${TT('Colon')}</span><span class="v">${fmtColon(d.hex)}</span>
+              <span class="k">${TT('Hyphen')}</span><span class="v mut">${d.hex.match(/.{2}/g).join('-')}</span>
+              <span class="k">${TT('Cisco dot')}</span><span class="v mut">${d.hex.match(/.{4}/g).join('.').toLowerCase()}</span>
+              <span class="k">${TT('Bare')}</span><span class="v mut">${d.hex.toLowerCase()}</span>
               <span class="k">EUI-64</span><span class="v">${d.eui64}</span>
-              <span class="k">IPv6 link-local</span><span class="v hi">${d.ll}</span>
+              <span class="k">${TT('IPv6 link-local')}</span><span class="v hi">${d.ll}</span>
             </div>
           </div>
         </div>
@@ -616,7 +621,7 @@
         <div><div class="brand-name">${b.n}</div><div class="brand-cat">${b.cat}</div></div>
       </div>
       <div class="brand-links">
-        ${links.map(x=>`<a class="blink ${x[2]||''}" href="${x[1]}" target="_blank" rel="noopener">${x[0]} ↗</a>`).join('')}
+        ${links.map(x=>`<a class="blink ${x[2]||''}" href="${x[1]}" target="_blank" rel="noopener">${TT(x[0])} ↗</a>`).join('')}
       </div>
     </div>`;
   }
@@ -641,7 +646,7 @@
   function renderBrands(){
     document.getElementById('brandGrid').innerHTML =
       BRANDS.map((b,i)=>brandCardHTML(b,i)).join('') +
-      `<div class="noresults hidden" id="brandNone">No brand matches — clear the search to see all.</div>`;
+      `<div class="noresults hidden" id="brandNone">${TT('No brand matches — clear the search to see all.')}</div>`;
   }
 
   /* ---- 4. Build recommendations (loaded from builds.json) ---- */
@@ -668,7 +673,7 @@
       <div class="bd-h"><span class="price">${b.price}</span><div class="icon">${b.icon}</div>
         <h3>${escapeHtml(b.name)}</h3><div class="tagline">${escapeHtml(b.tagline)}</div></div>
       <div class="specs">${b.specs.map(specRow).join('')}</div>
-      ${b.key?`<div class="bd-key"><b>Prioritise:</b> ${escapeHtml(b.key)}</div>`:''}`;
+      ${b.key?`<div class="bd-key"><b>${TT('Prioritise:')}</b> ${escapeHtml(b.key)}</div>`:''}`;
   }
   function renderNav(){
     document.getElementById('buildNav').innerHTML = PROFILES.map(b=>`
@@ -692,7 +697,7 @@
       GLOSS = data.glossary || [];
       const stamp = document.getElementById('buildStamp');
       if(stamp) stamp.innerHTML = data.updated
-        ? `Example parts reviewed <b>${escapeHtml(data.updated)}</b> — models &amp; prices date fast`
+        ? `${TT('Example parts reviewed')} <b>${escapeHtml(data.updated)}</b> — ${TT('models &amp; prices date fast')}`
         : '';
     }catch(e){
       document.getElementById('buildDetail').innerHTML =
@@ -738,35 +743,35 @@
 
     if(/^[A-Z0-9]{7}$/.test(s) && /[A-Z]/.test(s) && /[0-9]/.test(s)){
       const code = dellTagToCode(s);
-      interps.push(`<b>Dell Service Tag</b> <span style="color:var(--ok)">· deterministic</span> — a 7-char Base-36 tag. Express Service Code = <b>${code}</b>.`);
+      interps.push(`<b>Dell Service Tag</b> <span style="color:var(--ok)">· ${TT('deterministic')}</span> — ${TT('a 7-char Base-36 tag. Express Service Code =')} <b>${code}</b>.`);
       add('Dell'); dellHit = true;
       overrides['Dell'] = ['Warranty (this tag)', `https://www.dell.com/support/home/en-us/product-support/servicetag/${s}/overview`, 'warranty'];
     }
     if(/^[0-9]{7,11}$/.test(s)){
       const tag = dellCodeToTag(s);
-      interps.push(`<b>Dell Express Service Code</b> <span style="color:var(--ok)">· deterministic</span> — the decimal form of a Base-36 tag. Service Tag = <b>${tag}</b>. <span style="color:var(--text-dim)">(If this isn't a Dell, ignore — a bare number can also just be a serial.)</span>`);
+      interps.push(`<b>Dell Express Service Code</b> <span style="color:var(--ok)">· ${TT('deterministic')}</span> — ${TT('the decimal form of a Base-36 tag. Service Tag =')} <b>${tag}</b>. <span style="color:var(--text-dim)">${TT("(If this isn't a Dell, ignore — a bare number can also just be a serial.)")}</span>`);
       add('Dell'); dellHit = true;
       overrides['Dell'] = ['Warranty (this tag)', `https://www.dell.com/support/home/en-us/product-support/servicetag/${tag}/overview`, 'warranty'];
     }
     if((s.length===10 || s.length===12) && /[A-Z]/.test(s) && /[0-9]/.test(s)){
-      interps.push(`Its <b>${s.length}-character</b> length is shared by <b>Apple</b> and many <b>HP</b> serials — but length alone can't identify a vendor. If your device is one of these, check its lookup below.`);
+      interps.push(TT(`Its <b>${s.length}-character</b> length is shared by <b>Apple</b> and many <b>HP</b> serials — but length alone can't identify a vendor. If your device is one of these, check its lookup below.`));
       add('Apple'); add('HP');
     }
     if(s.length===8 && /[A-Z]/.test(s) && /[0-9]/.test(s)){
-      interps.push(`Its <b>8-character</b> length is common on <b>Lenovo</b> and <b>ASUS</b> — but length alone can't identify a vendor. If your device is one of these, check its lookup below.`);
+      interps.push(TT(`Its <b>8-character</b> length is common on <b>Lenovo</b> and <b>ASUS</b> — but length alone can't identify a vendor. If your device is one of these, check its lookup below.`));
       add('Lenovo'); add('ASUS');
     }
 
     if(order.length===0){ ['Dell','HP','Lenovo','Apple','ASUS','Acer'].forEach(add); }
 
     // Only Dell is a real identification; everything else is "here are brands to check".
-    const title = dellHit ? 'Dell — identified from the tag' : 'Serial number — pick your brand';
-    const sub = dellHit ? 'Service-Tag ↔ Express-Service-Code is an exact, reversible conversion.'
-                        : 'A serial can\'t be traced to a brand from its shape — choose your maker to open its official lookup.';
+    const title = dellHit ? TT('Dell — identified from the tag') : TT('Serial number — pick your brand');
+    const sub = dellHit ? TT('Service-Tag ↔ Express-Service-Code is an exact, reversible conversion.')
+                        : TT('A serial can\'t be traced to a brand from its shape — choose your maker to open its official lookup.');
 
     const note =
       (interps.length ? `<ul style="margin:0 0 10px;padding-left:18px;line-height:1.75">${interps.map(i=>`<li>${i}</li>`).join('')}</ul>` : '')
-      + `<b>Heads-up:</b> serial formats aren't standardised across vendors, so <b>only Dell's</b> Service&#8209;Tag&nbsp;↔&nbsp;Express&#8209;Service&#8209;Code is a genuine identification here — everything else is just a shortlist of brands to try. Confirm on the manufacturer's own lookup below.`;
+      + TT(`<b>Heads-up:</b> serial formats aren't standardised across vendors, so <b>only Dell's</b> Service&#8209;Tag&nbsp;↔&nbsp;Express&#8209;Service&#8209;Code is a genuine identification here — everything else is just a shortlist of brands to try. Confirm on the manufacturer's own lookup below.`);
 
     const cards = order.map(n=>{ const b = brandByName(n); return b ? brandCardHTML(b, null, {warrantyOverride: overrides[n]}) : ''; }).join('');
 
@@ -774,10 +779,10 @@
       <div class="mac-top">
         <div class="mac-hex">${escapeHtml(disp)}</div>
         <div class="mac-vendor">${title}<span class="sub">${sub}</span></div>
-        <div class="tags"><span class="tag ${dellHit?'ok':'warn'}">${dellHit?'Identified':'Not identified'}</span></div>
+        <div class="tags"><span class="tag ${dellHit?'ok':'warn'}">${dellHit?TT('Identified'):TT('Not identified')}</span></div>
       </div>
       <div class="mac-note">${note}</div>
-      <div class="result-support"><div class="rs-lbl">Check warranty / support</div>
+      <div class="result-support"><div class="rs-lbl">${TT('Check warranty / support')}</div>
         <div class="brand-grid">${cards}</div></div>
     </div>`;
   }
@@ -812,7 +817,7 @@
       if(show){ if(!firstVisible) firstVisible = b.id; if(el.dataset.id===currentBuild) curVisible = true; }
     });
     if(term && !curVisible && firstVisible) selectBuild(firstVisible);
-    if(term && !firstVisible) document.getElementById('buildDetail').innerHTML = '<div class="build-empty">No profile matches that term.</div>';
+    if(term && !firstVisible) document.getElementById('buildDetail').innerHTML = `<div class="build-empty">${TT('No profile matches that term.')}</div>`;
     return !!firstVisible;
   }
 
@@ -833,9 +838,9 @@
     document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('active', t.dataset.panel===id));
     const s = SECTION[id];
     if(s){
-      document.getElementById('appEyebrow').textContent = s.eyebrow;
-      document.getElementById('appTitle').textContent = s.title;
-      document.getElementById('appDesc').innerHTML = s.desc;
+      document.getElementById('appEyebrow').textContent = TT(s.eyebrow);
+      document.getElementById('appTitle').textContent = TT(s.title);
+      document.getElementById('appDesc').innerHTML = TT(s.desc);
     }
     const active = document.getElementById(id);
     if(active) active.scrollTop = 0;   // reset the panel's own (contained) scroll, not the page
@@ -882,7 +887,7 @@
     if(cp){
       const val = cp.dataset.copy || '';
       if(navigator.clipboard) navigator.clipboard.writeText(val).catch(()=>{});
-      const old = cp.textContent; cp.textContent = 'Copied ✓';
+      const old = cp.textContent; cp.textContent = TT('Copied ✓');
       setTimeout(()=>{ cp.textContent = old; }, 1200);
     }
   });
@@ -892,10 +897,25 @@
   renderBrands();
   loadBuilds();
 
+  // Called by the i18n dictionary script after each locale switch: re-render
+  // every JS-built surface in the new language without touching state or data.
+  function hwRelocalize(){
+    const act = document.querySelector('.panel.active');
+    switchTab(act ? act.id : 'decoder');
+    renderBrands();
+    if(PROFILES.length){
+      renderNav();
+      selectBuild(currentBuild || PROFILES[0].id);
+    }
+    onInput();   // re-renders any MAC/serial result and re-applies filters
+  }
+  window.hwRelocalize = hwRelocalize;
+
   </script>
 
   <script src="carino-navbar.js" data-app="Hardware" defer></script>
   <script src="carino-lang.js" defer></script>
+  <script src="i18n.js" defer></script>
   <script src="carino-diag.js" defer></script>
 </body>
 </html>
