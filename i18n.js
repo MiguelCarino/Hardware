@@ -9,6 +9,10 @@
 
 const I18N = {
     es: {
+        'Late shift.': 'Turno nocturno.',
+        'Good morning.': 'Buenos días.',
+        'Good afternoon.': 'Buenas tardes.',
+        'Good evening.': 'Buenas noches.',
         // Tabs
         'Decode': 'Decodificar',
         'MAC / serial': 'MAC / serie',
@@ -133,6 +137,10 @@ const I18N = {
         "Its <b>8-character</b> length is common on <b>Lenovo</b> and <b>ASUS</b> — but length alone can't identify a vendor. If your device is one of these, check its lookup below.": 'Su longitud de <b>8 caracteres</b> es común en <b>Lenovo</b> y <b>ASUS</b>, pero la longitud por sí sola no identifica al fabricante. Si tu equipo es de una de estas marcas, revisa su consulta abajo.',
     },
     'pt-BR': {
+        'Late shift.': 'Turno da noite.',
+        'Good morning.': 'Bom dia.',
+        'Good afternoon.': 'Boa tarde.',
+        'Good evening.': 'Boa noite.',
         'Decode': 'Decodificar',
         'MAC / serial': 'MAC / série',
         'Support': 'Suporte',
@@ -248,6 +256,10 @@ const I18N = {
         "Its <b>8-character</b> length is common on <b>Lenovo</b> and <b>ASUS</b> — but length alone can't identify a vendor. If your device is one of these, check its lookup below.": 'Seu comprimento de <b>8 caracteres</b> é comum em <b>Lenovo</b> e <b>ASUS</b> — mas o comprimento sozinho não identifica o fabricante. Se o seu aparelho for de uma dessas, confira a consulta abaixo.',
     },
     ja: {
+        'Late shift.': '夜勤お疲れさま。',
+        'Good morning.': 'おはようございます。',
+        'Good afternoon.': 'こんにちは。',
+        'Good evening.': 'こんばんは。',
         'Decode': '解析',
         'MAC / serial': 'MAC・シリアル',
         'Support': 'サポート',
@@ -363,6 +375,10 @@ const I18N = {
         "Its <b>8-character</b> length is common on <b>Lenovo</b> and <b>ASUS</b> — but length alone can't identify a vendor. If your device is one of these, check its lookup below.": '<b>8文字</b>という長さは<b>Lenovo</b>や<b>ASUS</b>でよく見られますが、長さだけではメーカーは特定できません。該当するなら下の照会で確認してください。',
     },
     ru: {
+        'Late shift.': 'Ночная смена.',
+        'Good morning.': 'Доброе утро.',
+        'Good afternoon.': 'Добрый день.',
+        'Good evening.': 'Добрый вечер.',
         'Decode': 'Декодер',
         'MAC / serial': 'MAC / серийный',
         'Support': 'Поддержка',
