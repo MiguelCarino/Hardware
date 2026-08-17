@@ -158,6 +158,9 @@
     .bd-h .tagline{font-size:0.86rem;color:var(--text-muted);line-height:1.55;max-width:640px;}
     .bd-h .price{float:right;font-family:var(--mono);font-size:0.72rem;color:var(--accent);border:1px solid var(--border-glow);border-radius:6px;padding:4px 9px;}
     .specs{padding:8px 18px 16px;display:grid;grid-template-columns:1fr 1fr;gap:0 26px;}
+    /* a profile answers "what shape of machine"; the offline planner prices a
+       whole site. Different questions, so a link rather than a merge. */
+    .bd-see{margin:0;padding:10px 18px 16px;font-family:var(--mono);font-size:0.7rem;}
     @media(max-width:560px){.specs{grid-template-columns:1fr;}}
     .spec{display:grid;grid-template-columns:120px 1fr;gap:10px;padding:11px 0;border-bottom:1px solid var(--border);align-items:start;}
     .spec .sk{font-family:var(--mono);font-size:0.62rem;text-transform:uppercase;letter-spacing:0.04em;color:var(--text-dim);padding-top:2px;}
@@ -673,7 +676,8 @@
       <div class="bd-h"><span class="price">${b.price}</span><div class="icon">${b.icon}</div>
         <h3>${escapeHtml(b.name)}</h3><div class="tagline">${escapeHtml(b.tagline)}</div></div>
       <div class="specs">${b.specs.map(specRow).join('')}</div>
-      ${b.key?`<div class="bd-key"><b>${TT('Prioritise:')}</b> ${escapeHtml(b.key)}</div>`:''}`;
+      ${b.key?`<div class="bd-key"><b>${TT('Prioritise:')}</b> ${escapeHtml(b.key)}</div>`:''}
+      ${b.see&&b.see.url?`<p class="bd-see"><a href="${escapeHtml(b.see.url)}" target="_blank" rel="noopener">${escapeHtml(b.see.label)} →</a></p>`:''}`;
   }
   function renderNav(){
     document.getElementById('buildNav').innerHTML = PROFILES.map(b=>`

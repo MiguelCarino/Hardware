@@ -3,112 +3,485 @@
   "updated": "2026-07",
   "profiles": [
     {
-      "id": "budget", "icon": "💵", "name": "Budget / Everyday", "price": "~$450",
-      "tags": ["budget", "office", "cheap", "school", "web", "everyday", "student"],
+      "id": "budget",
+      "icon": "💵",
+      "name": "Budget / Everyday",
+      "price": "~$450",
+      "tags": [
+        "budget",
+        "office",
+        "cheap",
+        "school",
+        "web",
+        "everyday",
+        "student"
+      ],
       "tagline": "Web, docs, video and light multitasking. Integrated graphics are plenty.",
       "key": "An SSD and dual-channel RAM change how the machine feels far more than the CPU — and both are cheap.",
       "specs": [
-        {"k": "CPU", "v": "4–6 cores, modern efficiency", "eg": [{"t": "Intel Core i3-12100"}, {"t": "Ryzen 5 5600G"}]},
-        {"k": "RAM", "v": "16 GB DDR4", "note": "Dual-channel — two matched sticks, not one (8 GB is the floor)."},
-        {"k": "GPU", "v": "Integrated (iGPU)", "note": "Intel UHD / AMD Radeon — no add-in card needed."},
-        {"k": "Storage", "v": "500 GB NVMe SSD", "note": "Never a mechanical boot drive in the 2020s."},
-        {"k": "PSU", "v": "450 W · 80+ Bronze", "note": "Efficiency tier matters more than raw watts here."}
+        {
+          "k": "CPU",
+          "v": "4–6 cores, modern efficiency",
+          "eg": [
+            {
+              "t": "Intel Core i3-12100"
+            },
+            {
+              "t": "Ryzen 5 5600G"
+            }
+          ]
+        },
+        {
+          "k": "RAM",
+          "v": "16 GB DDR4",
+          "note": "Dual-channel — two matched sticks, not one (8 GB is the floor)."
+        },
+        {
+          "k": "GPU",
+          "v": "Integrated (iGPU)",
+          "note": "Intel UHD / AMD Radeon — no add-in card needed."
+        },
+        {
+          "k": "Storage",
+          "v": "500 GB NVMe SSD",
+          "note": "Never a mechanical boot drive in the 2020s."
+        },
+        {
+          "k": "PSU",
+          "v": "450 W · 80+ Bronze",
+          "note": "Efficiency tier matters more than raw watts here."
+        }
       ]
     },
     {
-      "id": "office", "icon": "🏢", "name": "Business / Office", "price": "~$750",
-      "tags": ["office", "business", "productivity", "work", "general", "fleet"],
+      "id": "office",
+      "icon": "🏢",
+      "name": "Business / Office",
+      "price": "~$750",
+      "tags": [
+        "office",
+        "business",
+        "productivity",
+        "work",
+        "general",
+        "fleet"
+      ],
       "tagline": "Fleet-friendly productivity, video calls, dozens of tabs, remotely manageable.",
       "key": "For fleets, manageability (vPro/DASH) and TPM 2.0 matter more than raw speed.",
       "specs": [
-        {"k": "CPU", "v": "6–8 cores", "eg": [{"t": "Core i5-13500"}, {"t": "Ryzen 5 7600"}]},
-        {"k": "RAM", "v": "16–32 GB", "note": "32 GB if you live in a browser + IDE + a VM or two."},
-        {"k": "GPU", "v": "Integrated", "note": "Discrete only for CAD / light 3D."},
-        {"k": "Storage", "v": "1 TB NVMe (TLC)", "note": "Pair with automated backup, not RAID."},
-        {"k": "Manageability", "v": "TPM 2.0, vPro / DASH", "key": true, "note": "TPM required for Win 11 / BitLocker; vPro adds remote out-of-band control."}
+        {
+          "k": "CPU",
+          "v": "6–8 cores",
+          "eg": [
+            {
+              "t": "Core i5-13500"
+            },
+            {
+              "t": "Ryzen 5 7600"
+            }
+          ]
+        },
+        {
+          "k": "RAM",
+          "v": "16–32 GB",
+          "note": "32 GB if you live in a browser + IDE + a VM or two."
+        },
+        {
+          "k": "GPU",
+          "v": "Integrated",
+          "note": "Discrete only for CAD / light 3D."
+        },
+        {
+          "k": "Storage",
+          "v": "1 TB NVMe (TLC)",
+          "note": "Pair with automated backup, not RAID."
+        },
+        {
+          "k": "Manageability",
+          "v": "TPM 2.0, vPro / DASH",
+          "key": true,
+          "note": "TPM required for Win 11 / BitLocker; vPro adds remote out-of-band control."
+        }
       ]
     },
     {
-      "id": "gaming", "icon": "🎮", "name": "Gaming", "price": "~$1,400",
-      "tags": ["gaming", "game", "fps", "esports", "1440p", "1080p", "stream"],
+      "id": "gaming",
+      "icon": "🎮",
+      "name": "Gaming",
+      "price": "~$1,400",
+      "tags": [
+        "gaming",
+        "game",
+        "fps",
+        "esports",
+        "1440p",
+        "1080p",
+        "stream"
+      ],
       "tagline": "High frame-rates at 1080p / 1440p. The GPU is the star — buy VRAM.",
       "key": "The GPU and its VRAM set your resolution and detail ceiling — spend there first, then the CPU.",
       "specs": [
-        {"k": "CPU", "v": "6–8 high-clock cores", "eg": [{"t": "Ryzen 7 7800X3D", "link": "https://www.amd.com/en/products/processors/desktops/ryzen/7000-series/amd-ryzen-7-7800x3d.html"}, {"t": "Core i5-14600K"}]},
-        {"k": "RAM", "v": "32 GB DDR5-6000", "note": "CL30 kit; 3D V-Cache chips love fast memory."},
-        {"k": "GPU", "v": "12–16 GB VRAM", "key": true, "eg": [{"t": "RTX 4070 Super", "link": "https://www.nvidia.com/en-us/geforce/graphics-cards/40-series/rtx-4070-family/"}, {"t": "RX 7800 XT", "link": "https://www.amd.com/en/products/graphics/desktops/radeon/7000-series/amd-radeon-rx-7800-xt.html"}]},
-        {"k": "Storage", "v": "1–2 TB Gen4 NVMe", "note": "DirectStorage-ready for fast level loads."},
-        {"k": "PSU", "v": "750 W · 80+ Gold", "note": "Headroom for GPU transient spikes."},
-        {"k": "Cooling", "v": "240 mm AIO or large air", "note": "Holds boost clocks under sustained load."}
+        {
+          "k": "CPU",
+          "v": "6–8 high-clock cores",
+          "eg": [
+            {
+              "t": "Ryzen 7 7800X3D",
+              "link": "https://www.amd.com/en/products/processors/desktops/ryzen/7000-series/amd-ryzen-7-7800x3d.html"
+            },
+            {
+              "t": "Core i5-14600K"
+            }
+          ]
+        },
+        {
+          "k": "RAM",
+          "v": "32 GB DDR5-6000",
+          "note": "CL30 kit; 3D V-Cache chips love fast memory."
+        },
+        {
+          "k": "GPU",
+          "v": "12–16 GB VRAM",
+          "key": true,
+          "eg": [
+            {
+              "t": "RTX 4070 Super",
+              "link": "https://www.nvidia.com/en-us/geforce/graphics-cards/40-series/rtx-4070-family/"
+            },
+            {
+              "t": "RX 7800 XT",
+              "link": "https://www.amd.com/en/products/graphics/desktops/radeon/7000-series/amd-radeon-rx-7800-xt.html"
+            }
+          ]
+        },
+        {
+          "k": "Storage",
+          "v": "1–2 TB Gen4 NVMe",
+          "note": "DirectStorage-ready for fast level loads."
+        },
+        {
+          "k": "PSU",
+          "v": "750 W · 80+ Gold",
+          "note": "Headroom for GPU transient spikes."
+        },
+        {
+          "k": "Cooling",
+          "v": "240 mm AIO or large air",
+          "note": "Holds boost clocks under sustained load."
+        }
       ]
     },
     {
-      "id": "content", "icon": "🎬", "name": "Content Creation", "price": "~$2,200",
-      "tags": ["content", "video", "editing", "render", "photo", "3d", "creator", "blender", "premiere", "davinci"],
+      "id": "content",
+      "icon": "🎬",
+      "name": "Content Creation",
+      "price": "~$2,200",
+      "tags": [
+        "content",
+        "video",
+        "editing",
+        "render",
+        "photo",
+        "3d",
+        "creator",
+        "blender",
+        "premiere",
+        "davinci"
+      ],
       "tagline": "4K editing, rendering, photo & 3D. Cores, VRAM and fast scratch storage.",
       "key": "Cores shorten renders, VRAM enables effects and resolution, and a calibrated display keeps color honest.",
       "specs": [
-        {"k": "CPU", "v": "12–16 cores", "eg": [{"t": "Ryzen 9 7900X"}, {"t": "Core i7-14700K"}]},
-        {"k": "RAM", "v": "64 GB", "key": true, "note": "Timelines, layers and 3D scenes eat memory fast."},
-        {"k": "GPU", "v": "16 GB+ VRAM, NVENC / AV1", "eg": [{"t": "RTX 4070 Ti Super", "link": "https://www.nvidia.com/en-us/geforce/graphics-cards/40-series/"}], "note": "Hardware encode/decode slashes export times."},
-        {"k": "Storage", "v": "2 TB Gen4 NVMe + bulk HDD/NAS", "note": "Fast scratch/cache drive + cheap archive."},
-        {"k": "Display", "v": "Color-accurate, ≥99% sRGB", "note": "Calibrated IPS/OLED; DCI-P3 for HDR grading."},
-        {"k": "PSU", "v": "850 W · 80+ Gold", "note": "Stable through long renders."}
+        {
+          "k": "CPU",
+          "v": "12–16 cores",
+          "eg": [
+            {
+              "t": "Ryzen 9 7900X"
+            },
+            {
+              "t": "Core i7-14700K"
+            }
+          ]
+        },
+        {
+          "k": "RAM",
+          "v": "64 GB",
+          "key": true,
+          "note": "Timelines, layers and 3D scenes eat memory fast."
+        },
+        {
+          "k": "GPU",
+          "v": "16 GB+ VRAM, NVENC / AV1",
+          "eg": [
+            {
+              "t": "RTX 4070 Ti Super",
+              "link": "https://www.nvidia.com/en-us/geforce/graphics-cards/40-series/"
+            }
+          ],
+          "note": "Hardware encode/decode slashes export times."
+        },
+        {
+          "k": "Storage",
+          "v": "2 TB Gen4 NVMe + bulk HDD/NAS",
+          "note": "Fast scratch/cache drive + cheap archive."
+        },
+        {
+          "k": "Display",
+          "v": "Color-accurate, ≥99% sRGB",
+          "note": "Calibrated IPS/OLED; DCI-P3 for HDR grading."
+        },
+        {
+          "k": "PSU",
+          "v": "850 W · 80+ Gold",
+          "note": "Stable through long renders."
+        }
       ]
     },
     {
-      "id": "enthusiast", "icon": "🚀", "name": "Enthusiast / Halo", "price": "~$3,500",
-      "tags": ["enthusiast", "4k", "high-end", "overclock", "flagship", "max"],
+      "id": "enthusiast",
+      "icon": "🚀",
+      "name": "Enthusiast / Halo",
+      "price": "~$3,500",
+      "tags": [
+        "enthusiast",
+        "4k",
+        "high-end",
+        "overclock",
+        "flagship",
+        "max"
+      ],
       "tagline": "No-compromise 4K, overclocking, everything maxed.",
       "key": "No bottlenecks: flagship GPU, top CPU, fast tuned memory, and cooling that never throttles.",
       "specs": [
-        {"k": "CPU", "v": "16 cores, top-bin", "eg": [{"t": "Ryzen 9 7950X3D"}, {"t": "Core i9-14900K"}]},
-        {"k": "RAM", "v": "64 GB DDR5-6000 CL30", "note": "EXPO / XMP tuned."},
-        {"k": "GPU", "v": "24 GB VRAM flagship", "key": true, "eg": [{"t": "RTX 4090", "link": "https://www.nvidia.com/en-us/geforce/graphics-cards/40-series/rtx-4090/"}, {"t": "RX 7900 XTX", "link": "https://www.amd.com/en/products/graphics/desktops/radeon/7000-series/amd-radeon-rx-7900-xtx.html"}]},
-        {"k": "Storage", "v": "2 TB Gen5 NVMe", "note": "~12 GB/s sequential."},
-        {"k": "PSU", "v": "1000 W · 80+ Platinum, ATX 3.0", "note": "Native 12VHPWR connector."},
-        {"k": "Cooling", "v": "360 mm AIO / custom loop", "note": "Quiet at full tilt."}
+        {
+          "k": "CPU",
+          "v": "16 cores, top-bin",
+          "eg": [
+            {
+              "t": "Ryzen 9 7950X3D"
+            },
+            {
+              "t": "Core i9-14900K"
+            }
+          ]
+        },
+        {
+          "k": "RAM",
+          "v": "64 GB DDR5-6000 CL30",
+          "note": "EXPO / XMP tuned."
+        },
+        {
+          "k": "GPU",
+          "v": "24 GB VRAM flagship",
+          "key": true,
+          "eg": [
+            {
+              "t": "RTX 4090",
+              "link": "https://www.nvidia.com/en-us/geforce/graphics-cards/40-series/rtx-4090/"
+            },
+            {
+              "t": "RX 7900 XTX",
+              "link": "https://www.amd.com/en/products/graphics/desktops/radeon/7000-series/amd-radeon-rx-7900-xtx.html"
+            }
+          ]
+        },
+        {
+          "k": "Storage",
+          "v": "2 TB Gen5 NVMe",
+          "note": "~12 GB/s sequential."
+        },
+        {
+          "k": "PSU",
+          "v": "1000 W · 80+ Platinum, ATX 3.0",
+          "note": "Native 12VHPWR connector."
+        },
+        {
+          "k": "Cooling",
+          "v": "360 mm AIO / custom loop",
+          "note": "Quiet at full tilt."
+        }
       ]
     },
     {
-      "id": "server", "icon": "🗄️", "name": "Home Lab / Server", "price": "~$1,000+",
-      "tags": ["server", "homelab", "nas", "proxmox", "truenas", "virtualization", "vm", "zfs", "24/7"],
+      "id": "server",
+      "icon": "🗄️",
+      "name": "Home Lab / Server",
+      "price": "~$1,000+",
+      "tags": [
+        "server",
+        "homelab",
+        "nas",
+        "proxmox",
+        "truenas",
+        "virtualization",
+        "vm",
+        "zfs",
+        "24/7"
+      ],
       "tagline": "VMs, containers, NAS, 24/7 uptime. Prioritise ECC, PCIe lanes and I/O.",
       "key": "ECC memory and out-of-band management (IPMI) matter more than peak speed for anything that runs unattended.",
       "specs": [
-        {"k": "CPU", "v": "Many cores, low idle draw", "eg": [{"t": "Xeon E / Scalable"}, {"t": "EPYC"}, {"t": "Ryzen w/ ECC"}]},
-        {"k": "RAM", "v": "ECC, 32–128 GB", "key": true, "note": "Error-correcting — essential for ZFS and long uptime."},
-        {"k": "Board", "v": "IPMI/BMC, ≥6 SATA, 2× M.2", "note": "Out-of-band mgmt + drive bays + PCIe lanes."},
-        {"k": "Storage", "v": "SSD boot/cache + HDD pool", "note": "Redundant ZFS vdevs; HBA in IT mode."},
-        {"k": "Network", "v": "2.5 / 10 GbE", "note": "Intel NIC preferred for driver stability."},
-        {"k": "PSU", "v": "Efficient, ideally redundant", "note": "Sized for spin-up surge."}
-      ]
+        {
+          "k": "CPU",
+          "v": "Many cores, low idle draw",
+          "eg": [
+            {
+              "t": "Xeon E / Scalable"
+            },
+            {
+              "t": "EPYC"
+            },
+            {
+              "t": "Ryzen w/ ECC"
+            }
+          ]
+        },
+        {
+          "k": "RAM",
+          "v": "ECC, 32–128 GB",
+          "key": true,
+          "note": "Error-correcting — essential for ZFS and long uptime."
+        },
+        {
+          "k": "Board",
+          "v": "IPMI/BMC, ≥6 SATA, 2× M.2",
+          "note": "Out-of-band mgmt + drive bays + PCIe lanes."
+        },
+        {
+          "k": "Storage",
+          "v": "SSD boot/cache + HDD pool",
+          "note": "Redundant ZFS vdevs; HBA in IT mode."
+        },
+        {
+          "k": "Network",
+          "v": "2.5 / 10 GbE",
+          "note": "Intel NIC preferred for driver stability."
+        },
+        {
+          "k": "PSU",
+          "v": "Efficient, ideally redundant",
+          "note": "Sized for spin-up surge."
+        }
+      ],
+      "see": {
+        "label": "What a whole offline site costs — priced BOM in three tiers",
+        "url": "https://offline.carino.systems/#iron"
+      }
     },
     {
-      "id": "ai", "icon": "🧠", "name": "Local AI / LLM", "price": "~$2,000+",
-      "tags": ["ai", "llm", "ml", "inference", "stable diffusion", "gpu", "vram", "cuda", "training", "pytorch", "32gb", "24gb"],
+      "id": "ai",
+      "icon": "🧠",
+      "name": "Local AI / LLM",
+      "price": "~$2,000+",
+      "tags": [
+        "ai",
+        "llm",
+        "ml",
+        "inference",
+        "stable diffusion",
+        "gpu",
+        "vram",
+        "cuda",
+        "training",
+        "pytorch",
+        "32gb",
+        "24gb"
+      ],
       "tagline": "Running models locally. VRAM (or unified memory) is everything — it caps model size.",
       "key": "VRAM — or Apple unified memory — is the whole game: it sets the largest model you can run. Everything else is secondary.",
       "specs": [
-        {"k": "GPU VRAM", "v": "24 GB+ is the real spec", "key": true, "eg": [{"t": "RTX 3090 (24 GB)"}, {"t": "RTX 4090 (24 GB)", "link": "https://www.nvidia.com/en-us/geforce/graphics-cards/40-series/rtx-4090/"}, {"t": "2× for 48 GB"}], "note": "VRAM caps the model size you can load; overflow to system RAM is drastically slower."},
-        {"k": "Alt: Apple Silicon", "v": "Unified memory ≥ 64 GB", "eg": [{"t": "M-series 64–192 GB", "link": "https://www.apple.com/mac/"}], "note": "Shared RAM runs large models without a discrete GPU."},
-        {"k": "System RAM", "v": "≥ 2× VRAM (64–128 GB)", "note": "For CPU offload and dataset staging."},
-        {"k": "CPU", "v": "8+ cores", "note": "Feeds the GPU; rarely the inference bottleneck."},
-        {"k": "Storage", "v": "2 TB+ fast NVMe", "note": "Model weights are huge — a 70B model ≈ 40–140 GB."},
-        {"k": "PSU / Cooling", "v": "Sized for sustained 100% GPU", "note": "≈ 450 W per high-end GPU + headroom."}
+        {
+          "k": "GPU VRAM",
+          "v": "24 GB+ is the real spec",
+          "key": true,
+          "eg": [
+            {
+              "t": "RTX 3090 (24 GB)"
+            },
+            {
+              "t": "RTX 4090 (24 GB)",
+              "link": "https://www.nvidia.com/en-us/geforce/graphics-cards/40-series/rtx-4090/"
+            },
+            {
+              "t": "2× for 48 GB"
+            }
+          ],
+          "note": "VRAM caps the model size you can load; overflow to system RAM is drastically slower."
+        },
+        {
+          "k": "Alt: Apple Silicon",
+          "v": "Unified memory ≥ 64 GB",
+          "eg": [
+            {
+              "t": "M-series 64–192 GB",
+              "link": "https://www.apple.com/mac/"
+            }
+          ],
+          "note": "Shared RAM runs large models without a discrete GPU."
+        },
+        {
+          "k": "System RAM",
+          "v": "≥ 2× VRAM (64–128 GB)",
+          "note": "For CPU offload and dataset staging."
+        },
+        {
+          "k": "CPU",
+          "v": "8+ cores",
+          "note": "Feeds the GPU; rarely the inference bottleneck."
+        },
+        {
+          "k": "Storage",
+          "v": "2 TB+ fast NVMe",
+          "note": "Model weights are huge — a 70B model ≈ 40–140 GB."
+        },
+        {
+          "k": "PSU / Cooling",
+          "v": "Sized for sustained 100% GPU",
+          "note": "≈ 450 W per high-end GPU + headroom."
+        }
       ]
     }
   ],
   "glossary": [
-    ["Cores vs clock", "<b>Cores</b> = parallel jobs (rendering, VMs, compiling). <b>Clock/IPC</b> = speed of one job (most games, single-thread apps). Games want fewer fast cores; creation wants many."],
-    ["VRAM", "GPU memory. It <b>caps</b> what fits: texture detail, resolution, and — critically — the size of an AI model you can run. When it overflows, performance falls off a cliff."],
-    ["DDR4 vs DDR5", "DDR5 has more bandwidth and higher clocks; DDR4 is cheaper and mature. Always run <b>dual-channel</b> (matched pair) — a single stick halves memory bandwidth."],
-    ["ECC memory", "Error-correcting RAM catches bit-flips in flight. Overkill for gaming, <b>essential</b> for servers, ZFS storage, and anything running unattended for months."],
-    ["NVMe Gen3/4/5", "PCIe SSD generations: Gen3 ≈ 3.5 GB/s, Gen4 ≈ 7 GB/s, Gen5 ≈ 12 GB/s. Real-world app launches barely differ; big sequential copies and DirectStorage benefit."],
-    ["TLC vs QLC / DRAM cache", "<b>TLC</b> endures more writes than <b>QLC</b>; a DRAM cache keeps speed up under sustained load. For a boot/scratch drive, prefer TLC-with-DRAM over cheap DRAM-less QLC."],
-    ["PSU 80+ rating", "Efficiency tier (Bronze→Titanium) — less wasted heat. Size for <b>peak GPU transients</b> (can briefly 2× rated draw); ATX 3.0 handles 12VHPWR spikes natively."],
-    ["TDP / cooling", "Thermal Design Power ≈ heat to dissipate. Under-cooled chips <b>throttle</b> and lose the performance you paid for. Match cooler to sustained, not rated, load."],
-    ["iGPU vs dGPU", "Integrated graphics share system RAM — fine for desktop, media, light gaming. A discrete card has its own VRAM and is required for serious gaming, 3D, and AI."],
-    ["TPM 2.0 / vPro", "TPM 2.0 is a security chip (required by Windows 11, BitLocker). <b>vPro/DASH</b> add remote out-of-band management — matters for fleets, not home users."]
+    [
+      "Cores vs clock",
+      "<b>Cores</b> = parallel jobs (rendering, VMs, compiling). <b>Clock/IPC</b> = speed of one job (most games, single-thread apps). Games want fewer fast cores; creation wants many."
+    ],
+    [
+      "VRAM",
+      "GPU memory. It <b>caps</b> what fits: texture detail, resolution, and — critically — the size of an AI model you can run. When it overflows, performance falls off a cliff."
+    ],
+    [
+      "DDR4 vs DDR5",
+      "DDR5 has more bandwidth and higher clocks; DDR4 is cheaper and mature. Always run <b>dual-channel</b> (matched pair) — a single stick halves memory bandwidth."
+    ],
+    [
+      "ECC memory",
+      "Error-correcting RAM catches bit-flips in flight. Overkill for gaming, <b>essential</b> for servers, ZFS storage, and anything running unattended for months."
+    ],
+    [
+      "NVMe Gen3/4/5",
+      "PCIe SSD generations: Gen3 ≈ 3.5 GB/s, Gen4 ≈ 7 GB/s, Gen5 ≈ 12 GB/s. Real-world app launches barely differ; big sequential copies and DirectStorage benefit."
+    ],
+    [
+      "TLC vs QLC / DRAM cache",
+      "<b>TLC</b> endures more writes than <b>QLC</b>; a DRAM cache keeps speed up under sustained load. For a boot/scratch drive, prefer TLC-with-DRAM over cheap DRAM-less QLC."
+    ],
+    [
+      "PSU 80+ rating",
+      "Efficiency tier (Bronze→Titanium) — less wasted heat. Size for <b>peak GPU transients</b> (can briefly 2× rated draw); ATX 3.0 handles 12VHPWR spikes natively."
+    ],
+    [
+      "TDP / cooling",
+      "Thermal Design Power ≈ heat to dissipate. Under-cooled chips <b>throttle</b> and lose the performance you paid for. Match cooler to sustained, not rated, load."
+    ],
+    [
+      "iGPU vs dGPU",
+      "Integrated graphics share system RAM — fine for desktop, media, light gaming. A discrete card has its own VRAM and is required for serious gaming, 3D, and AI."
+    ],
+    [
+      "TPM 2.0 / vPro",
+      "TPM 2.0 is a security chip (required by Windows 11, BitLocker). <b>vPro/DASH</b> add remote out-of-band management — matters for fleets, not home users."
+    ]
   ]
 }
