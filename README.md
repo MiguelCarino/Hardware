@@ -2,6 +2,8 @@
 
 A client-side hardware reference → **[hardware.carino.systems](https://hardware.carino.systems)**
 
+![Carino Hardware](screenshot.webp)
+
 One page for a few everyday hardware questions: *what is this MAC address?*, *whose
 serial / service tag is this?*, *where do I get support/warranty for this brand?*, and
 *what specs should this machine actually have?* Everything runs in the browser — nothing
@@ -116,6 +118,8 @@ branding with the rest of carino.systems.
 - Warranty status must be confirmed on the manufacturer's official site; deep-links may
   change over time.
 - Build prices are rough new-build ballparks and move constantly.
+
+**Related tools:** [Ping](https://ping.carino.systems/) · [Topo](https://topo.carino.systems/) · [Netplan](https://netplan.carino.systems/)
 
 ## Licensing
 
