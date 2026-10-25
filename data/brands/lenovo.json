@@ -1,0 +1,36 @@
+{
+  "id": "lenovo",
+  "name": "Lenovo",
+  "cat": "Laptop · Desktop · Server",
+  "kinds": [
+    "laptop",
+    "desktop",
+    "server"
+  ],
+  "color": "#e2231a",
+  "keywords": [
+    "lenovo",
+    "thinkpad",
+    "ideapad",
+    "legion",
+    "thinkcentre",
+    "thinksystem"
+  ],
+  "url": "https://support.lenovo.com/",
+  "links": [
+    {
+      "label": "Warranty Lookup",
+      "url": "https://pcsupport.lenovo.com/us/en/warranty-lookup",
+      "warranty": true
+    },
+    {
+      "label": "Drivers",
+      "url": "https://pcsupport.lenovo.com/us/en/"
+    },
+    {
+      "label": "Support",
+      "url": "https://support.lenovo.com/"
+    }
+  ],
+  "updated": "2026-10"
+}

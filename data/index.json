@@ -1,0 +1,30 @@
+{
+  "updated": "2026-10",
+  "note": "Order here is the order brands appear on the site. Each entry is a file in data/brands/. Adding a brand = one JSON file plus one line here. url is the support home the card cites as its source; updated is the month its links were last checked.",
+  "brands": [
+    "apple",
+    "dell",
+    "hp",
+    "hpe",
+    "lenovo",
+    "asus",
+    "acer",
+    "msi",
+    "gigabyte",
+    "microsoft",
+    "framework",
+    "samsung",
+    "lg",
+    "razer",
+    "sony",
+    "intel",
+    "amd",
+    "nvidia",
+    "toshiba",
+    "huawei",
+    "raspberry-pi",
+    "system76",
+    "valve",
+    "ubiquiti"
+  ]
+}

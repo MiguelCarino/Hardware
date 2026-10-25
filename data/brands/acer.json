@@ -1,0 +1,34 @@
+{
+  "id": "acer",
+  "name": "Acer",
+  "cat": "Laptop · Desktop · Monitor",
+  "kinds": [
+    "laptop",
+    "desktop"
+  ],
+  "color": "#83b81a",
+  "keywords": [
+    "acer",
+    "aspire",
+    "predator",
+    "swift",
+    "nitro"
+  ],
+  "url": "https://www.acer.com/us-en/support",
+  "links": [
+    {
+      "label": "Warranty",
+      "url": "https://www.acer.com/us-en/support/warranty-info",
+      "warranty": true
+    },
+    {
+      "label": "Drivers",
+      "url": "https://www.acer.com/us-en/support/drivers-and-manuals"
+    },
+    {
+      "label": "Support",
+      "url": "https://www.acer.com/us-en/support"
+    }
+  ],
+  "updated": "2026-10"
+}

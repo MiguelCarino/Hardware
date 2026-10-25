@@ -1,0 +1,30 @@
+{
+  "id": "apple",
+  "name": "Apple",
+  "cat": "Laptop · Phone · Tablet",
+  "kinds": [
+    "laptop",
+    "phone"
+  ],
+  "color": "#a1a1a6",
+  "keywords": [
+    "apple",
+    "macbook",
+    "iphone",
+    "ipad",
+    "mac"
+  ],
+  "url": "https://support.apple.com/",
+  "links": [
+    {
+      "label": "Warranty / Coverage",
+      "url": "https://checkcoverage.apple.com/",
+      "warranty": true
+    },
+    {
+      "label": "Support",
+      "url": "https://support.apple.com/"
+    }
+  ],
+  "updated": "2026-10"
+}

@@ -1,0 +1,32 @@
+{
+  "id": "microsoft",
+  "name": "Microsoft",
+  "cat": "Surface · Xbox",
+  "kinds": [
+    "laptop",
+    "console"
+  ],
+  "color": "#0067b8",
+  "keywords": [
+    "microsoft",
+    "surface",
+    "xbox"
+  ],
+  "url": "https://support.microsoft.com/",
+  "links": [
+    {
+      "label": "Warranty & Service",
+      "url": "https://account.microsoft.com/devices",
+      "warranty": true
+    },
+    {
+      "label": "Drivers",
+      "url": "https://www.microsoft.com/en-us/download/"
+    },
+    {
+      "label": "Support",
+      "url": "https://support.microsoft.com/"
+    }
+  ],
+  "updated": "2026-10"
+}

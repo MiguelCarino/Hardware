@@ -9,17 +9,16 @@ serial / service tag is this?*, *where do I get support/warranty for this brand?
 *what specs should this machine actually have?* Everything runs in the browser — nothing
 is uploaded.
 
-The single search bar auto-detects what you paste — a **MAC**, a **serial / service
-tag**, or free text — and routes it accordingly.
+The page opens on the **support directory**: a hero with the brand count and the month
+the links were last checked, a sticky bar of facet chips (*Kind*, *Warranty lookup*), and
+one card per brand, each ending in its source line. The page scrolls normally. The four
+section tabs (*Support · Decode · Builds · Glossary*) live in the **shared Carino navbar**
+(`carino-navbar.js` relocates the `[data-carino-actions]` strip) and are linkable as
+`#support`, `#decoder`, `#builds`, `#glossary`.
 
-The layout is a **single-screen tabbed app**: the page itself never scrolls. The four
-section tabs (*Decode · Support · Builds · Glossary*) live in the **shared Carino navbar**
-— `carino-navbar.js` relocates the `[data-carino-actions]` tab strip into its right-hand
-cluster, so the top bar is the whole chrome. Below it sit a **section description** and
-the search bar, then one content panel that fills the viewport; only a genuinely long list
-(the brand grid) scrolls *inside* its own panel. The description above the search updates
-per section. Typing a MAC or serial jumps to **Decode**; searching a brand or spec name
-jumps to whichever directory matches.
+**Decode** is the tool part. Its one input auto-detects what you paste — a **MAC**, a
+**serial / service tag**, or a brand or product line ("thinkpad"), which answers with
+that maker's support card.
 
 ## What a MAC address tells you (and what it doesn't)
 
@@ -81,7 +80,17 @@ A filterable grid of major hardware brands (Apple, Dell, HP/HPE, Lenovo, ASUS, A
 MSI, Gigabyte, Microsoft, Framework, Samsung, LG, Razer, Sony, Intel, AMD, NVIDIA,
 Toshiba/Dynabook, Huawei, Raspberry Pi, System76, Valve, Ubiquiti). Each card deep-links
 to that brand's **warranty check**, **drivers/BIOS downloads**, and **support portal**.
-Type a brand or product line in the search bar to filter.
+Filter with the chips; each card's source line names the support site and the month its
+links were checked.
+
+The directory is data, one file per brand: `data/index.json` (order + global `updated`)
+and `data/brands/<id>.json` (`name`, `cat`, `kinds`, `color`, `keywords`, `url`, `links`,
+`updated`). Check it before committing:
+
+```
+python3 tools/validate.py      # schema and vocabulary, brands + builds.json
+python3 tools/linkcheck.py     # fetch every link; BLOCKED (bot walls) is not a failure
+```
 
 ## Build specs by what you do
 
@@ -95,8 +104,7 @@ term and when it's worth paying for more.
 The layout is **master/detail** — the tier list sits on the left and the selected build
 loads on the right — so it stops wasting horizontal space. All profiles live in
 [`builds.json`](builds.json); edit that file to change specs, add a tier, or attach a
-`link` to a specific model (model chips with a link become clickable). The search bar
-also filters the tier list live.
+`link` to a specific model (model chips with a link become clickable).
 
 Because example parts and prices age fast, `builds.json` carries an `updated` field
 (`YYYY-MM`) that the page renders as a visible **"Example parts reviewed \<date\> —

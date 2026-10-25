@@ -1,0 +1,33 @@
+{
+  "id": "amd",
+  "name": "AMD",
+  "cat": "CPU · GPU · Chipset",
+  "kinds": [
+    "components"
+  ],
+  "color": "#ed1c24",
+  "keywords": [
+    "amd",
+    "ryzen",
+    "radeon",
+    "epyc",
+    "threadripper"
+  ],
+  "url": "https://www.amd.com/en/support",
+  "links": [
+    {
+      "label": "Warranty",
+      "url": "https://www.amd.com/en/support/warranty.html",
+      "warranty": true
+    },
+    {
+      "label": "Drivers",
+      "url": "https://www.amd.com/en/support"
+    },
+    {
+      "label": "Support",
+      "url": "https://www.amd.com/en/support"
+    }
+  ],
+  "updated": "2026-10"
+}

@@ -1,0 +1,33 @@
+{
+  "id": "samsung",
+  "name": "Samsung",
+  "cat": "Phone · Laptop · Display",
+  "kinds": [
+    "phone",
+    "laptop"
+  ],
+  "color": "#1428a0",
+  "keywords": [
+    "samsung",
+    "galaxy",
+    "odyssey",
+    "book"
+  ],
+  "url": "https://www.samsung.com/us/support/",
+  "links": [
+    {
+      "label": "Warranty",
+      "url": "https://www.samsung.com/us/support/warranty/",
+      "warranty": true
+    },
+    {
+      "label": "Downloads",
+      "url": "https://www.samsung.com/us/support/downloads/"
+    },
+    {
+      "label": "Support",
+      "url": "https://www.samsung.com/us/support/"
+    }
+  ],
+  "updated": "2026-10"
+}

@@ -1,0 +1,37 @@
+{
+  "id": "hp",
+  "name": "HP",
+  "cat": "Laptop · Desktop · Printer",
+  "kinds": [
+    "laptop",
+    "desktop",
+    "printer"
+  ],
+  "color": "#0096d6",
+  "keywords": [
+    "hp",
+    "hewlett",
+    "packard",
+    "elitebook",
+    "pavilion",
+    "omen",
+    "probook"
+  ],
+  "url": "https://support.hp.com/",
+  "links": [
+    {
+      "label": "Warranty Check",
+      "url": "https://support.hp.com/us-en/check-warranty",
+      "warranty": true
+    },
+    {
+      "label": "Drivers",
+      "url": "https://support.hp.com/us-en/drivers"
+    },
+    {
+      "label": "Support",
+      "url": "https://support.hp.com/"
+    }
+  ],
+  "updated": "2026-10"
+}

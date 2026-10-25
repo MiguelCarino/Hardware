@@ -1,0 +1,32 @@
+{
+  "id": "lg",
+  "name": "LG",
+  "cat": "Laptop · Monitor · TV",
+  "kinds": [
+    "laptop"
+  ],
+  "color": "#a50034",
+  "keywords": [
+    "lg",
+    "gram",
+    "ultragear",
+    "ultrafine"
+  ],
+  "url": "https://www.lg.com/us/support",
+  "links": [
+    {
+      "label": "Warranty",
+      "url": "https://www.lg.com/us/support/warranty",
+      "warranty": true
+    },
+    {
+      "label": "Software & Drivers",
+      "url": "https://www.lg.com/us/support/software-firmware-drivers"
+    },
+    {
+      "label": "Support",
+      "url": "https://www.lg.com/us/support"
+    }
+  ],
+  "updated": "2026-10"
+}

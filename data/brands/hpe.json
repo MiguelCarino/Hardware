@@ -1,0 +1,30 @@
+{
+  "id": "hpe",
+  "name": "HPE",
+  "cat": "Server · Storage · Network",
+  "kinds": [
+    "server",
+    "network"
+  ],
+  "color": "#01a982",
+  "keywords": [
+    "hpe",
+    "proliant",
+    "aruba",
+    "nimble",
+    "enterprise"
+  ],
+  "url": "https://support.hpe.com/hpesc/public/home",
+  "links": [
+    {
+      "label": "Warranty",
+      "url": "https://support.hpe.com/hpesc/public/home/warrantyLookup",
+      "warranty": true
+    },
+    {
+      "label": "Support Center",
+      "url": "https://support.hpe.com/hpesc/public/home"
+    }
+  ],
+  "updated": "2026-10"
+}

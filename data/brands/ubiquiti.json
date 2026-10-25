@@ -1,0 +1,27 @@
+{
+  "id": "ubiquiti",
+  "name": "Ubiquiti",
+  "cat": "Network · WiFi",
+  "kinds": [
+    "network"
+  ],
+  "color": "#0559c9",
+  "keywords": [
+    "ubiquiti",
+    "unifi",
+    "ubnt",
+    "edgerouter"
+  ],
+  "url": "https://help.ui.com/hc/en-us",
+  "links": [
+    {
+      "label": "Downloads",
+      "url": "https://ui.com/download"
+    },
+    {
+      "label": "Support",
+      "url": "https://help.ui.com/hc/en-us"
+    }
+  ],
+  "updated": "2026-10"
+}

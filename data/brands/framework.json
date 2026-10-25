@@ -1,0 +1,31 @@
+{
+  "id": "framework",
+  "name": "Framework",
+  "cat": "Repairable laptop",
+  "kinds": [
+    "laptop"
+  ],
+  "color": "#f26522",
+  "keywords": [
+    "framework",
+    "repairable",
+    "modular"
+  ],
+  "url": "https://frame.work/support",
+  "links": [
+    {
+      "label": "Support & Warranty",
+      "url": "https://frame.work/support",
+      "warranty": true
+    },
+    {
+      "label": "Guides",
+      "url": "https://guides.frame.work/"
+    },
+    {
+      "label": "BIOS/Drivers",
+      "url": "https://knowledgebase.frame.work/"
+    }
+  ],
+  "updated": "2026-10"
+}

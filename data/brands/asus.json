@@ -1,0 +1,35 @@
+{
+  "id": "asus",
+  "name": "ASUS",
+  "cat": "Laptop · Motherboard · GPU",
+  "kinds": [
+    "laptop",
+    "components"
+  ],
+  "color": "#00539b",
+  "keywords": [
+    "asus",
+    "asustek",
+    "rog",
+    "zenbook",
+    "tuf",
+    "vivobook"
+  ],
+  "url": "https://www.asus.com/support/",
+  "links": [
+    {
+      "label": "Warranty Status",
+      "url": "https://www.asus.com/support/warranty-status-inquiry/",
+      "warranty": true
+    },
+    {
+      "label": "Downloads",
+      "url": "https://www.asus.com/support/download-center/"
+    },
+    {
+      "label": "Support",
+      "url": "https://www.asus.com/support/"
+    }
+  ],
+  "updated": "2026-10"
+}

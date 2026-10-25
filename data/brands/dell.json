@@ -1,0 +1,35 @@
+{
+  "id": "dell",
+  "name": "Dell",
+  "cat": "Laptop · Desktop · Server",
+  "kinds": [
+    "laptop",
+    "desktop",
+    "server"
+  ],
+  "color": "#007db8",
+  "keywords": [
+    "dell",
+    "xps",
+    "latitude",
+    "poweredge",
+    "alienware"
+  ],
+  "url": "https://www.dell.com/support/",
+  "links": [
+    {
+      "label": "Warranty (Service Tag)",
+      "url": "https://www.dell.com/support/home/en-us?app=warranty",
+      "warranty": true
+    },
+    {
+      "label": "Drivers",
+      "url": "https://www.dell.com/support/home/en-us?app=drivers"
+    },
+    {
+      "label": "Support",
+      "url": "https://www.dell.com/support/"
+    }
+  ],
+  "updated": "2026-10"
+}

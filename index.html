@@ -29,77 +29,63 @@
   <!-- /carino:head -->
 
   <link rel="stylesheet" href="fonts/carino-fonts.css">
+  <link rel="stylesheet" href="carino-ui.css">
 
   <style>
+    /* Tokens, base and the shared components (.landing-hero, .fchips,
+       .card.entry, .src-line, .short-hero, .privacy-line, .site-foot, .alert)
+       come from carino-ui.css, linked above. Only Hardware's extras here. */
     :root{
-      --accent:#eab308; --accent-faint:rgba(234,179,8,0.05); --accent-glow:rgba(234,179,8,0.15);
       --primary-hover:#fbbf24;
-      --bg-body:#050505; --bg-elev:#0d0d0d; --bg-card:#0b0b0b;
-      --text-main:#fff; --text-muted:#a3a3a3; --text-dim:#666;
-      --border:#262626; --border-glow:rgba(234,179,8,0.3);
-      --ok:#22c55e; --danger:#ef4444; --warn:#eab308; --info:#38bdf8;
-      --sans:'IBM Plex Sans',system-ui,-apple-system,sans-serif;
-      --mono:'IBM Plex Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
-      --display:'Red Hat Display',var(--sans);
+      --border-glow:rgba(234,179,8,0.3);
     }
-    *{box-sizing:border-box;}
-    html,body{height:100%;}
-    html{overflow:hidden;}
-    body{font-family:var(--sans);margin:0;background:var(--bg-body);color:var(--text-main);
-      height:100dvh;display:flex;flex-direction:column;overflow:hidden;
-      background-image:radial-gradient(1200px 500px at 50% -8%,rgba(234,179,8,0.05),transparent 70%);}
-    a{color:var(--accent);text-decoration:none;}
+    a{text-decoration:none;}
     a:hover{color:var(--primary-hover);}
     button{font-family:inherit;}
 
-    /* the app fills whatever the navbar leaves; nothing here ever scrolls the page */
-    .wrap{flex:1;min-height:0;max-width:1180px;width:100%;margin:0 auto;padding:14px 20px 8px;
-      display:flex;flex-direction:column;overflow:hidden;}
+    /* the page scrolls; each panel is a normal block in it */
+    .wrap{max-width:1180px;width:100%;margin:0 auto;padding:14px 20px 8px;}
+    @media(max-width:640px){.wrap{padding:12px 12px 8px;}}
 
-    /* ── APP BAR: section header + search ── */
-    .appbar{flex-shrink:0;display:flex;flex-direction:column;gap:12px;}
+    /* ── SECTION HEADER (Builds and Glossary) ── */
+    .appbar{display:flex;flex-direction:column;gap:12px;margin-bottom:14px;}
     .app-intro{display:flex;flex-direction:column;gap:3px;}
     .app-eyebrow{font-family:var(--mono);font-size:0.6rem;font-weight:700;letter-spacing:0.16em;
       text-transform:uppercase;color:var(--accent);}
     .app-title{margin:0;font-family:var(--display);font-weight:900;font-size:1.85rem;line-height:1.05;
       background:linear-gradient(130deg,#fef08a 0%,#eab308 48%,#b45309 100%);
       -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
-    .app-desc{margin:1px 0 0;color:var(--text-muted);font-size:0.86rem;line-height:1.5;max-width:820px;}
-    .app-desc b{color:var(--text-main);}
+    .app-desc{margin:1px 0 0;color:var(--text-sec);font-size:0.86rem;line-height:1.5;max-width:820px;}
+    .app-desc b{color:var(--text);}
     @media(max-width:640px){.app-title{font-size:1.5rem;}.app-desc{font-size:0.8rem;}}
-    .searchbox{position:relative;width:100%;}
-    .searchbox svg{position:absolute;left:15px;top:50%;transform:translateY(-50%);width:18px;height:18px;color:var(--text-dim);pointer-events:none;}
-    #q{width:100%;background:var(--bg-elev);border:1px solid var(--border);border-radius:11px;color:var(--text-main);
-      font-family:var(--mono);font-size:0.95rem;padding:12px 15px 12px 44px;transition:0.15s;}
-    #q::placeholder{color:var(--text-dim);}
+    /* the decoder's one input, inside its short hero */
+    #q{font-size:var(--fs-sec);padding:12px 15px;}
     #q:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 4px var(--accent-glow);}
-    .qhint{font-family:var(--mono);font-size:0.64rem;color:var(--text-dim);display:flex;gap:6px;align-items:center;flex-wrap:wrap;}
-    .chip{border:1px solid var(--border);border-radius:20px;padding:3px 9px;cursor:pointer;transition:0.15s;color:var(--text-muted);background:transparent;}
-    .chip:hover{border-color:var(--accent);color:var(--accent);}
+    .landing-hero{border-bottom:1px solid var(--border);}
+    .fchips{margin:0 -20px 14px;padding:10px 20px;min-height:46px;}
+    @media(max-width:640px){.fchips{margin:0 -12px 12px;padding:9px 12px;}}
+    .empty{color:var(--text-muted);font-family:var(--mono);font-size:var(--fs-sm);padding:30px 4px;text-align:center;grid-column:1/-1;}
+    .empty .fchip{margin-left:8px;}
 
     /* ── SECTION TABS — relocated into the shared navbar (carino-navbar.js) ── */
     .tabs{display:flex;gap:6px;align-items:center;}
     .tab{display:flex;align-items:center;gap:7px;border:1px solid transparent;border-radius:8px;background:transparent;
-      color:var(--text-muted);font-family:var(--sans);font-weight:600;font-size:0.82rem;padding:7px 12px;cursor:pointer;
+      color:var(--text-sec);font-family:var(--sans);font-weight:600;font-size:0.82rem;padding:7px 12px;cursor:pointer;
       transition:0.13s;white-space:nowrap;line-height:1;}
-    .tab:hover{color:var(--text-main);background:rgba(255,255,255,0.05);}
+    .tab:hover{color:var(--text);background:rgba(255,255,255,0.05);}
     .tab.active{color:var(--accent);background:var(--accent-glow);border-color:rgba(234,179,8,0.4);}
     .tab .tnum{font-family:var(--mono);font-size:0.6rem;font-weight:700;letter-spacing:0.1em;opacity:0.7;}
-    .tab .tlead{font-family:var(--sans);font-weight:400;font-size:0.72rem;color:var(--text-dim);}
+    .tab .tlead{font-family:var(--sans);font-weight:400;font-size:0.72rem;color:var(--text-muted);}
     /* inside the 60px navbar there's no room for the numbers / sub-labels */
     #carinoNav .tab .tnum,#carinoNav .tab .tlead{display:none;}
     #carinoNav .cn-actions{overflow-x:auto;scrollbar-width:none;}
     #carinoNav .cn-actions::-webkit-scrollbar{display:none;}
     @media(max-width:520px){#carinoNav .tab{padding:7px 9px;font-size:0.78rem;}}
 
-    /* ── PANELS: exactly one visible, fills remaining height ── */
-    .panels{position:relative;flex:1;min-height:0;margin-top:12px;}
-    .panel{position:absolute;inset:0;display:none;flex-direction:column;overflow-y:auto;overflow-x:hidden;
-      padding-right:4px;scrollbar-width:thin;scrollbar-color:var(--border) transparent;}
-    .panel::-webkit-scrollbar{width:8px;}
-    .panel::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px;}
-    .panel.active{display:flex;}
-    .build-topbar{flex-shrink:0;margin-bottom:10px;}
+    /* ── PANELS: exactly one visible; the page itself scrolls ── */
+    .panel{display:none;}
+    .panel.active{display:block;}
+    .build-topbar{margin-bottom:10px;}
 
     /* ── MAC DECODER OUTPUT ── */
     #macResult{margin-top:16px;}
@@ -107,13 +93,13 @@
     .mac-top{display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:15px 18px;border-bottom:1px solid var(--border);background:var(--accent-faint);}
     .mac-hex{font-family:var(--mono);font-size:1.25rem;font-weight:700;letter-spacing:0.04em;color:var(--accent);word-break:break-all;}
     .mac-vendor{font-family:var(--sans);font-weight:600;font-size:1rem;}
-    .mac-vendor .sub{color:var(--text-muted);font-weight:400;font-size:0.8rem;display:block;font-family:var(--mono);margin-top:2px;}
+    .mac-vendor .sub{color:var(--text-sec);font-weight:400;font-size:0.8rem;display:block;font-family:var(--mono);margin-top:2px;}
     .tags{display:flex;gap:7px;flex-wrap:wrap;margin-left:auto;}
     .tag{font-family:var(--mono);font-size:0.6rem;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;padding:4px 8px;border-radius:5px;border:1px solid var(--border);white-space:nowrap;}
     .tag.ok{color:var(--ok);border-color:rgba(34,197,94,0.4);}
     .tag.info{color:var(--info);border-color:rgba(56,189,248,0.4);}
     .tag.warn{color:var(--warn);border-color:rgba(234,179,8,0.4);}
-    .tag.danger{color:var(--danger);border-color:rgba(239,68,68,0.45);}
+    .tag.danger{color:var(--err);border-color:rgba(239,68,68,0.45);}
 
     .mac-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;}
     @media(max-width:720px){.mac-grid{grid-template-columns:1fr;}}
@@ -122,61 +108,59 @@
     @media(max-width:720px){.mac-col + .mac-col{border-left:none;border-top:1px solid var(--border);}}
     .mac-col h4{margin:0 0 10px;font-family:var(--mono);font-size:0.6rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--accent);font-weight:700;}
     .kv{display:grid;grid-template-columns:120px 1fr;gap:5px 12px;font-family:var(--mono);font-size:0.74rem;line-height:1.5;}
-    .kv .k{color:var(--text-dim);}
-    .kv .v{color:var(--text-main);word-break:break-all;}
+    .kv .k{color:var(--text-muted);}
+    .kv .v{color:var(--text);word-break:break-all;}
     .kv .v.hi{color:var(--accent);}
-    .kv .v.mut{color:var(--text-muted);}
-    .bitrow{font-family:var(--mono);font-size:0.72rem;color:var(--text-muted);line-height:1.6;margin-top:4px;}
-    .bitrow b{color:var(--text-main);}
-    .octet{display:inline-block;padding:1px 5px;border-radius:4px;border:1px solid var(--border);margin:2px 2px 2px 0;background:var(--bg-body);}
+    .kv .v.mut{color:var(--text-sec);}
+    .bitrow{font-family:var(--mono);font-size:0.72rem;color:var(--text-sec);line-height:1.6;margin-top:4px;}
+    .bitrow b{color:var(--text);}
+    .octet{display:inline-block;padding:1px 5px;border-radius:4px;border:1px solid var(--border);margin:2px 2px 2px 0;background:var(--bg);}
     .octet.first{border-color:var(--accent);color:var(--accent);}
-    .mac-note{padding:12px 18px;border-top:1px solid var(--border);font-size:0.8rem;color:var(--text-muted);line-height:1.6;background:var(--bg-elev);}
-    .mac-note b{color:var(--text-main);}
+    .mac-note{padding:12px 18px;border-top:1px solid var(--border);font-size:0.8rem;color:var(--text-sec);line-height:1.6;background:var(--bg-elev);}
+    .mac-note b{color:var(--text);}
     .mac-error{border-color:rgba(239,68,68,0.45);}
     .mac-error .mac-top{background:rgba(239,68,68,0.06);}
 
     /* explainer strip under decoder */
     .explain{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:16px;}
     .ex{border:1px solid var(--border);border-radius:10px;background:var(--bg-elev);padding:13px 15px;}
-    .ex h5{margin:0 0 6px;font-size:0.82rem;color:var(--text-main);display:flex;align-items:center;gap:7px;}
-    .ex h5 .dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
-    .ex p{margin:0;font-size:0.78rem;color:var(--text-muted);line-height:1.55;}
+    .ex h5{margin:0 0 6px;font-size:0.82rem;color:var(--text);display:flex;align-items:center;gap:7px;}
+    .ex h5 .ex-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+    .ex p{margin:0;font-size:0.78rem;color:var(--text-sec);line-height:1.55;}
 
     /* ── BRAND SUPPORT ── */
     .brand-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(255px,1fr));gap:12px;}
-    .brand{border:1px solid var(--border);border-radius:12px;background:var(--bg-card);padding:14px 15px;display:flex;flex-direction:column;gap:10px;transition:0.15s;}
-    .brand:hover{border-color:var(--border-glow);transform:translateY(-2px);box-shadow:0 8px 22px rgba(0,0,0,0.4);}
-    .brand.hide{display:none;}
+    /* a brand is a carino-ui.css .card.entry: tile + name, links, source line */
+    .brand{gap:10px;}
+    .brand:hover{border-color:var(--border-glow);}
     .brand-h{display:flex;align-items:center;gap:11px;}
     .brand-logo{width:38px;height:38px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-family:var(--display);font-weight:900;font-size:1.05rem;color:#050505;flex-shrink:0;}
-    .brand-name{font-weight:600;font-size:0.98rem;}
-    .brand-cat{font-family:var(--mono);font-size:0.6rem;text-transform:uppercase;letter-spacing:0.06em;color:var(--text-dim);}
-    .brand-links{display:flex;flex-wrap:wrap;gap:6px;margin-top:auto;}
-    .blink{font-family:var(--mono);font-size:0.62rem;font-weight:600;padding:5px 9px;border:1px solid var(--border);border-radius:6px;color:var(--text-muted);transition:0.15s;white-space:nowrap;}
+    .brand .e-sub{text-transform:uppercase;letter-spacing:0.06em;font-size:var(--fs-micro);}
+    .brand-links{display:flex;flex-wrap:wrap;gap:6px;}
+    .blink{font-family:var(--mono);font-size:0.62rem;font-weight:600;padding:5px 9px;border:1px solid var(--border);border-radius:6px;color:var(--text-sec);transition:0.15s;white-space:nowrap;}
     .blink:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-faint);}
     .blink.warranty{border-color:var(--border-glow);color:var(--accent);}
-    .noresults{grid-column:1/-1;text-align:center;color:var(--text-dim);font-family:var(--mono);font-size:0.8rem;padding:30px;}
 
     /* ── RECOMMENDATIONS (master / detail) ── */
     .build-layout{display:grid;grid-template-columns:248px 1fr;gap:16px;align-items:start;}
     @media(max-width:720px){.build-layout{grid-template-columns:1fr;}}
     .build-nav{display:flex;flex-direction:column;gap:6px;position:sticky;top:12px;}
     @media(max-width:720px){.build-nav{position:static;flex-direction:row;overflow-x:auto;padding-bottom:4px;}}
-    .bnav{text-align:left;display:flex;align-items:center;gap:10px;border:1px solid var(--border);border-radius:10px;background:var(--bg-elev);padding:10px 12px;cursor:pointer;transition:0.13s;color:var(--text-muted);flex-shrink:0;}
-    .bnav:hover{border-color:var(--text-muted);color:var(--text-main);}
-    .bnav.active{border-color:var(--accent);background:var(--accent-faint);color:var(--text-main);}
+    .bnav{text-align:left;display:flex;align-items:center;gap:10px;border:1px solid var(--border);border-radius:10px;background:var(--bg-elev);padding:10px 12px;cursor:pointer;transition:0.13s;color:var(--text-sec);flex-shrink:0;}
+    .bnav:hover{border-color:var(--text-sec);color:var(--text);}
+    .bnav.active{border-color:var(--accent);background:var(--accent-faint);color:var(--text);}
     .bnav .bico{font-size:1.15rem;line-height:1;flex-shrink:0;}
     .bnav .bmeta{min-width:0;}
     .bnav .bname{font-weight:600;font-size:0.86rem;white-space:nowrap;}
     .bnav.active .bname{color:var(--accent);}
-    .bnav .bprice{font-family:var(--mono);font-size:0.6rem;color:var(--text-dim);}
+    .bnav .bprice{font-family:var(--mono);font-size:0.6rem;color:var(--text-muted);}
     .bnav.hide{display:none;}
 
     .build-detail{border:1px solid var(--border);border-radius:13px;background:var(--bg-card);overflow:hidden;min-height:200px;}
     .bd-h{padding:16px 18px 14px;border-bottom:1px solid var(--border);background:var(--accent-faint);}
     .bd-h .icon{font-size:1.5rem;}
-    .bd-h h3{margin:6px 0 3px;font-family:var(--display);font-size:1.3rem;color:var(--text-main);}
-    .bd-h .tagline{font-size:0.86rem;color:var(--text-muted);line-height:1.55;max-width:640px;}
+    .bd-h h3{margin:6px 0 3px;font-family:var(--display);font-size:1.3rem;color:var(--text);}
+    .bd-h .tagline{font-size:0.86rem;color:var(--text-sec);line-height:1.55;max-width:640px;}
     .bd-h .price{float:right;font-family:var(--mono);font-size:0.72rem;color:var(--accent);border:1px solid var(--border-glow);border-radius:6px;padding:4px 9px;}
     .specs{padding:8px 18px 16px;display:grid;grid-template-columns:1fr 1fr;gap:0 26px;}
     /* a profile answers "what shape of machine"; the offline planner prices a
@@ -184,38 +168,36 @@
     .bd-see{margin:0;padding:10px 18px 16px;font-family:var(--mono);font-size:0.7rem;}
     @media(max-width:560px){.specs{grid-template-columns:1fr;}}
     .spec{display:grid;grid-template-columns:120px 1fr;gap:10px;padding:11px 0;border-bottom:1px solid var(--border);align-items:start;}
-    .spec .sk{font-family:var(--mono);font-size:0.62rem;text-transform:uppercase;letter-spacing:0.04em;color:var(--text-dim);padding-top:2px;}
-    .spec .sv{font-size:0.86rem;color:var(--text-main);line-height:1.45;}
+    .spec .sk{font-family:var(--mono);font-size:0.62rem;text-transform:uppercase;letter-spacing:0.04em;color:var(--text-muted);padding-top:2px;}
+    .spec .sv{font-size:0.86rem;color:var(--text);line-height:1.45;}
     .spec .sv.keyspec{color:var(--accent);}
     .spec .egs{display:flex;flex-wrap:wrap;gap:5px;margin-top:5px;}
-    .eg-chip{font-family:var(--mono);font-size:0.64rem;color:var(--text-muted);border:1px solid var(--border);border-radius:5px;padding:2px 7px;}
+    .eg-chip{font-family:var(--mono);font-size:0.64rem;color:var(--text-sec);border:1px solid var(--border);border-radius:5px;padding:2px 7px;}
     a.eg-chip{color:var(--accent);border-color:var(--border-glow);}
     a.eg-chip:hover{background:var(--accent-faint);border-color:var(--accent);}
     .bd-key{margin:0 18px 16px;font-family:var(--mono);font-size:0.66rem;color:var(--accent);border:1px solid var(--border-glow);border-radius:8px;padding:8px 11px;line-height:1.5;background:var(--accent-faint);}
-    .bd-key b{color:var(--text-main);}
-    .build-empty{padding:40px;text-align:center;color:var(--text-dim);font-family:var(--mono);font-size:0.8rem;}
+    .bd-key b{color:var(--text);}
+    .build-empty{padding:40px;text-align:center;color:var(--text-muted);font-family:var(--mono);font-size:0.8rem;}
 
     .glossary{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;align-content:start;}
     .gl{border:1px solid var(--border);border-radius:10px;background:var(--bg-elev);padding:13px 15px;}
     .gl h5{margin:0 0 5px;font-size:0.82rem;color:var(--accent);font-family:var(--mono);}
-    .gl p{margin:0;font-size:0.78rem;color:var(--text-muted);line-height:1.55;}
-    .gl p b{color:var(--text-main);}
+    .gl p{margin:0;font-size:0.78rem;color:var(--text-sec);line-height:1.55;}
+    .gl p b{color:var(--text);}
 
     /* support card embedded in a MAC / serial result */
     .result-support{padding:13px 18px;border-top:1px solid var(--border);background:var(--bg-elev);}
-    .result-support .rs-lbl{font-family:var(--mono);font-size:0.6rem;text-transform:uppercase;letter-spacing:0.07em;color:var(--text-dim);margin-bottom:9px;}
+    .result-support .rs-lbl{font-family:var(--mono);font-size:0.6rem;text-transform:uppercase;letter-spacing:0.07em;color:var(--text-muted);margin-bottom:9px;}
     .result-support .brand-grid{grid-template-columns:repeat(auto-fill,minmax(230px,1fr));}
     .result-support .brand{background:var(--bg-card);}
 
-    /* slim always-visible footnote (page never scrolls, so this stays pinned) */
-    .footnote{flex-shrink:0;border-top:1px solid var(--border);margin-top:8px;padding-top:7px;
-      font-size:0.66rem;color:var(--text-dim);line-height:1.4;display:flex;gap:6px;flex-wrap:wrap;align-items:center;}
-    .footnote b{color:var(--text-muted);}
-    .footnote .fn-sep{opacity:0.4;}
-    @media(max-width:640px){.footnote{font-size:0.6rem;}}
+    .site-foot{max-width:1180px;margin:24px auto 0;padding-left:20px;padding-right:20px;}
+    .site-foot a{color:var(--text-sec);}
+    @media(max-width:640px){.site-foot{padding-left:12px;padding-right:12px;}}
+    .sf-note{line-height:1.6;}
 
     /* freshness stamp on the builds header */
-    .stamp{font-family:var(--mono);font-size:0.6rem;font-weight:600;color:var(--text-dim);
+    .stamp{font-family:var(--mono);font-size:0.6rem;font-weight:600;color:var(--text-muted);
       border:1px solid var(--border);border-radius:6px;padding:3px 8px;white-space:nowrap;}
     .stamp b{color:var(--accent);}
 
@@ -231,98 +213,114 @@
 </head>
 <body>
 
-  <div class="wrap" role="main">
+  <!-- Section tabs — carino-navbar.js relocates this into the shared top navbar. -->
+  <nav class="tabs" data-carino-actions role="tablist">
+    <button class="tab active" data-panel="support" data-priority="1"><span class="tnum">01</span> <span data-i18n>Support</span> <span class="tlead" data-i18n>warranty &amp; drivers</span></button>
+    <button class="tab" data-panel="decoder"><span class="tnum">02</span> <span data-i18n>Decode</span> <span class="tlead" data-i18n>MAC / serial</span></button>
+    <button class="tab" data-panel="builds"><span class="tnum">03</span> <span data-i18n>Builds</span> <span class="tlead" data-i18n>specs by use-case</span></button>
+    <button class="tab" data-panel="glossary"><span class="tnum">04</span> <span data-i18n>Glossary</span> <span class="tlead" data-i18n>what specs mean</span></button>
+  </nav>
 
-    <!-- Section tabs — carino-navbar.js relocates this into the shared top navbar. -->
-    <nav class="tabs" data-carino-actions role="tablist">
-      <button class="tab active" data-panel="decoder"><span class="tnum">01</span> <span data-i18n>Decode</span> <span class="tlead" data-i18n>MAC / serial</span></button>
-      <button class="tab" data-panel="support"><span class="tnum">02</span> <span data-i18n>Support</span> <span class="tlead" data-i18n>warranty &amp; drivers</span></button>
-      <button class="tab" data-panel="builds"><span class="tnum">03</span> <span data-i18n>Builds</span> <span class="tlead" data-i18n>specs by use-case</span></button>
-      <button class="tab" data-panel="glossary"><span class="tnum">04</span> <span data-i18n>Glossary</span> <span class="tlead" data-i18n>what specs mean</span></button>
-    </nav>
+  <main>
 
-    <!-- ══════════ APP BAR: section header + search ══════════ -->
-    <div class="appbar">
-      <div class="app-intro">
-        <span class="app-eyebrow" id="appEyebrow"><!-- NN / word --></span>
-        <h1 class="app-title" id="appTitle"><!-- set per active section --></h1>
-        <p class="app-desc" id="appDesc"><!-- set per active section --></p>
-      </div>
-      <div class="searchbox">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg>
-        <input id="q" spellcheck="false" autocomplete="off" placeholder="Paste a MAC, a serial / service tag, or search a brand / spec…">
-      </div>
-      <div class="qhint">
-        <span style="color:var(--text-muted)" data-i18n>Try:</span>
-        <button class="chip" data-fill="B8:27:EB:12:34:56">B8:27:EB:12:34:56</button>
-        <button class="chip" data-fill="3C:07:54:AA:BB:CC">3C:07:54:…</button>
-        <button class="chip" data-fill="02:42:AC:11:00:02">02:42:… (local)</button>
-        <button class="chip" data-fill="FF:FF:FF:FF:FF:FF">broadcast</button>
-        <button class="chip" data-fill="7FGXK32">7FGXK32 (Dell tag)</button>
-        <button class="chip" data-fill="lenovo">lenovo</button>
-        <button class="chip" data-fill="gaming">gaming</button>
-        <button class="chip" data-fill="32GB">32GB VRAM</button>
+    <!-- 01 · SUPPORT — the reference part: hero, facet chips, brand cards -->
+    <div class="panel active" id="support" role="tabpanel">
+      <header class="landing-hero">
+        <div class="lh-wrap">
+          <div class="lh-mark" aria-hidden="true"><img class="mark" src="logo.svg" alt="" width="100" height="100"></div>
+          <h1><span data-i18n>Warranty, drivers and support,</span><br><span class="gold" data-i18n>one click per brand.</span></h1>
+          <p class="lh-lede" data-i18n-html><strong>Carino Hardware</strong> links each maker’s own warranty, driver and support pages, decodes a MAC address or service tag, and suggests specs for what you do.</p>
+          <p class="lh-stats" id="heroStats">&nbsp;</p>
+        </div>
+      </header>
+      <div class="wrap">
+        <div class="fchips" id="brandChips" role="toolbar"></div>
+        <div class="alert err" id="loadErr" role="alert" hidden></div>
+        <div class="brand-grid" id="brandGrid"><!-- filled from data/brands/ --></div>
       </div>
     </div>
 
-    <!-- ══════════ PANELS (one visible at a time) ══════════ -->
-    <div class="panels">
-
-      <!-- 01 · DECODE -->
-      <div class="panel active" id="decoder" role="tabpanel">
+    <!-- 02 · DECODE — the tool part: short hero with its own input -->
+    <div class="panel" id="decoder" role="tabpanel">
+      <div class="wrap">
+        <div class="short-hero">
+          <img class="mark" src="logo.svg" alt="" width="48" height="48">
+          <h1><span data-i18n>Decode a MAC address</span><br><span class="gold" data-i18n>or a service tag.</span></h1>
+          <p class="sh-lede" data-i18n>Paste a MAC to see its vendor and bits, or a serial to find the maker’s warranty page.</p>
+          <div class="sh-input">
+            <input id="q" class="input" spellcheck="false" autocomplete="off" aria-label="MAC address or serial" placeholder="Paste a MAC, a serial / service tag, or a brand…">
+          </div>
+          <div class="examples">
+            <span class="ex-label" data-i18n>Try:</span>
+            <button type="button" class="chip-tag" data-fill="B8:27:EB:12:34:56">B8:27:EB:12:34:56</button>
+            <button type="button" class="chip-tag" data-fill="3C:07:54:AA:BB:CC">3C:07:54:…</button>
+            <button type="button" class="chip-tag" data-fill="02:42:AC:11:00:02">02:42:… (local)</button>
+            <button type="button" class="chip-tag" data-fill="FF:FF:FF:FF:FF:FF">broadcast</button>
+            <button type="button" class="chip-tag" data-fill="7FGXK32">7FGXK32 (Dell tag)</button>
+            <button type="button" class="chip-tag" data-fill="thinkpad">thinkpad</button>
+          </div>
+          <p class="privacy-line" data-i18n>Runs in your browser. Nothing you add here is uploaded.</p>
+        </div>
         <div id="macResult"><!-- filled when a MAC is typed --></div>
         <div id="serialResult"><!-- filled when a serial is typed --></div>
+        <div id="brandMatch"><!-- filled when a brand or product line is typed --></div>
         <div class="explain" id="macExplain">
           <div class="ex">
-            <h5><span class="dot" style="background:var(--ok)"></span><span data-i18n-html>You <em>can</em> tell</span></h5>
-            <p data-i18n-html>The <b style="color:var(--text-main)">manufacturer / NIC chipset</b> (from the OUI), whether it's unicast or multicast, whether it's a real burned-in address or a <b style="color:var(--text-main)">locally-administered / randomized</b> one, and its EUI-64 / IPv6 link-local form.</p>
+            <h5><span class="ex-dot" style="background:var(--ok)"></span><span data-i18n-html>You <em>can</em> tell</span></h5>
+            <p data-i18n-html>The <b style="color:var(--text)">manufacturer / NIC chipset</b> (from the OUI), whether it's unicast or multicast, whether it's a real burned-in address or a <b style="color:var(--text)">locally-administered / randomized</b> one, and its EUI-64 / IPv6 link-local form.</p>
           </div>
           <div class="ex">
-            <h5><span class="dot" style="background:var(--danger)"></span><span data-i18n-html>You <em>cannot</em> tell</span></h5>
+            <h5><span class="ex-dot" style="background:var(--err)"></span><span data-i18n-html>You <em>cannot</em> tell</span></h5>
             <p data-i18n>The owner, serial number, physical location, IP address, or (usually) the exact model. A MAC is a link-layer ID, not an identity — and it never leaves the local network segment.</p>
           </div>
           <div class="ex">
-            <h5><span class="dot" style="background:var(--warn)"></span><span data-i18n>Watch out</span></h5>
-            <p data-i18n-html>Phones and laptops now <b style="color:var(--text-main)">randomize their Wi-Fi MAC</b> per network. A "vendor" of <i>Locally administered</i> means the address is made up — the OUI tells you nothing real.</p>
+            <h5><span class="ex-dot" style="background:var(--warn)"></span><span data-i18n>Watch out</span></h5>
+            <p data-i18n-html>Phones and laptops now <b style="color:var(--text)">randomize their Wi-Fi MAC</b> per network. A "vendor" of <i>Locally administered</i> means the address is made up — the OUI tells you nothing real.</p>
           </div>
         </div>
       </div>
+    </div>
 
-      <!-- 02 · SUPPORT -->
-      <div class="panel" id="support" role="tabpanel">
-        <div class="brand-grid" id="brandGrid"><!-- filled by JS --></div>
-      </div>
-
-      <!-- 03 · BUILDS -->
-      <div class="panel" id="builds" role="tabpanel">
+    <!-- 03 · BUILDS -->
+    <div class="panel" id="builds" role="tabpanel">
+      <div class="wrap">
+        <div class="appbar"><div class="app-intro">
+          <span class="app-eyebrow" data-i18n>03 · Recommend</span>
+          <h2 class="app-title" data-i18n>Build specs by what you do</h2>
+          <p class="app-desc" data-i18n-html>Feature-first targets — <b>cores, memory, VRAM, storage class</b>. Example models are optional pointers, not the point; buy the feature, then pick a brand.</p>
+        </div></div>
         <div class="build-topbar"><span class="stamp" id="buildStamp"></span></div>
         <div class="build-layout">
           <div class="build-nav" id="buildNav"><!-- profile list --></div>
           <div class="build-detail" id="buildDetail"><div class="build-empty" data-i18n>Loading build profiles…</div></div>
         </div>
       </div>
+    </div>
 
-      <!-- 04 · GLOSSARY -->
-      <div class="panel" id="glossary" role="tabpanel">
+    <!-- 04 · GLOSSARY -->
+    <div class="panel" id="glossary" role="tabpanel">
+      <div class="wrap">
+        <div class="appbar"><div class="app-intro">
+          <span class="app-eyebrow" data-i18n>04 · Reference</span>
+          <h2 class="app-title" data-i18n>Spec cheat-sheet</h2>
+          <p class="app-desc" data-i18n>What each spec actually means, and when it's worth paying for more of it.</p>
+        </div></div>
         <div class="glossary" id="glossaryGrid"></div>
       </div>
-
     </div>
 
-    <!-- ══════════ SLIM FOOTNOTE (pinned; page never scrolls) ══════════ -->
-    <div class="footnote">
-      <span data-i18n-html><b>Offline &amp; private</b> — everything runs in your browser; your MAC is never sent anywhere.</span>
-      <span class="fn-sep">·</span>
-      <span data-i18n-html>OUI = curated ~570-prefix subset; full registry at the <a href="https://standards-oui.ieee.org/" target="_blank" rel="noopener">IEEE RA</a>.</span>
-      <span class="fn-sep">·</span>
-      <span data-i18n>Only Dell's tag↔code is deterministic; other serial guesses are hints.</span>
-      <span class="fn-sep">·</span>
-      <span data-i18n>Build prices/models are dated ballparks — confirm warranty on the vendor's site.</span>
-      <span class="fn-sep">·</span>
+  </main>
+
+  <footer class="site-foot">
+    <div class="sf-links">
+      <a href="https://github.com/MiguelCarino/Hardware" target="_blank" rel="noopener" data-i18n>Source</a>
+      <a href="https://github.com/MiguelCarino/Hardware/issues" target="_blank" rel="noopener" data-i18n>Report a dead link</a>
+      <a href="https://carino.systems/legal.html" data-i18n>Legal &amp; privacy</a>
       <span><span data-i18n>Related:</span> <a href="https://ping.carino.systems/">Ping</a>, <a href="https://topo.carino.systems/">Topo</a>, <a href="https://netplan.carino.systems/">Netplan</a></span>
     </div>
-
-  </div>
+    <div class="sf-line" id="footLine">Runs entirely in your browser. Every entry links to its source.</div>
+    <div class="sf-note"><span data-i18n-html>OUI = curated ~570-prefix subset; full registry at the <a href="https://standards-oui.ieee.org/" target="_blank" rel="noopener">IEEE RA</a>.</span> <span data-i18n>Only Dell's tag↔code is deterministic; other serial guesses are hints.</span> <span data-i18n>Build prices/models are dated ballparks — confirm warranty on the vendor's site.</span></div>
+  </footer>
 
   <script>
   /* ══════════════════════════════════════════════════════════════
@@ -484,7 +482,7 @@
     const d = decodeMac(raw);
     if(d.error){
       box.innerHTML = `<div class="mac-card mac-error"><div class="mac-top"><span class="mac-hex">⚠ ${escapeHtml(raw)}</span>
-        <span class="mac-vendor" style="color:var(--danger)">${d.error}</span></div></div>`;
+        <span class="mac-vendor" style="color:var(--err)">${d.error}</span></div></div>`;
       return;
     }
     const v = d.vendor;
@@ -581,57 +579,55 @@
 
   function escapeHtml(s){ return String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
 
-  /* ---- 3. Brand support directory ---- */
-  const BRANDS = [
-    {n:'Apple', cat:'Laptop · Phone · Tablet', c:'#a1a1a6', k:['apple','macbook','iphone','ipad','mac'],
-     l:[['Warranty / Coverage','https://checkcoverage.apple.com/','warranty'],['Support','https://support.apple.com/'],['Downloads','https://support.apple.com/downloads']]},
-    {n:'Dell', cat:'Laptop · Desktop · Server', c:'#007db8', k:['dell','xps','latitude','poweredge','alienware'],
-     l:[['Warranty (Service Tag)','https://www.dell.com/support/home/en-us?app=warranty','warranty'],['Drivers','https://www.dell.com/support/home/en-us?app=drivers'],['Support','https://www.dell.com/support/']]},
-    {n:'HP', cat:'Laptop · Desktop · Printer', c:'#0096d6', k:['hp','hewlett','packard','elitebook','pavilion','omen','probook'],
-     l:[['Warranty Check','https://support.hp.com/us-en/checkwarranty','warranty'],['Drivers','https://support.hp.com/us-en/drivers'],['Support','https://support.hp.com/']]},
-    {n:'HPE', cat:'Server · Storage · Network', c:'#01a982', k:['hpe','proliant','aruba','nimble','enterprise'],
-     l:[['Warranty','https://support.hpe.com/hpesc/public/home/warrantyLookup','warranty'],['Support Center','https://support.hpe.com/']]},
-    {n:'Lenovo', cat:'Laptop · Desktop · Server', c:'#e2231a', k:['lenovo','thinkpad','ideapad','legion','thinkcentre','thinksystem'],
-     l:[['Warranty Lookup','https://pcsupport.lenovo.com/us/en/warrantylookup','warranty'],['Drivers','https://pcsupport.lenovo.com/us/en/products'],['Support','https://support.lenovo.com/']]},
-    {n:'ASUS', cat:'Laptop · Motherboard · GPU', c:'#00539b', k:['asus','asustek','rog','zenbook','tuf','vivobook'],
-     l:[['Warranty Status','https://www.asus.com/support/warranty-status-inquiry/','warranty'],['Downloads','https://www.asus.com/support/download-center/'],['Support','https://www.asus.com/support/']]},
-    {n:'Acer', cat:'Laptop · Desktop · Monitor', c:'#83b81a', k:['acer','aspire','predator','swift','nitro'],
-     l:[['Warranty','https://www.acer.com/us-en/support/warranty-info','warranty'],['Drivers','https://www.acer.com/us-en/support/drivers-and-manuals'],['Support','https://www.acer.com/us-en/support']]},
-    {n:'MSI', cat:'Laptop · Motherboard · GPU', c:'#ff0034', k:['msi','micro-star','katana','stealth','raider'],
-     l:[['Warranty Check','https://account.msi.com/register/warranty','warranty'],['Downloads','https://www.msi.com/support/download'],['Support','https://www.msi.com/support']]},
-    {n:'Gigabyte', cat:'Motherboard · GPU · Laptop', c:'#e88b00', k:['gigabyte','aorus','brix'],
-     l:[['Warranty','https://www.gigabyte.com/Support/Utility','warranty'],['Downloads','https://www.gigabyte.com/Support'],['Support','https://esupport.gigabyte.com/']]},
-    {n:'Microsoft', cat:'Surface · Xbox', c:'#0067b8', k:['microsoft','surface','xbox'],
-     l:[['Warranty & Service','https://mysupport.microsoft.com/devices','warranty'],['Drivers','https://www.microsoft.com/en-us/download/'],['Support','https://support.microsoft.com/']]},
-    {n:'Framework', cat:'Repairable laptop', c:'#f26522', k:['framework','repairable','modular'],
-     l:[['Support & Warranty','https://frame.work/support','warranty'],['Guides','https://guides.frame.work/'],['BIOS/Drivers','https://knowledgebase.frame.work/']]},
-    {n:'Samsung', cat:'Phone · Laptop · Display', c:'#1428a0', k:['samsung','galaxy','odyssey','book'],
-     l:[['Warranty','https://www.samsung.com/us/support/warranty/','warranty'],['Downloads','https://www.samsung.com/us/support/downloads/'],['Support','https://www.samsung.com/us/support/']]},
-    {n:'LG', cat:'Laptop · Monitor · TV', c:'#a50034', k:['lg','gram','ultragear','ultrafine'],
-     l:[['Warranty','https://www.lg.com/us/support/warranty','warranty'],['Software & Drivers','https://www.lg.com/us/support/software-firmware-drivers'],['Support','https://www.lg.com/us/support']]},
-    {n:'Razer', cat:'Laptop · Peripheral', c:'#44d62c', k:['razer','blade','deathadder','kraken'],
-     l:[['Warranty','https://mysupport.razer.com/','warranty'],['Downloads','https://www.razer.com/synapse-3'],['Support','https://mysupport.razer.com/']]},
-    {n:'Sony', cat:'PlayStation · Audio · Camera', c:'#ffffff', k:['sony','playstation','ps5','bravia','alpha'],
-     l:[['Support & Warranty','https://www.sony.com/electronics/support','warranty'],['Downloads','https://www.sony.com/electronics/support/downloads']]},
-    {n:'Intel', cat:'CPU · Chipset · NIC', c:'#0071c5', k:['intel','core','xeon','arc','nuc'],
-     l:[['Warranty','https://www.intel.com/content/www/us/en/support/contact-support.html','warranty'],['Drivers','https://www.intel.com/content/www/us/en/download-center/home.html'],['Support','https://www.intel.com/content/www/us/en/support.html']]},
-    {n:'AMD', cat:'CPU · GPU · Chipset', c:'#ed1c24', k:['amd','ryzen','radeon','epyc','threadripper'],
-     l:[['Warranty','https://www.amd.com/en/support/warranty','warranty'],['Drivers','https://www.amd.com/en/support'],['Support','https://www.amd.com/en/support']]},
-    {n:'NVIDIA', cat:'GPU · Jetson', c:'#76b900', k:['nvidia','geforce','rtx','quadro','jetson','tesla'],
-     l:[['Warranty','https://www.nvidia.com/en-us/support/warranty/','warranty'],['Drivers','https://www.nvidia.com/download/index.aspx'],['Support','https://www.nvidia.com/en-us/support/']]},
-    {n:'Toshiba / Dynabook', cat:'Laptop · Storage', c:'#ff0000', k:['toshiba','dynabook','satellite','portege'],
-     l:[['Warranty','https://support.dynabook.com/warranty','warranty'],['Drivers','https://support.dynabook.com/drivers'],['Support','https://support.dynabook.com/']]},
-    {n:'Huawei', cat:'Phone · Laptop · Network', c:'#ff0000', k:['huawei','matebook','mate','honor'],
-     l:[['Warranty','https://consumer.huawei.com/en/support/warranty-query/','warranty'],['Support','https://consumer.huawei.com/en/support/']]},
-    {n:'Raspberry Pi', cat:'SBC · Compute Module', c:'#c51a4a', k:['raspberry','pi','sbc','rpi'],
-     l:[['Documentation','https://www.raspberrypi.com/documentation/'],['Software','https://www.raspberrypi.com/software/'],['Forums','https://forums.raspberrypi.com/']]},
-    {n:'System76', cat:'Linux laptop · Desktop', c:'#48b9c7', k:['system76','pop','popos','thelio','linux'],
-     l:[['Support','https://support.system76.com/','warranty'],['Drivers/Firmware','https://support.system76.com/articles/system-firmware/']]},
-    {n:'Valve', cat:'Steam Deck', c:'#1a9fff', k:['valve','steam','deck'],
-     l:[['Warranty & Repair','https://help.steampowered.com/en/wizard/HelpWithSteamDeck','warranty'],['Support','https://help.steampowered.com/']]},
-    {n:'Ubiquiti', cat:'Network · WiFi', c:'#0559c9', k:['ubiquiti','unifi','ubnt','edgerouter'],
-     l:[['Downloads','https://ui.com/download'],['Support','https://help.ui.com/']]},
-  ];
+  /* ---- 3. Brand support directory (data/index.json + data/brands/<id>.json) ---- */
+  // Loaded once at start. Kept in the short shape the decoder has always used:
+  // n name, cat category line, c tile colour, k keywords, l [label,url,'warranty'?],
+  // plus kinds (chip facet), url (the source the card cites) and updated.
+  let BRANDS = [], BRANDS_UPDATED = '';
+  const KIND_LABEL = {laptop:'Laptops', desktop:'Desktops', server:'Servers', network:'Network',
+    phone:'Phones', printer:'Printers', components:'Components', peripheral:'Peripherals',
+    console:'Consoles', sbc:'Single-board'};
+  const KIND_ORDER = Object.keys(KIND_LABEL);
+  const FILTER = {kind:null, warranty:null};   // facet chips: one choice each, click again clears
+
+  function showLoadError(file){
+    const el = document.getElementById('loadErr');
+    el.innerHTML = `${TT('Could not load')} <code>${escapeHtml(file)}</code>. ${TT('Serve this folder over http:// or check that the data/ directory is intact.')} <code>python3 -m http.server</code>`;
+    el.hidden = false;
+    document.getElementById('brandChips').hidden = true;
+  }
+
+  async function loadBrands(){
+    let file = 'data/index.json';
+    try{
+      const r = await fetch(file, {cache:'no-cache'});
+      if(!r.ok) throw new Error(file);
+      const idx = await r.json();
+      BRANDS_UPDATED = idx.updated || '';
+      // one file per brand, in parallel; a broken file costs that brand, not the page
+      const list = await Promise.all((idx.brands||[]).map(id =>
+        fetch('data/brands/'+id+'.json', {cache:'no-cache'})
+          .then(r=>{ if(!r.ok) throw new Error(id); return r.json(); })
+          .catch(()=>{ console.warn('hardware: skipped brand '+id); return null; })));
+      BRANDS = list.filter(Boolean).map(b=>({id:b.id, n:b.name, cat:b.cat, c:b.color, k:b.keywords||[],
+        kinds:b.kinds||[], url:b.url, updated:b.updated||BRANDS_UPDATED,
+        l:(b.links||[]).map(x=>x.warranty ? [x.label, x.url, 'warranty'] : [x.label, x.url])}));
+      if(!BRANDS.length){ file = 'data/brands/*.json'; throw new Error(file); }
+    }catch(e){
+      showLoadError(e && /^data\//.test(e.message) ? e.message : file);
+      return;
+    }
+    renderBrands();
+    renderMeta();
+    onInput();   // a value typed before the data arrived now finds its support card
+  }
+
+  function domainOf(url){ try{ return new URL(url).hostname.replace(/^www\./,''); }catch(e){ return url; } }
+
+  // "Source: domain ↗ · checked YYYY-MM" (carino-ui.css .src-line)
+  function srcLine(url, when){
+    return `<div class="src-line"><span>${TT('Source:')}</span><a href="${escapeHtml(url)}" target="_blank" rel="noopener">${escapeHtml(domainOf(url))} ↗</a>${when?`<span class="src-date">${TT('checked')} ${escapeHtml(when)}</span>`:''}</div>`;
+  }
 
   function initials(name){ const w=name.split(/[\s\/]+/); return (w[0][0]+(w[1]?w[1][0]:'')).toUpperCase(); }
 
@@ -641,14 +637,15 @@
     const dark = ['#ffffff','#83b81a','#76b900','#48b9c7','#e88b00'].includes(b.c.toLowerCase());
     let links = b.l.slice();
     if(opts.warrantyOverride){ links = [opts.warrantyOverride, ...b.l.filter(x=>x[2]!=='warranty')]; }
-    return `<div class="brand"${idx!=null?` data-idx="${idx}"`:''}>
+    return `<div class="card entry brand"${idx!=null?` data-idx="${idx}"`:''}>
       <div class="brand-h">
-        <div class="brand-logo" style="background:${b.c};color:${dark?'#050505':'#fff'}">${initials(b.n)}</div>
-        <div><div class="brand-name">${b.n}</div><div class="brand-cat">${b.cat}</div></div>
+        <div class="brand-logo" style="background:${b.c};color:${dark?'#050505':'#fff'}" aria-hidden="true">${initials(b.n)}</div>
+        <div><div class="e-title">${escapeHtml(b.n)}</div><div class="e-sub">${escapeHtml(b.cat)}</div></div>
       </div>
       <div class="brand-links">
-        ${links.map(x=>`<a class="blink ${x[2]||''}" href="${x[1]}" target="_blank" rel="noopener">${TT(x[0])} ↗</a>`).join('')}
+        ${links.map(x=>`<a class="blink ${x[2]||''}" href="${escapeHtml(x[1])}" target="_blank" rel="noopener">${TT(x[0])} ↗</a>`).join('')}
       </div>
+      ${b.url ? srcLine(b.url, b.updated) : ''}
     </div>`;
   }
 
@@ -669,10 +666,37 @@
       <div class="brand-grid">${brands.map(b=>brandCardHTML(b, null, {warrantyOverride:opts.overrides && opts.overrides[b.n]})).join('')}</div></div>`;
   }
 
+  function hasWarranty(b){ return b.l.some(x=>x[2]==='warranty'); }
+  function passBrand(b){
+    if(FILTER.kind && !b.kinds.includes(FILTER.kind)) return false;
+    if(FILTER.warranty && !hasWarranty(b)) return false;
+    return true;
+  }
+  function fchip(facet, val, label){
+    const on = FILTER[facet] === val;
+    return `<button type="button" class="fchip${on?' active':''}" aria-pressed="${on}" data-facet="${facet}" data-val="${val}">${label}</button>`;
+  }
+
+  // carino-ui.css .fchips: Kind, then Warranty lookup, Clear once any is on, and the count
   function renderBrands(){
-    document.getElementById('brandGrid').innerHTML =
-      BRANDS.map((b,i)=>brandCardHTML(b,i)).join('') +
-      `<div class="noresults hidden" id="brandNone">${TT('No brand matches — clear the search to see all.')}</div>`;
+    if(!BRANDS.length) return;
+    const kinds = KIND_ORDER.filter(k=>BRANDS.some(b=>b.kinds.includes(k)));
+    const shown = BRANDS.map((b,i)=>[b,i]).filter(([b])=>passBrand(b));
+    let h = `<span class="fchip-lbl">${TT('Kind')}</span>` + kinds.map(k=>fchip('kind', k, TT(KIND_LABEL[k]))).join('');
+    h += `<span class="fchip-sep"></span>` + fchip('warranty', '1', TT('Warranty lookup'));
+    if(FILTER.kind || FILTER.warranty) h += `<span class="fchip-sep"></span><button type="button" class="fchip clear" data-clear="1">${TT('Clear')}</button>`;
+    h += `<span class="fchips-count">${shown.length} ${TT('shown')}</span>`;
+    document.getElementById('brandChips').innerHTML = h;
+    document.getElementById('brandGrid').innerHTML = shown.length
+      ? shown.map(([b,i])=>brandCardHTML(b,i)).join('')
+      : `<div class="empty">${TT('Nothing matches these filters.')}<button type="button" class="fchip clear" data-clear="1">${TT('Clear filters')}</button></div>`;
+  }
+
+  // hero counts and the footer line read the data, so they follow the language
+  function renderMeta(){
+    const when = BRANDS_UPDATED;
+    document.getElementById('heroStats').textContent = `${BRANDS.length} ${TT('brands')}` + (PROFILES.length ? ` · ${PROFILES.length} ${TT('build profiles')}` : '') + (when ? ` · ${TT('reviewed')} ${when}` : '');
+    document.getElementById('footLine').textContent = TT('Runs entirely in your browser. Every entry links to its source; checked {date}.').replace('{date}', when);
   }
 
   /* ---- 4. Build recommendations (loaded from builds.json) ---- */
@@ -690,7 +714,7 @@
   function specRow(s){
     return `<div class="spec"><span class="sk">${escapeHtml(s.k)}</span>
       <div class="sv ${s.key?'keyspec':''}">${escapeHtml(s.v)}
-        ${s.note?`<div style="color:var(--text-muted);font-size:0.76rem;margin-top:3px;line-height:1.45">${s.note}</div>`:''}
+        ${s.note?`<div style="color:var(--text-sec);font-size:0.76rem;margin-top:3px;line-height:1.45">${s.note}</div>`:''}
         ${egHtml(s.eg)}
       </div></div>`;
   }
@@ -728,11 +752,11 @@
         : '';
     }catch(e){
       document.getElementById('buildDetail').innerHTML =
-        `<div class="build-empty">Couldn't load <code>builds.json</code> (${escapeHtml(String(e.message||e))}).<br>
-         If you opened this file directly (file://), serve it over http — e.g. <code>python3 -m http.server</code>.</div>`;
+        `<div class="alert err" role="alert">${TT('Could not load')} <code>builds.json</code> (${escapeHtml(String(e.message||e))}). ${TT('Serve this folder over http:// or check that the data/ directory is intact.')} <code>python3 -m http.server</code></div>`;
       return;
     }
     renderNav();
+    if(BRANDS.length) renderMeta();
     document.getElementById('glossaryGrid').innerHTML = GLOSS.map(x=>
       `<div class="gl"><h5>${escapeHtml(x[0])}</h5><p>${x[1]}</p></div>`).join('');
     if(PROFILES[0]) selectBuild(PROFILES[0].id);
@@ -776,7 +800,7 @@
     }
     if(/^[0-9]{7,11}$/.test(s)){
       const tag = dellCodeToTag(s);
-      interps.push(`<b>Dell Express Service Code</b> <span style="color:var(--ok)">· ${TT('deterministic')}</span> — ${TT('the decimal form of a Base-36 tag. Service Tag =')} <b>${tag}</b>. <span style="color:var(--text-dim)">${TT("(If this isn't a Dell, ignore — a bare number can also just be a serial.)")}</span>`);
+      interps.push(`<b>Dell Express Service Code</b> <span style="color:var(--ok)">· ${TT('deterministic')}</span> — ${TT('the decimal form of a Base-36 tag. Service Tag =')} <b>${tag}</b>. <span style="color:var(--text-muted)">${TT("(If this isn't a Dell, ignore — a bare number can also just be a serial.)")}</span>`);
       add('Dell'); dellHit = true;
       overrides['Dell'] = ['Warranty (this tag)', `https://www.dell.com/support/home/en-us/product-support/servicetag/${tag}/overview`, 'warranty'];
     }
@@ -819,95 +843,49 @@
   const macResult = document.getElementById('macResult');
   const serialResult = document.getElementById('serialResult');
   const macExplain = document.getElementById('macExplain');
+  const brandMatch = document.getElementById('brandMatch');
 
-  function filterBrands(term){
-    let any = false;
-    document.querySelectorAll('.brand[data-idx]').forEach(el=>{
-      const b = BRANDS[+el.dataset.idx];
-      const hay = (b.n+' '+b.cat+' '+b.k.join(' ')).toLowerCase();
-      const show = !term || hay.includes(term);
-      el.classList.toggle('hide', !show);
-      if(show) any = true;
-    });
-    const none = document.getElementById('brandNone');
-    if(none) none.classList.toggle('hidden', any);
-    return any;
-  }
-  function filterBuilds(term){
-    if(!PROFILES.length) return false;
-    let firstVisible = null, curVisible = false;
-    document.querySelectorAll('.bnav').forEach(el=>{
-      const b = PROFILES.find(x=>x.id===el.dataset.id); if(!b) return;
-      const hay = (b.name+' '+b.tagline+' '+(b.tags||[]).join(' ')+' '+(b.key||'')+' '+JSON.stringify(b.specs)).toLowerCase();
-      const show = !term || hay.includes(term);
-      el.classList.toggle('hide', !show);
-      if(show){ if(!firstVisible) firstVisible = b.id; if(el.dataset.id===currentBuild) curVisible = true; }
-    });
-    if(term && !curVisible && firstVisible) selectBuild(firstVisible);
-    if(term && !firstVisible) document.getElementById('buildDetail').innerHTML = `<div class="build-empty">${TT('No profile matches that term.')}</div>`;
-    return !!firstVisible;
-  }
-
-  /* ---- tabs: exactly one panel visible; the page itself never scrolls ---- */
-  // The header above the search bar (eyebrow + title + description) tracks the active section.
-  const SECTION = {
-    decoder: {eyebrow:'01 · Identify', title:'Decode a MAC or serial',
-      desc:'Paste a <b>MAC</b> to decode its vendor &amp; bits, or a <b>serial / service tag</b> to identify the brand and jump to warranty — the matching support card appears with the result. Nothing is uploaded.'},
-    support: {eyebrow:'02 · Support', title:'Manufacturer support directory',
-      desc:'Warranty lookups, driver &amp; BIOS downloads, and support portals — <b>one click per brand</b>. Type a brand or product line in the search bar to filter.'},
-    builds:  {eyebrow:'03 · Recommend', title:'Build specs by what you do',
-      desc:'Feature-first targets — <b>cores, memory, VRAM, storage class</b>. Example models are optional pointers, not the point; buy the feature, then pick a brand.'},
-    glossary:{eyebrow:'04 · Reference', title:'Spec cheat-sheet',
-      desc:'What each spec actually means, and when it&#39;s worth paying for more of it.'}
-  };
-  function switchTab(id){
+  /* ---- tabs: one panel visible at a time, linkable as #support, #decoder … ---- */
+  const PANELS = ['support','decoder','builds','glossary'];
+  function switchTab(id, keepScroll){
+    if(!PANELS.includes(id)) id = 'support';
     document.querySelectorAll('.panel').forEach(p=>p.classList.toggle('active', p.id===id));
     document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('active', t.dataset.panel===id));
-    const s = SECTION[id];
-    if(s){
-      document.getElementById('appEyebrow').textContent = TT(s.eyebrow);
-      document.getElementById('appTitle').textContent = TT(s.title);
-      document.getElementById('appDesc').innerHTML = TT(s.desc);
-    }
-    const active = document.getElementById(id);
-    if(active) active.scrollTop = 0;   // reset the panel's own (contained) scroll, not the page
+    if(!keepScroll && window.scrollY > 0) window.scrollTo(0, 0);
   }
 
+  // The decoder's input decodes; it does not filter the directory. A brand or
+  // product line typed here ("thinkpad") answers with that maker's support card.
   function onInput(){
     const raw = q.value.trim();
-    macResult.innerHTML = ''; serialResult.innerHTML = '';
-    if(looksLikeMac(raw)){
-      renderMac(raw); macExplain.classList.add('hidden');
-      filterBrands(''); filterBuilds('');
-      switchTab('decoder');
-      return;
-    }
-    if(looksLikeSerial(raw)){
-      renderSerial(raw); macExplain.classList.add('hidden');
-      filterBrands(''); filterBuilds('');
-      switchTab('decoder');
-      return;
-    }
+    macResult.innerHTML = ''; serialResult.innerHTML = ''; brandMatch.innerHTML = '';
+    if(looksLikeMac(raw)){ renderMac(raw); macExplain.classList.add('hidden'); return; }
+    if(looksLikeSerial(raw)){ renderSerial(raw); macExplain.classList.add('hidden'); return; }
     macExplain.classList.remove('hidden');
     const term = raw.toLowerCase();
-    const brandHit = filterBrands(term);
-    const buildHit = filterBuilds(term);
-    // route a plain search to whichever directory it matches, so results are visible
-    if(term){
-      const active = document.querySelector('.panel.active').id;
-      if(active === 'decoder' || active === 'glossary'){
-        if(brandHit) switchTab('support');
-        else if(buildHit) switchTab('builds');
-      }
-    }
+    if(term.length < 2 || !BRANDS.length) return;
+    const hits = BRANDS.filter(b=>(b.n+' '+b.cat+' '+b.k.join(' ')).toLowerCase().includes(term));
+    brandMatch.innerHTML = hits.length
+      ? renderSupportBlock(hits, TT('Support for the matching brand'))
+      : `<div class="empty">${TT('Not a MAC or serial, and no brand matches.')}</div>`;
   }
 
   q.addEventListener('input', onInput);
-  document.querySelectorAll('.chip').forEach(c=>c.addEventListener('click',()=>{ q.value=c.dataset.fill; onInput(); q.focus(); }));
-  document.querySelectorAll('.tab').forEach(t=>t.addEventListener('click',()=>switchTab(t.dataset.panel)));
+  document.querySelectorAll('[data-fill]').forEach(c=>c.addEventListener('click',()=>{ q.value=c.dataset.fill; onInput(); q.focus(); }));
+  document.querySelectorAll('.tab').forEach(t=>t.addEventListener('click',()=>{
+    switchTab(t.dataset.panel);
+    history.replaceState(null, '', '#'+t.dataset.panel);
+  }));
+  window.addEventListener('hashchange', ()=>switchTab(location.hash.slice(1)));
 
   // build-profile selection + OUI copy (event delegation)
   document.addEventListener('click', e=>{
+    const f = e.target.closest('.fchip');
+    if(f){
+      if(f.dataset.clear){ FILTER.kind = FILTER.warranty = null; }
+      else { const k = f.dataset.facet; FILTER[k] = FILTER[k] === f.dataset.val ? null : f.dataset.val; }
+      renderBrands(); return;
+    }
     const n = e.target.closest('.bnav');
     if(n){ selectBuild(n.dataset.id); return; }
     const cp = e.target.closest('.oui-copy');
@@ -920,16 +898,15 @@
   });
 
   /* ---- init ---- */
-  switchTab('decoder');   // sets the initial description above the search bar
-  renderBrands();
+  switchTab(location.hash.slice(1), true);
+  loadBrands();
   loadBuilds();
 
   // Called by the i18n dictionary script after each locale switch: re-render
   // every JS-built surface in the new language without touching state or data.
   function hwRelocalize(){
-    const act = document.querySelector('.panel.active');
-    switchTab(act ? act.id : 'decoder');
     renderBrands();
+    if(BRANDS.length) renderMeta();
     if(PROFILES.length){
       renderNav();
       selectBuild(currentBuild || PROFILES[0].id);

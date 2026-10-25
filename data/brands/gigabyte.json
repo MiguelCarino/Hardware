@@ -1,0 +1,32 @@
+{
+  "id": "gigabyte",
+  "name": "Gigabyte",
+  "cat": "Motherboard · GPU · Laptop",
+  "kinds": [
+    "components",
+    "laptop"
+  ],
+  "color": "#e88b00",
+  "keywords": [
+    "gigabyte",
+    "aorus",
+    "brix"
+  ],
+  "url": "https://esupport.gigabyte.com/",
+  "links": [
+    {
+      "label": "Warranty",
+      "url": "https://www.gigabyte.com/Support/Utility",
+      "warranty": true
+    },
+    {
+      "label": "Downloads",
+      "url": "https://www.gigabyte.com/Support"
+    },
+    {
+      "label": "Support",
+      "url": "https://esupport.gigabyte.com/"
+    }
+  ],
+  "updated": "2026-10"
+}

@@ -1,0 +1,32 @@
+{
+  "id": "toshiba",
+  "name": "Toshiba / Dynabook",
+  "cat": "Laptop · Storage",
+  "kinds": [
+    "laptop"
+  ],
+  "color": "#ff0000",
+  "keywords": [
+    "toshiba",
+    "dynabook",
+    "satellite",
+    "portege"
+  ],
+  "url": "https://support.dynabook.com/",
+  "links": [
+    {
+      "label": "Warranty",
+      "url": "https://support.dynabook.com/warranty",
+      "warranty": true
+    },
+    {
+      "label": "Drivers",
+      "url": "https://support.dynabook.com/drivers"
+    },
+    {
+      "label": "Support",
+      "url": "https://support.dynabook.com/"
+    }
+  ],
+  "updated": "2026-10"
+}

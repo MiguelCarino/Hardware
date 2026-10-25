@@ -1,0 +1,29 @@
+{
+  "id": "sony",
+  "name": "Sony",
+  "cat": "PlayStation · Audio · Camera",
+  "kinds": [
+    "console"
+  ],
+  "color": "#ffffff",
+  "keywords": [
+    "sony",
+    "playstation",
+    "ps5",
+    "bravia",
+    "alpha"
+  ],
+  "url": "https://www.sony.com/electronics/support",
+  "links": [
+    {
+      "label": "Support & Warranty",
+      "url": "https://www.sony.com/electronics/support",
+      "warranty": true
+    },
+    {
+      "label": "Downloads",
+      "url": "https://www.sony.com/electronics/support/downloads"
+    }
+  ],
+  "updated": "2026-10"
+}

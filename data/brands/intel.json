@@ -1,0 +1,34 @@
+{
+  "id": "intel",
+  "name": "Intel",
+  "cat": "CPU · Chipset · NIC",
+  "kinds": [
+    "components",
+    "network"
+  ],
+  "color": "#0071c5",
+  "keywords": [
+    "intel",
+    "core",
+    "xeon",
+    "arc",
+    "nuc"
+  ],
+  "url": "https://www.intel.com/content/www/us/en/support.html",
+  "links": [
+    {
+      "label": "Warranty",
+      "url": "https://www.intel.com/content/www/us/en/support/contact-support.html",
+      "warranty": true
+    },
+    {
+      "label": "Drivers",
+      "url": "https://www.intel.com/content/www/us/en/download-center/home.html"
+    },
+    {
+      "label": "Support",
+      "url": "https://www.intel.com/content/www/us/en/support.html"
+    }
+  ],
+  "updated": "2026-10"
+}

@@ -1,0 +1,34 @@
+{
+  "id": "msi",
+  "name": "MSI",
+  "cat": "Laptop · Motherboard · GPU",
+  "kinds": [
+    "laptop",
+    "components"
+  ],
+  "color": "#ff0034",
+  "keywords": [
+    "msi",
+    "micro-star",
+    "katana",
+    "stealth",
+    "raider"
+  ],
+  "url": "https://www.msi.com/support",
+  "links": [
+    {
+      "label": "Warranty Check",
+      "url": "https://account.msi.com/register/warranty",
+      "warranty": true
+    },
+    {
+      "label": "Downloads",
+      "url": "https://www.msi.com/support/download"
+    },
+    {
+      "label": "Support",
+      "url": "https://www.msi.com/support"
+    }
+  ],
+  "updated": "2026-10"
+}

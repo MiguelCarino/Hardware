@@ -1,0 +1,30 @@
+{
+  "id": "huawei",
+  "name": "Huawei",
+  "cat": "Phone · Laptop · Network",
+  "kinds": [
+    "phone",
+    "laptop",
+    "network"
+  ],
+  "color": "#ff0000",
+  "keywords": [
+    "huawei",
+    "matebook",
+    "mate",
+    "honor"
+  ],
+  "url": "https://consumer.huawei.com/en/support/",
+  "links": [
+    {
+      "label": "Warranty",
+      "url": "https://consumer.huawei.com/en/support/warranty-query/",
+      "warranty": true
+    },
+    {
+      "label": "Support",
+      "url": "https://consumer.huawei.com/en/support/"
+    }
+  ],
+  "updated": "2026-10"
+}

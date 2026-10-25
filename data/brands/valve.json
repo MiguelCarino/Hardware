@@ -1,0 +1,27 @@
+{
+  "id": "valve",
+  "name": "Valve",
+  "cat": "Steam Deck",
+  "kinds": [
+    "console"
+  ],
+  "color": "#1a9fff",
+  "keywords": [
+    "valve",
+    "steam",
+    "deck"
+  ],
+  "url": "https://help.steampowered.com/",
+  "links": [
+    {
+      "label": "Warranty & Repair",
+      "url": "https://help.steampowered.com/en/wizard/HelpWithSteamDeck",
+      "warranty": true
+    },
+    {
+      "label": "Support",
+      "url": "https://help.steampowered.com/"
+    }
+  ],
+  "updated": "2026-10"
+}

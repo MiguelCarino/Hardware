@@ -1,0 +1,30 @@
+{
+  "id": "system76",
+  "name": "System76",
+  "cat": "Linux laptop · Desktop",
+  "kinds": [
+    "laptop",
+    "desktop"
+  ],
+  "color": "#48b9c7",
+  "keywords": [
+    "system76",
+    "pop",
+    "popos",
+    "thelio",
+    "linux"
+  ],
+  "url": "https://system76.com/support/",
+  "links": [
+    {
+      "label": "Support",
+      "url": "https://system76.com/support/",
+      "warranty": true
+    },
+    {
+      "label": "Drivers/Firmware",
+      "url": "https://system76.com/support/system-firmware/"
+    }
+  ],
+  "updated": "2026-10"
+}

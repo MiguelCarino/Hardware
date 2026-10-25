@@ -1,0 +1,34 @@
+{
+  "id": "nvidia",
+  "name": "NVIDIA",
+  "cat": "GPU · Jetson",
+  "kinds": [
+    "components"
+  ],
+  "color": "#76b900",
+  "keywords": [
+    "nvidia",
+    "geforce",
+    "rtx",
+    "quadro",
+    "jetson",
+    "tesla"
+  ],
+  "url": "https://www.nvidia.com/en-us/support/",
+  "links": [
+    {
+      "label": "Warranty",
+      "url": "https://www.nvidia.com/en-us/support/warranty/",
+      "warranty": true
+    },
+    {
+      "label": "Drivers",
+      "url": "https://www.nvidia.com/en-us/drivers/"
+    },
+    {
+      "label": "Support",
+      "url": "https://www.nvidia.com/en-us/support/"
+    }
+  ],
+  "updated": "2026-10"
+}

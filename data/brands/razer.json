@@ -1,0 +1,33 @@
+{
+  "id": "razer",
+  "name": "Razer",
+  "cat": "Laptop · Peripheral",
+  "kinds": [
+    "laptop",
+    "peripheral"
+  ],
+  "color": "#44d62c",
+  "keywords": [
+    "razer",
+    "blade",
+    "deathadder",
+    "kraken"
+  ],
+  "url": "https://mysupport.razer.com/",
+  "links": [
+    {
+      "label": "Warranty",
+      "url": "https://mysupport.razer.com/",
+      "warranty": true
+    },
+    {
+      "label": "Downloads",
+      "url": "https://www.razer.com/synapse-4"
+    },
+    {
+      "label": "Support",
+      "url": "https://mysupport.razer.com/"
+    }
+  ],
+  "updated": "2026-10"
+}

@@ -1,0 +1,31 @@
+{
+  "id": "raspberry-pi",
+  "name": "Raspberry Pi",
+  "cat": "SBC · Compute Module",
+  "kinds": [
+    "sbc"
+  ],
+  "color": "#c51a4a",
+  "keywords": [
+    "raspberry",
+    "pi",
+    "sbc",
+    "rpi"
+  ],
+  "url": "https://forums.raspberrypi.com/",
+  "links": [
+    {
+      "label": "Documentation",
+      "url": "https://www.raspberrypi.com/documentation/"
+    },
+    {
+      "label": "Software",
+      "url": "https://www.raspberrypi.com/software/"
+    },
+    {
+      "label": "Forums",
+      "url": "https://forums.raspberrypi.com/"
+    }
+  ],
+  "updated": "2026-10"
+}
