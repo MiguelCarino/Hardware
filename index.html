@@ -140,6 +140,35 @@
     .blink{font-family:var(--mono);font-size:0.62rem;font-weight:600;padding:5px 9px;border:1px solid var(--border);border-radius:6px;color:var(--text-sec);transition:0.15s;white-space:nowrap;}
     .blink:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-faint);}
     .blink.warranty{border-color:var(--border-glow);color:var(--accent);}
+    /* the whole card opens its detail dialog (links inside still open the
+       maker's page); the name is the keyboard target */
+    .brand[data-open]{cursor:pointer;}
+    .e-open{appearance:none;background:none;border:0;padding:0;margin:0;color:inherit;text-align:left;cursor:pointer;
+      font-family:inherit;font-weight:700;font-size:var(--fs-lg);line-height:1.3;}
+    .e-open:hover{color:var(--accent);}
+    .e-open:focus-visible,.blink:focus-visible,.bl-row:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:4px;}
+
+    /* ── BRAND DETAIL — a native <dialog> wearing carino-ui.css .modal, linkable as #b=<id> ── */
+    dialog#brandDlg{width:min(560px,calc(100vw - 32px));max-width:560px;max-height:min(88vh,680px);margin:auto;}
+    #brandDlg .modal-head{align-items:center;}
+    #brandDlg .modal-head > :first-child{flex:0 0 auto;}
+    #brandDlg .bd-titles{flex:1;min-width:0;}
+    #brandDlg .modal-title{text-transform:none;letter-spacing:0;margin:0;font-size:var(--fs-lg);line-height:1.15;}
+    #brandDlg .modal-sub{margin-top:4px;}
+    #brandDlg .modal-body{display:flex;flex-direction:column;gap:16px;}
+    .bd-sec-h{font-family:var(--mono);font-size:var(--fs-micro);font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--accent);margin:0 0 8px;}
+    .bl-rows{display:flex;flex-direction:column;gap:7px;}
+    .bl-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap;border:1px solid var(--border);border-radius:9px;background:var(--bg-elev);
+      padding:10px 12px;color:var(--text);transition:0.15s;}
+    .bl-row:hover{border-color:var(--accent);background:var(--accent-faint);color:var(--text);}
+    .bl-row.warranty{border-color:var(--border-glow);}
+    .bl-label{font-weight:600;font-size:var(--fs-sec);}
+    .bl-dom{margin-left:auto;font-family:var(--mono);font-size:var(--fs-label);color:var(--text-muted);overflow-wrap:anywhere;}
+    .bd-tags{display:flex;flex-wrap:wrap;gap:6px;}
+    #brandDlg .modal-foot{justify-content:space-between;align-items:center;}
+    #brandDlg .modal-foot .src-line{flex:1;min-width:0;}
+    #bdCopy{white-space:nowrap;flex-shrink:0;}
+    #bdSrc{flex:1;min-width:0;}
 
     /* ── RECOMMENDATIONS (master / detail) ── */
     .build-layout{display:grid;grid-template-columns:248px 1fr;gap:16px;align-items:start;}
@@ -254,9 +283,9 @@
             <span class="ex-label" data-i18n>Try:</span>
             <button type="button" class="chip-tag" data-fill="B8:27:EB:12:34:56">B8:27:EB:12:34:56</button>
             <button type="button" class="chip-tag" data-fill="3C:07:54:AA:BB:CC">3C:07:54:…</button>
-            <button type="button" class="chip-tag" data-fill="02:42:AC:11:00:02">02:42:… (local)</button>
-            <button type="button" class="chip-tag" data-fill="FF:FF:FF:FF:FF:FF">broadcast</button>
-            <button type="button" class="chip-tag" data-fill="7FGXK32">7FGXK32 (Dell tag)</button>
+            <button type="button" class="chip-tag" data-fill="02:42:AC:11:00:02">02:42:… <span data-i18n>(local)</span></button>
+            <button type="button" class="chip-tag" data-fill="FF:FF:FF:FF:FF:FF"><span data-i18n>broadcast</span></button>
+            <button type="button" class="chip-tag" data-fill="7FGXK32">7FGXK32 <span data-i18n>(Dell tag)</span></button>
             <button type="button" class="chip-tag" data-fill="thinkpad">thinkpad</button>
           </div>
           <p class="privacy-line" data-i18n>Runs in your browser. Nothing you add here is uploaded.</p>
@@ -321,6 +350,23 @@
     <div class="sf-line" id="footLine">Runs entirely in your browser. Every entry links to its source.</div>
     <div class="sf-note"><span data-i18n-html>OUI = curated ~570-prefix subset; full registry at the <a href="https://standards-oui.ieee.org/" target="_blank" rel="noopener">IEEE RA</a>.</span> <span data-i18n>Only Dell's tag↔code is deterministic; other serial guesses are hints.</span> <span data-i18n>Build prices/models are dated ballparks — confirm warranty on the vendor's site.</span></div>
   </footer>
+
+  <!-- Brand detail: opened from a support card, linkable as #b=<id> -->
+  <dialog id="brandDlg" class="modal" aria-labelledby="bdName">
+    <div class="modal-head">
+      <div class="brand-logo" id="bdLogo" aria-hidden="true"></div>
+      <div class="bd-titles">
+        <h2 class="modal-title" id="bdName"></h2>
+        <div class="modal-sub" id="bdCat"></div>
+      </div>
+      <button type="button" class="modal-x" id="bdClose" aria-label="Close">✕</button>
+    </div>
+    <div class="modal-body" id="bdBody"></div>
+    <div class="modal-foot">
+      <div id="bdSrc"></div>
+      <button type="button" class="btn btn-ghost" id="bdCopy" data-i18n>Copy link</button>
+    </div>
+  </dialog>
 
   <script>
   /* ══════════════════════════════════════════════════════════════
@@ -491,9 +537,9 @@
       vendorName = TT('Locally administered (randomized / assigned)');
       vendorSub = TT('No real vendor — this address was set by software, not burned in.');
     } else if(v.vendor){
-      vendorName = v.vendor;
+      vendorName = v.kind==='special' ? TT(v.vendor) : v.vendor.replace(' (virtual)', ' '+TT('(virtual)'));
       vendorSub = v.kind==='oui' ? `OUI ${fmtColon(v.oui.padEnd(6,'0')).slice(0,8)} · ${TT('registered manufacturer prefix')}`
-                                 : (v.note||TT('Structural / reserved address'));
+                                 : (v.note ? TT(v.note) : TT('Structural / reserved address'));
     } else {
       vendorName = TT('Unknown vendor');
       vendorSub = `OUI ${fmtColon(d.oui.padEnd(6,'0')).slice(0,8)} ${TT('not in the built-in set — check the IEEE registry.')}`;
@@ -514,7 +560,7 @@
     if(d.isBroadcast){
       note = TT(`This is the <b>broadcast address</b>. Every station on the LAN accepts it — it identifies no single device.`);
     } else if(v.kind==='special'){
-      note = `<b>${v.vendor}.</b> ${v.note||''} This is a structural address, not a piece of hardware you can look up.`;
+      note = `<b>${escapeHtml(TT(v.vendor))}.</b> ${v.note ? escapeHtml(TT(v.note)) : ''} ${TT('This is a structural address, not a piece of hardware you can look up.')}`;
     } else if(d.isLocal){
       note = TT(`The <b>U/L bit is set (locally administered)</b>, so the vendor prefix is <i>not</i> meaningful — this is almost certainly a <b>randomized MAC</b> (modern phones/laptops rotate these per Wi-Fi network for privacy) or a software-assigned address (VM, container, bonded interface).`);
     } else if(v.vendor){
@@ -620,6 +666,7 @@
     renderBrands();
     renderMeta();
     onInput();   // a value typed before the data arrived now finds its support card
+    if(hashBrand() || /^#b=/.test(location.hash)) routeHash();   // a #b=<id> link opens its dialog once the data is in
   }
 
   function domainOf(url){ try{ return new URL(url).hostname.replace(/^www\./,''); }catch(e){ return url; } }
@@ -629,18 +676,26 @@
     return `<div class="src-line"><span>${TT('Source:')}</span><a href="${escapeHtml(url)}" target="_blank" rel="noopener">${escapeHtml(domainOf(url))} ↗</a>${when?`<span class="src-date">${TT('checked')} ${escapeHtml(when)}</span>`:''}</div>`;
   }
 
+  // "Laptop · Desktop · Server": each part is a word the dictionary may know
+  function catText(cat){ return String(cat||'').split(' · ').map(x=>TT(x)).join(' · '); }
+
   function initials(name){ const w=name.split(/[\s\/]+/); return (w[0][0]+(w[1]?w[1][0]:'')).toUpperCase(); }
 
   // Reusable brand card. opts.warrantyOverride = [label,url,'warranty'] deep-links warranty.
+  function logoStyle(b){
+    const dark = ['#ffffff','#83b81a','#76b900','#48b9c7','#e88b00'].includes(String(b.c).toLowerCase());
+    return `background:${b.c};color:${dark?'#050505':'#fff'}`;
+  }
+  function logoHTML(b){ return `<div class="brand-logo" style="${logoStyle(b)}" aria-hidden="true">${escapeHtml(initials(b.n))}</div>`; }
+
   function brandCardHTML(b, idx, opts){
     opts = opts||{};
-    const dark = ['#ffffff','#83b81a','#76b900','#48b9c7','#e88b00'].includes(b.c.toLowerCase());
     let links = b.l.slice();
     if(opts.warrantyOverride){ links = [opts.warrantyOverride, ...b.l.filter(x=>x[2]!=='warranty')]; }
-    return `<div class="card entry brand"${idx!=null?` data-idx="${idx}"`:''}>
+    return `<div class="card entry brand" data-open="${escapeHtml(b.id)}"${idx!=null?` data-idx="${idx}"`:''}>
       <div class="brand-h">
-        <div class="brand-logo" style="background:${b.c};color:${dark?'#050505':'#fff'}" aria-hidden="true">${initials(b.n)}</div>
-        <div><div class="e-title">${escapeHtml(b.n)}</div><div class="e-sub">${escapeHtml(b.cat)}</div></div>
+        ${logoHTML(b)}
+        <div><button type="button" class="e-open e-title" data-open="${escapeHtml(b.id)}" aria-haspopup="dialog">${escapeHtml(b.n)}</button><div class="e-sub">${escapeHtml(catText(b.cat))}</div></div>
       </div>
       <div class="brand-links">
         ${links.map(x=>`<a class="blink ${x[2]||''}" href="${escapeHtml(x[1])}" target="_blank" rel="noopener">${TT(x[0])} ↗</a>`).join('')}
@@ -699,8 +754,78 @@
     document.getElementById('footLine').textContent = TT('Runs entirely in your browser. Every entry links to its source; checked {date}.').replace('{date}', when);
   }
 
+  /* ---- 3b. Brand detail dialog — #b=<id> opens it, closing clears the hash ---- */
+  const brandDlg = document.getElementById('brandDlg');
+  let dlgBrand = null, dlgOpener = null;
+  const brandById = id => BRANDS.find(b=>b.id===id) || null;
+
+  function fillBrandDialog(b){
+    document.getElementById('bdLogo').setAttribute('style', logoStyle(b));
+    document.getElementById('bdLogo').textContent = initials(b.n);
+    document.getElementById('bdName').textContent = b.n;
+    document.getElementById('bdCat').textContent = catText(b.cat);
+    const rows = b.l.map(x=>`<a class="bl-row${x[2]?' warranty':''}" href="${escapeHtml(x[1])}" target="_blank" rel="noopener">
+        <span class="bl-label">${escapeHtml(TT(x[0]))} ↗</span>${x[2]?`<span class="pill warn">${TT('Warranty lookup')}</span>`:''}
+        <span class="bl-dom">${escapeHtml(domainOf(x[1]))}</span></a>`).join('');
+    const kinds = b.kinds.filter(k=>KIND_LABEL[k]).map(k=>`<span class="pill muted">${TT(KIND_LABEL[k])}</span>`).join('');
+    const lines = b.k.filter(k=>k.toLowerCase()!==b.n.toLowerCase()).map(k=>`<span class="eg-chip">${escapeHtml(k)}</span>`).join('');
+    document.getElementById('bdBody').innerHTML =
+      `<section><h3 class="bd-sec-h">${TT('Support links')}</h3><div class="bl-rows">${rows}</div></section>`
+      + (kinds ? `<section><h3 class="bd-sec-h">${TT('Kind')}</h3><div class="bd-tags">${kinds}</div></section>` : '')
+      + (lines ? `<section><h3 class="bd-sec-h">${TT('Product lines and keywords')}</h3><div class="bd-tags">${lines}</div></section>` : '');
+    document.getElementById('bdSrc').innerHTML = b.url ? srcLine(b.url, b.updated) : '';
+  }
+
+  function openBrand(id, opener){
+    const b = brandById(id);
+    if(!b) return false;
+    dlgBrand = b.id;
+    if(opener) dlgOpener = opener;
+    fillBrandDialog(b);
+    document.getElementById('bdBody').scrollTop = 0;
+    if(!brandDlg.open) brandDlg.showModal();
+    if(location.hash !== '#b='+b.id) history.replaceState(null, '', '#b='+b.id);
+    return true;
+  }
+
+  // the hash a closed dialog leaves behind: none on the directory, the panel elsewhere
+  function panelUrl(){ return location.pathname + location.search + (PANEL==='support' ? '' : '#'+PANEL); }
+
+  // "#b=dell" (or a bare "#dell") names a brand; anything else is a panel
+  function hashBrand(){
+    const h = decodeURIComponent(location.hash.slice(1));
+    if(h.startsWith('b=')) return h.slice(2);
+    return (!PANELS.includes(h) && brandById(h)) ? h : null;
+  }
+  function routeHash(){
+    const id = hashBrand();
+    if(id){ if(!openBrand(id) && BRANDS.length) history.replaceState(null, '', panelUrl()); return; }
+    if(brandDlg.open) brandDlg.close();
+    switchTab(location.hash.slice(1));
+  }
+
+  brandDlg.addEventListener('close', ()=>{
+    dlgBrand = null;
+    if(hashBrand()) history.replaceState(null, '', panelUrl());
+    // focus goes back to the card that opened it (re-found if a re-render replaced it)
+    let back = dlgOpener && dlgOpener.isConnected ? dlgOpener : null;
+    if(!back && dlgOpener && dlgOpener.dataset && dlgOpener.dataset.open){
+      back = document.querySelector(`.panel.active .e-open[data-open="${CSS.escape(dlgOpener.dataset.open)}"]`);
+    }
+    dlgOpener = null;
+    if(back) back.focus();
+  });
+  document.getElementById('bdClose').addEventListener('click', ()=>brandDlg.close());
+  brandDlg.addEventListener('click', e=>{ if(e.target === brandDlg) brandDlg.close(); });   // backdrop
+  document.getElementById('bdCopy').addEventListener('click', e=>{
+    const btn = e.currentTarget;
+    if(navigator.clipboard) navigator.clipboard.writeText(location.href).catch(()=>{});
+    btn.textContent = TT('Copied ✓');
+    setTimeout(()=>{ btn.textContent = TT('Copy link'); }, 1200);
+  });
+
   /* ---- 4. Build recommendations (loaded from builds.json) ---- */
-  let PROFILES = [], GLOSS = [], currentBuild = null;
+  let PROFILES = [], GLOSS = [], currentBuild = null, BUILDS_UPDATED = '';
 
   function egHtml(eg){
     if(!eg || !eg.length) return '';
@@ -712,25 +837,25 @@
     }).join('') + `</div>`;
   }
   function specRow(s){
-    return `<div class="spec"><span class="sk">${escapeHtml(s.k)}</span>
-      <div class="sv ${s.key?'keyspec':''}">${escapeHtml(s.v)}
-        ${s.note?`<div style="color:var(--text-sec);font-size:0.76rem;margin-top:3px;line-height:1.45">${s.note}</div>`:''}
+    return `<div class="spec"><span class="sk">${escapeHtml(TT(s.k))}</span>
+      <div class="sv ${s.key?'keyspec':''}">${escapeHtml(TT(s.v))}
+        ${s.note?`<div style="color:var(--text-sec);font-size:0.76rem;margin-top:3px;line-height:1.45">${TT(s.note)}</div>`:''}
         ${egHtml(s.eg)}
       </div></div>`;
   }
   function renderDetail(b){
     document.getElementById('buildDetail').innerHTML = `
       <div class="bd-h"><span class="price">${b.price}</span><div class="icon">${b.icon}</div>
-        <h3>${escapeHtml(b.name)}</h3><div class="tagline">${escapeHtml(b.tagline)}</div></div>
+        <h3>${escapeHtml(TT(b.name))}</h3><div class="tagline">${escapeHtml(TT(b.tagline))}</div></div>
       <div class="specs">${b.specs.map(specRow).join('')}</div>
-      ${b.key?`<div class="bd-key"><b>${TT('Prioritise:')}</b> ${escapeHtml(b.key)}</div>`:''}
-      ${b.see&&b.see.url?`<p class="bd-see"><a href="${escapeHtml(b.see.url)}" target="_blank" rel="noopener">${escapeHtml(b.see.label)} →</a></p>`:''}`;
+      ${b.key?`<div class="bd-key"><b>${TT('Prioritise:')}</b> ${escapeHtml(TT(b.key))}</div>`:''}
+      ${b.see&&b.see.url?`<p class="bd-see"><a href="${escapeHtml(b.see.url)}" target="_blank" rel="noopener">${escapeHtml(TT(b.see.label))} →</a></p>`:''}`;
   }
   function renderNav(){
     document.getElementById('buildNav').innerHTML = PROFILES.map(b=>`
       <button class="bnav" data-id="${b.id}">
         <span class="bico">${b.icon}</span>
-        <span class="bmeta"><span class="bname">${escapeHtml(b.name)}</span><br><span class="bprice">${b.price}</span></span>
+        <span class="bmeta"><span class="bname">${escapeHtml(TT(b.name))}</span><br><span class="bprice">${b.price}</span></span>
       </button>`).join('');
   }
   function selectBuild(id){
@@ -746,10 +871,8 @@
       const data = await r.json();
       PROFILES = data.profiles || [];
       GLOSS = data.glossary || [];
-      const stamp = document.getElementById('buildStamp');
-      if(stamp) stamp.innerHTML = data.updated
-        ? `${TT('Example parts reviewed')} <b>${escapeHtml(data.updated)}</b> — ${TT('models &amp; prices date fast')}`
-        : '';
+      BUILDS_UPDATED = data.updated || '';
+      renderStamp();
     }catch(e){
       document.getElementById('buildDetail').innerHTML =
         `<div class="alert err" role="alert">${TT('Could not load')} <code>builds.json</code> (${escapeHtml(String(e.message||e))}). ${TT('Serve this folder over http:// or check that the data/ directory is intact.')} <code>python3 -m http.server</code></div>`;
@@ -757,9 +880,18 @@
     }
     renderNav();
     if(BRANDS.length) renderMeta();
-    document.getElementById('glossaryGrid').innerHTML = GLOSS.map(x=>
-      `<div class="gl"><h5>${escapeHtml(x[0])}</h5><p>${x[1]}</p></div>`).join('');
+    renderGlossary();
     if(PROFILES[0]) selectBuild(PROFILES[0].id);
+  }
+  function renderStamp(){
+    const stamp = document.getElementById('buildStamp');
+    if(stamp) stamp.innerHTML = BUILDS_UPDATED
+      ? `${TT('Example parts reviewed')} <b>${escapeHtml(BUILDS_UPDATED)}</b> — ${TT('models &amp; prices date fast')}`
+      : '';
+  }
+  function renderGlossary(){
+    document.getElementById('glossaryGrid').innerHTML = GLOSS.map(x=>
+      `<div class="gl"><h5>${escapeHtml(TT(x[0]))}</h5><p>${TT(x[1])}</p></div>`).join('');
   }
 
   /* ---- 5. Serial-number recognition ---- */
@@ -847,8 +979,10 @@
 
   /* ---- tabs: one panel visible at a time, linkable as #support, #decoder … ---- */
   const PANELS = ['support','decoder','builds','glossary'];
+  let PANEL = 'support';
   function switchTab(id, keepScroll){
     if(!PANELS.includes(id)) id = 'support';
+    PANEL = id;
     document.querySelectorAll('.panel').forEach(p=>p.classList.toggle('active', p.id===id));
     document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('active', t.dataset.panel===id));
     if(!keepScroll && window.scrollY > 0) window.scrollTo(0, 0);
@@ -876,7 +1010,7 @@
     switchTab(t.dataset.panel);
     history.replaceState(null, '', '#'+t.dataset.panel);
   }));
-  window.addEventListener('hashchange', ()=>switchTab(location.hash.slice(1)));
+  window.addEventListener('hashchange', routeHash);
 
   // build-profile selection + OUI copy (event delegation)
   document.addEventListener('click', e=>{
@@ -888,6 +1022,12 @@
     }
     const n = e.target.closest('.bnav');
     if(n){ selectBuild(n.dataset.id); return; }
+    // a brand card opens its detail; the maker links inside it still open the maker's page
+    const card = !e.target.closest('a') && e.target.closest('[data-open]');
+    if(card){
+      const btn = card.matches('.e-open') ? card : card.querySelector('.e-open');
+      openBrand(card.dataset.open, btn || card); return;
+    }
     const cp = e.target.closest('.oui-copy');
     if(cp){
       const val = cp.dataset.copy || '';
@@ -898,7 +1038,7 @@
   });
 
   /* ---- init ---- */
-  switchTab(location.hash.slice(1), true);
+  switchTab(/^#b=/.test(location.hash) ? 'support' : location.hash.slice(1), true);
   loadBrands();
   loadBuilds();
 
@@ -907,11 +1047,15 @@
   function hwRelocalize(){
     renderBrands();
     if(BRANDS.length) renderMeta();
+    if(GLOSS.length) renderGlossary();
+    renderStamp();
     if(PROFILES.length){
       renderNav();
       selectBuild(currentBuild || PROFILES[0].id);
     }
     onInput();   // re-renders any MAC/serial result and re-applies filters
+    const dlgB = dlgBrand && brandById(dlgBrand);
+    if(dlgB && brandDlg.open) fillBrandDialog(dlgB);
   }
   window.hwRelocalize = hwRelocalize;
 

@@ -34,6 +34,11 @@
    Self-contained: styles are inlined and scoped under #cnDiagBox /
    #cnDiagBtn with hard-coded colours (no CSS variables), so it is
    safe on light-themed or Tailwind pages and needs no CDN.
+
+   Language: its labels and status words come from a small dictionary
+   here (es, pt-BR, ja, ru), picked by CarinoLang.current or <html lang>,
+   with a site's window.t winning when it has the string. IPv4, IPv6,
+   ISP and RTT are names and stay as they are.
    ============================================================ */
 (function () {
   'use strict';
@@ -78,26 +83,78 @@
     + '#cnDiagBox .d-btn svg{width:12px;height:12px;}'
     + '@media(max-width:520px){#cnDiagBtn span.lbl{display:none;}#cnDiagBtn{padding:0 10px;}}';
 
+  var L10N = {
+    es: {
+      'Sys. Status': 'Estado sist.', 'Public IP and connection status': 'IP pública y estado de la conexión',
+      'Last Check': 'Última comprobación', 'Network': 'Red', 'Conn': 'Conexión', 'Refresh': 'Actualizar',
+      'Blocked by browser': 'Bloqueado por el navegador', 'Unavailable': 'No disponible', 'Not detected': 'No detectada',
+      'N/A': 'N/D', 'Unknown': 'Desconocido', 'Timeout': 'Tiempo agotado',
+    },
+    'pt-BR': {
+      'Sys. Status': 'Status do sist.', 'Public IP and connection status': 'IP público e status da conexão',
+      'Last Check': 'Última verificação', 'Network': 'Rede', 'Conn': 'Conexão', 'Refresh': 'Atualizar',
+      'Blocked by browser': 'Bloqueado pelo navegador', 'Unavailable': 'Indisponível', 'Not detected': 'Não detectado',
+      'N/A': 'N/D', 'Unknown': 'Desconhecido', 'Timeout': 'Tempo esgotado',
+    },
+    ja: {
+      'Sys. Status': 'システム状態', 'Public IP and connection status': 'グローバル IP と接続状態',
+      'Last Check': '最終チェック', 'Network': 'ネットワーク', 'Conn': '接続', 'Refresh': '更新',
+      'Blocked by browser': 'ブラウザーがブロック', 'Unavailable': '取得できません', 'Not detected': '検出されません',
+      'N/A': '該当なし', 'Unknown': '不明', 'Timeout': 'タイムアウト',
+    },
+    ru: {
+      'Sys. Status': 'Статус сист.', 'Public IP and connection status': 'Публичный IP и состояние подключения',
+      'Last Check': 'Последняя проверка', 'Network': 'Сеть', 'Conn': 'Связь', 'Refresh': 'Обновить',
+      'Blocked by browser': 'Заблокировано браузером', 'Unavailable': 'Недоступно', 'Not detected': 'Не обнаружен',
+      'N/A': 'Н/Д', 'Unknown': 'Неизвестно', 'Timeout': 'Таймаут',
+    },
+  };
+  function langNow() {
+    var l = String((window.CarinoLang && window.CarinoLang.current) || document.documentElement.lang || 'en');
+    return /^pt/i.test(l) ? 'pt-BR' : l.slice(0, 2).toLowerCase();
+  }
+  function tr(s) {
+    if (typeof window.t === 'function') {
+      try { var v = window.t(s); if (typeof v === 'string' && v && v !== s) return v; } catch (e) { /* not i18n */ }
+    }
+    var d = L10N[langNow()];
+    return (d && d[s]) || s;
+  }
+
   var RETRY_PATH = '<path d="M23 4v6h-6"/><path d="M1 20v-6h6"/>'
     + '<path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/>';
 
   var BOX = ''
-    + '<div class="d-row d-head"><span class="d-lbl">Last Check</span>'
+    + '<div class="d-row d-head"><span class="d-lbl" data-cn-key="Last Check"></span>'
     + '<span class="d-val" id="cnDiagLast" style="color:' + A + '">--:--</span></div>'
-    + '<div class="d-sec">Network</div>'
+    + '<div class="d-sec" data-cn-key="Network"></div>'
     + '<div class="d-row"><span class="d-lbl">IPv4</span><div class="d-grp">'
     + '<span class="d-val" id="cnDiagV4">--</span><span class="dot" id="cnDiagDot4"></span></div></div>'
     + '<div class="d-row"><span class="d-lbl">IPv6</span><div class="d-grp">'
     + '<span class="d-val" id="cnDiagV6">--</span><span class="dot" id="cnDiagDot6"></span></div></div>'
     + '<div class="d-row"><span class="d-lbl">ISP</span><span class="d-val" id="cnDiagISP">--</span></div>'
-    + '<div class="d-row"><span class="d-lbl">Conn</span><span class="d-val" id="cnDiagConn">--</span></div>'
+    + '<div class="d-row"><span class="d-lbl" data-cn-key="Conn"></span><span class="d-val" id="cnDiagConn">--</span></div>'
     + '<div class="d-row"><span class="d-lbl">RTT</span><span class="d-val" id="cnDiagPing">--</span></div>'
     + '<button class="d-btn" id="cnDiagRetry">'
     + '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">' + RETRY_PATH + '</svg>'
-    + 'Refresh</button>';
+    + '<span data-cn-key="Refresh"></span></button>';
 
   function $(id) { return document.getElementById(id); }
-  function set(id, v) { var el = $(id); if (el) el.textContent = v; }
+  function set(id, v) { var el = $(id); if (el) { el.textContent = v; el.removeAttribute('data-cn-key'); } }
+  // A status word rather than a value: kept as its English key so a
+  // language switch can translate it again.
+  function say(id, key) { var el = $(id); if (el) { el.textContent = tr(key); el.setAttribute('data-cn-key', key); } }
+
+  function relabel() {
+    var btn = $('cnDiagBtn');
+    if (btn) {
+      btn.title = tr('Public IP and connection status');
+      var l = btn.querySelector('.lbl');
+      if (l) l.textContent = tr('Sys. Status');
+    }
+    var nodes = document.querySelectorAll('#cnDiagBox [data-cn-key]');
+    for (var i = 0; i < nodes.length; i++) nodes[i].textContent = tr(nodes[i].getAttribute('data-cn-key'));
+  }
   function dot(id, cls) { var el = $(id); if (el) el.className = 'dot' + (cls ? ' ' + cls : ''); }
 
   /* ---- probes (same providers and fallback order as the hub) ---- */
@@ -212,13 +269,13 @@
       if (a.status === 'fulfilled' && String(a.value).indexOf('.') > -1) {
         set('cnDiagV4', a.value); dot('cnDiagDot4', 'ok');
       } else {
-        set('cnDiagV4', isFirefox ? 'Blocked by browser' : 'Unavailable');
+        say('cnDiagV4', isFirefox ? 'Blocked by browser' : 'Unavailable');
         dot('cnDiagDot4', isFirefox ? '' : 'bad');
       }
       if (b.status === 'fulfilled' && String(b.value).indexOf(':') > -1) {
         set('cnDiagV6', b.value); dot('cnDiagDot6', 'ok');
       } else {
-        set('cnDiagV6', isFirefox ? 'Blocked by browser' : 'Not detected');
+        say('cnDiagV6', isFirefox ? 'Blocked by browser' : 'Not detected');
         dot('cnDiagDot6', '');
       }
     });
@@ -258,15 +315,15 @@
     })).then(function (name) {
       set('cnDiagISP', name);
     }).catch(function () {
-      set('cnDiagISP', isFirefox ? 'Blocked by browser' : 'Unavailable');
+      say('cnDiagISP', isFirefox ? 'Blocked by browser' : 'Unavailable');
     });
   }
 
   function detectConn() {
     var c = navigator.connection;
-    if (!c) { set('cnDiagConn', 'N/A'); return; }
+    if (!c) { say('cnDiagConn', 'N/A'); return; }
     var type = (c.type && c.type !== 'unknown') ? c.type : (c.effectiveType || null);
-    set('cnDiagConn', type ? String(type).toUpperCase() : 'Unknown');
+    if (type) set('cnDiagConn', String(type).toUpperCase()); else say('cnDiagConn', 'Unknown');
   }
 
   // Round-trip to this same page: no third party, and it measures the path the
@@ -275,7 +332,7 @@
     var start = performance.now();
     return fetch(window.location.href, { method: 'HEAD', cache: 'no-store' })
       .then(function () { set('cnDiagPing', Math.round(performance.now() - start) + ' ms'); })
-      .catch(function () { set('cnDiagPing', 'Timeout'); });
+      .catch(function () { say('cnDiagPing', 'Timeout'); });
   }
 
   var running = false;
@@ -303,8 +360,7 @@
     var btn = document.createElement('button');
     btn.id = 'cnDiagBtn';
     btn.type = 'button';
-    btn.title = 'Public IP and connection status';
-    btn.innerHTML = '<span class="lbl">Sys. Status</span><span class="cn-pulse"></span>';
+    btn.innerHTML = '<span class="lbl"></span><span class="cn-pulse"></span>';
 
     // Sit to the LEFT of the social icons, matching the hub's ordering.
     var right = nav.querySelector('.cn-right');
@@ -316,6 +372,12 @@
     box.id = 'cnDiagBox';
     box.innerHTML = BOX;
     document.body.appendChild(box);
+    relabel();
+    // A tick late, once the site's own handler has switched window.t; and
+    // once on DOMContentLoaded, by when the site's i18n.js has loaded.
+    var later = function () { setTimeout(relabel, 0); };
+    window.addEventListener('carino:langchange', later);
+    document.addEventListener('DOMContentLoaded', later);
 
     var loaded = false;
     btn.addEventListener('click', function (e) {
