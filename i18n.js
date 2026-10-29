@@ -138,9 +138,7 @@ const I18N = {
         "Its <b>12-character</b> length is shared by <b>Apple</b> and many <b>HP</b> serials — but length alone can't identify a vendor. If your device is one of these, check its lookup below.": 'Su longitud de <b>12 caracteres</b> coincide con seriales de <b>Apple</b> y muchos de <b>HP</b>, pero la longitud por sí sola no identifica al fabricante. Si tu equipo es de una de estas marcas, revisa su consulta abajo.',
         "Its <b>8-character</b> length is common on <b>Lenovo</b> and <b>ASUS</b> — but length alone can't identify a vendor. If your device is one of these, check its lookup below.": 'Su longitud de <b>8 caracteres</b> es común en <b>Lenovo</b> y <b>ASUS</b>, pero la longitud por sí sola no identifica al fabricante. Si tu equipo es de una de estas marcas, revisa su consulta abajo.',
         // Hero, filter bar, source lines and footer
-        'Source': 'Código fuente',
         'Report a dead link': 'Reportar un enlace roto',
-        'Legal & privacy': 'Aviso legal y privacidad',
         'Could not load': 'No se pudo cargar',
         'Serve this folder over http:// or check that the data/ directory is intact.': 'Sirve esta carpeta por http:// o comprueba que el directorio data/ esté completo.',
         'Source:': 'Fuente:',
@@ -438,9 +436,7 @@ const I18N = {
         "Its <b>12-character</b> length is shared by <b>Apple</b> and many <b>HP</b> serials — but length alone can't identify a vendor. If your device is one of these, check its lookup below.": 'Seu comprimento de <b>12 caracteres</b> coincide com séries da <b>Apple</b> e muitas da <b>HP</b> — mas o comprimento sozinho não identifica o fabricante. Se o seu aparelho for de uma dessas, confira a consulta abaixo.',
         "Its <b>8-character</b> length is common on <b>Lenovo</b> and <b>ASUS</b> — but length alone can't identify a vendor. If your device is one of these, check its lookup below.": 'Seu comprimento de <b>8 caracteres</b> é comum em <b>Lenovo</b> e <b>ASUS</b> — mas o comprimento sozinho não identifica o fabricante. Se o seu aparelho for de uma dessas, confira a consulta abaixo.',
         // Hero, filter bar, source lines and footer
-        'Source': 'Código-fonte',
         'Report a dead link': 'Informar link quebrado',
-        'Legal & privacy': 'Aviso legal e privacidade',
         'Could not load': 'Não foi possível carregar',
         'Serve this folder over http:// or check that the data/ directory is intact.': 'Sirva esta pasta por http:// ou verifique se o diretório data/ está completo.',
         'Source:': 'Fonte:',
@@ -738,9 +734,7 @@ const I18N = {
         "Its <b>12-character</b> length is shared by <b>Apple</b> and many <b>HP</b> serials — but length alone can't identify a vendor. If your device is one of these, check its lookup below.": '<b>12文字</b>という長さは<b>Apple</b>や多くの<b>HP</b>のシリアルと同じですが、長さだけではメーカーは特定できません。該当するなら下の照会で確認してください。',
         "Its <b>8-character</b> length is common on <b>Lenovo</b> and <b>ASUS</b> — but length alone can't identify a vendor. If your device is one of these, check its lookup below.": '<b>8文字</b>という長さは<b>Lenovo</b>や<b>ASUS</b>でよく見られますが、長さだけではメーカーは特定できません。該当するなら下の照会で確認してください。',
         // Hero, filter bar, source lines and footer
-        'Source': 'ソースコード',
         'Report a dead link': 'リンク切れを報告',
-        'Legal & privacy': '法的情報とプライバシー',
         'Could not load': '読み込めませんでした:',
         'Serve this folder over http:// or check that the data/ directory is intact.': 'このフォルダーを http:// で配信するか、data/ ディレクトリが揃っているか確認してください。',
         'Source:': '出典:',
@@ -1038,9 +1032,7 @@ const I18N = {
         "Its <b>12-character</b> length is shared by <b>Apple</b> and many <b>HP</b> serials — but length alone can't identify a vendor. If your device is one of these, check its lookup below.": 'Длина в <b>12 символов</b> встречается у серийников <b>Apple</b> и многих <b>HP</b> — но одна лишь длина производителя не определяет. Если у вас устройство одной из этих марок, проверьте ниже.',
         "Its <b>8-character</b> length is common on <b>Lenovo</b> and <b>ASUS</b> — but length alone can't identify a vendor. If your device is one of these, check its lookup below.": 'Длина в <b>8 символов</b> характерна для <b>Lenovo</b> и <b>ASUS</b> — но одна лишь длина производителя не определяет. Если у вас устройство одной из этих марок, проверьте ниже.',
         // Hero, filter bar, source lines and footer
-        'Source': 'Исходный код',
         'Report a dead link': 'Сообщить о битой ссылке',
-        'Legal & privacy': 'Правовая информация и конфиденциальность',
         'Could not load': 'Не удалось загрузить',
         'Serve this folder over http:// or check that the data/ directory is intact.': 'Откройте папку через http:// или проверьте, что каталог data/ на месте.',
         'Source:': 'Источник:',
